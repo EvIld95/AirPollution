@@ -3,25 +3,65 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F4EF7C4DD69A87DA6D1B885 /* Pods_AirCondition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DD97223716EF0762CC118B6 /* Pods_AirCondition.framework */; };
+		F7124C7C228B0C9C0038614F /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7124C7B228B0C9C0038614F /* MainTabBarCoordinator.swift */; };
+		F77521862293D2A3008140BC /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521852293D2A3008140BC /* MainTabBarController.swift */; };
+		F77521882293EA9B008140BC /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521872293EA9B008140BC /* MapViewModel.swift */; };
+		F775218A22942624008140BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775218922942624008140BC /* MapViewController.swift */; };
+		F775218C229431CC008140BC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F775218B229431CC008140BC /* MapKit.framework */; };
 		F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */; };
-		F7DEBB4422886CBF0078B4FA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB4322886CBF0078B4FA /* ViewController.swift */; };
 		F7DEBB4722886CBF0078B4FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4522886CBF0078B4FA /* Main.storyboard */; };
 		F7DEBB4922886CC30078B4FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4822886CC30078B4FA /* Assets.xcassets */; };
 		F7DEBB4C22886CC30078B4FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4A22886CC30078B4FA /* LaunchScreen.storyboard */; };
+		F7DEBB5422886F980078B4FA /* AppDelegate+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB5322886F980078B4FA /* AppDelegate+Setup.swift */; };
+		F7DEBB5722886FA00078B4FA /* customButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB5622886FA00078B4FA /* customButton.swift */; };
+		F7DEBB6922886FAB0078B4FA /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB5922886FAA0078B4FA /* ApplicationCoordinator.swift */; };
+		F7DEBB6A22886FAB0078B4FA /* RegistrationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB5A22886FAA0078B4FA /* RegistrationCoordinator.swift */; };
+		F7DEBB6B22886FAB0078B4FA /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB5B22886FAA0078B4FA /* Coordinator.swift */; };
+		F7DEBB6C22886FAB0078B4FA /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB5D22886FAA0078B4FA /* AppService.swift */; };
+		F7DEBB6D22886FAB0078B4FA /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB5E22886FAA0078B4FA /* AppManager.swift */; };
+		F7DEBB6E22886FAB0078B4FA /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB6022886FAA0078B4FA /* ViewModelType.swift */; };
+		F7DEBB6F22886FAB0078B4FA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB6222886FAB0078B4FA /* UIColor+Extension.swift */; };
+		F7DEBB7022886FAB0078B4FA /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB6322886FAB0078B4FA /* UIView+Extension.swift */; };
+		F7DEBB7122886FAB0078B4FA /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB6522886FAB0078B4FA /* RegistrationViewModel.swift */; };
+		F7DEBB7222886FAB0078B4FA /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB6622886FAB0078B4FA /* RegistrationViewController.swift */; };
+		F7DEBB7322886FAB0078B4FA /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB6822886FAB0078B4FA /* CustomTextField.swift */; };
+		F7DEBB752288C4560078B4FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB742288C4560078B4FA /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0DD97223716EF0762CC118B6 /* Pods_AirCondition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirCondition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		103787615D55C25F8C21DD7E /* Pods-AirCondition.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirCondition.release.xcconfig"; path = "Target Support Files/Pods-AirCondition/Pods-AirCondition.release.xcconfig"; sourceTree = "<group>"; };
+		830B9E9A402B8E06768E2A49 /* Pods-AirCondition.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirCondition.debug.xcconfig"; path = "Target Support Files/Pods-AirCondition/Pods-AirCondition.debug.xcconfig"; sourceTree = "<group>"; };
+		F7124C7B228B0C9C0038614F /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
+		F77521852293D2A3008140BC /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		F77521872293EA9B008140BC /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		F775218922942624008140BC /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		F775218B229431CC008140BC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F7DEBB3E22886CBF0078B4FA /* AirCondition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirCondition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F7DEBB4322886CBF0078B4FA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F7DEBB4622886CBF0078B4FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F7DEBB4822886CC30078B4FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F7DEBB4B22886CC30078B4FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F7DEBB4D22886CC30078B4FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F7DEBB5322886F980078B4FA /* AppDelegate+Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Setup.swift"; sourceTree = "<group>"; };
+		F7DEBB5622886FA00078B4FA /* customButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customButton.swift; sourceTree = "<group>"; };
+		F7DEBB5922886FAA0078B4FA /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
+		F7DEBB5A22886FAA0078B4FA /* RegistrationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationCoordinator.swift; sourceTree = "<group>"; };
+		F7DEBB5B22886FAA0078B4FA /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		F7DEBB5D22886FAA0078B4FA /* AppService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
+		F7DEBB5E22886FAA0078B4FA /* AppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
+		F7DEBB6022886FAA0078B4FA /* ViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		F7DEBB6222886FAB0078B4FA /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		F7DEBB6322886FAB0078B4FA /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		F7DEBB6522886FAB0078B4FA /* RegistrationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		F7DEBB6622886FAB0078B4FA /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		F7DEBB6822886FAB0078B4FA /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		F7DEBB742288C4560078B4FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +69,48 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F775218C229431CC008140BC /* MapKit.framework in Frameworks */,
+				0F4EF7C4DD69A87DA6D1B885 /* Pods_AirCondition.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B16C82B48DF36E819D0E87E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F775218B229431CC008140BC /* MapKit.framework */,
+				0DD97223716EF0762CC118B6 /* Pods_AirCondition.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC9D63C2ED9EAFB3F017ED57 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				830B9E9A402B8E06768E2A49 /* Pods-AirCondition.debug.xcconfig */,
+				103787615D55C25F8C21DD7E /* Pods-AirCondition.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F7124C78228B084D0038614F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F77521872293EA9B008140BC /* MapViewModel.swift */,
+				F7DEBB6522886FAB0078B4FA /* RegistrationViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		F7DEBB3522886CBF0078B4FA = {
 			isa = PBXGroup;
 			children = (
 				F7DEBB4022886CBF0078B4FA /* AirCondition */,
 				F7DEBB3F22886CBF0078B4FA /* Products */,
+				BC9D63C2ED9EAFB3F017ED57 /* Pods */,
+				8B16C82B48DF36E819D0E87E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,8 +125,17 @@
 		F7DEBB4022886CBF0078B4FA /* AirCondition */ = {
 			isa = PBXGroup;
 			children = (
+				F7DEBB5822886FAA0078B4FA /* Coordinators */,
+				F7DEBB6122886FAB0078B4FA /* Extension */,
+				F7DEBB5F22886FAA0078B4FA /* Protocols */,
+				F7DEBB5C22886FAA0078B4FA /* AirConditionManager */,
+				F7DEBB6722886FAB0078B4FA /* TextFields */,
+				F7124C78228B084D0038614F /* ViewModels */,
+				F7DEBB6422886FAB0078B4FA /* ViewControllers */,
+				F7DEBB5522886FA00078B4FA /* Buttons */,
+				F7DEBB742288C4560078B4FA /* GoogleService-Info.plist */,
+				F7DEBB5322886F980078B4FA /* AppDelegate+Setup.swift */,
 				F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */,
-				F7DEBB4322886CBF0078B4FA /* ViewController.swift */,
 				F7DEBB4522886CBF0078B4FA /* Main.storyboard */,
 				F7DEBB4822886CC30078B4FA /* Assets.xcassets */,
 				F7DEBB4A22886CC30078B4FA /* LaunchScreen.storyboard */,
@@ -64,6 +144,75 @@
 			path = AirCondition;
 			sourceTree = "<group>";
 		};
+		F7DEBB5522886FA00078B4FA /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				F7DEBB5622886FA00078B4FA /* customButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		F7DEBB5822886FAA0078B4FA /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				F7DEBB5922886FAA0078B4FA /* ApplicationCoordinator.swift */,
+				F7124C7B228B0C9C0038614F /* MainTabBarCoordinator.swift */,
+				F7DEBB5A22886FAA0078B4FA /* RegistrationCoordinator.swift */,
+				F7DEBB5B22886FAA0078B4FA /* Coordinator.swift */,
+			);
+			name = Coordinators;
+			path = AirCondition/Coordinators;
+			sourceTree = SOURCE_ROOT;
+		};
+		F7DEBB5C22886FAA0078B4FA /* AirConditionManager */ = {
+			isa = PBXGroup;
+			children = (
+				F7DEBB5D22886FAA0078B4FA /* AppService.swift */,
+				F7DEBB5E22886FAA0078B4FA /* AppManager.swift */,
+			);
+			name = AirConditionManager;
+			path = AirCondition/AirConditionManager;
+			sourceTree = SOURCE_ROOT;
+		};
+		F7DEBB5F22886FAA0078B4FA /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				F7DEBB6022886FAA0078B4FA /* ViewModelType.swift */,
+			);
+			name = Protocols;
+			path = AirCondition/Protocols;
+			sourceTree = SOURCE_ROOT;
+		};
+		F7DEBB6122886FAB0078B4FA /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F7DEBB6222886FAB0078B4FA /* UIColor+Extension.swift */,
+				F7DEBB6322886FAB0078B4FA /* UIView+Extension.swift */,
+			);
+			name = Extension;
+			path = AirCondition/Extension;
+			sourceTree = SOURCE_ROOT;
+		};
+		F7DEBB6422886FAB0078B4FA /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F7DEBB6622886FAB0078B4FA /* RegistrationViewController.swift */,
+				F775218922942624008140BC /* MapViewController.swift */,
+				F77521852293D2A3008140BC /* MainTabBarController.swift */,
+			);
+			name = ViewControllers;
+			path = AirCondition/ViewControllers;
+			sourceTree = SOURCE_ROOT;
+		};
+		F7DEBB6722886FAB0078B4FA /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				F7DEBB6822886FAB0078B4FA /* CustomTextField.swift */,
+			);
+			name = TextFields;
+			path = AirCondition/TextFields;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +220,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F7DEBB5022886CC30078B4FA /* Build configuration list for PBXNativeTarget "AirCondition" */;
 			buildPhases = (
+				0BD166B8D9CC147DF657F942 /* [CP] Check Pods Manifest.lock */,
 				F7DEBB3A22886CBF0078B4FA /* Sources */,
 				F7DEBB3B22886CBF0078B4FA /* Frameworks */,
 				F7DEBB3C22886CBF0078B4FA /* Resources */,
+				04E8A9C8FF5FF60922F27FD6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -96,6 +247,11 @@
 				TargetAttributes = {
 					F7DEBB3D22886CBF0078B4FA = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -124,19 +280,78 @@
 			files = (
 				F7DEBB4C22886CC30078B4FA /* LaunchScreen.storyboard in Resources */,
 				F7DEBB4922886CC30078B4FA /* Assets.xcassets in Resources */,
+				F7DEBB752288C4560078B4FA /* GoogleService-Info.plist in Resources */,
 				F7DEBB4722886CBF0078B4FA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		04E8A9C8FF5FF60922F27FD6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AirCondition/Pods-AirCondition-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AirCondition/Pods-AirCondition-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AirCondition/Pods-AirCondition-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0BD166B8D9CC147DF657F942 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AirCondition-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F7DEBB3A22886CBF0078B4FA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7DEBB4422886CBF0078B4FA /* ViewController.swift in Sources */,
+				F7124C7C228B0C9C0038614F /* MainTabBarCoordinator.swift in Sources */,
+				F7DEBB7322886FAB0078B4FA /* CustomTextField.swift in Sources */,
+				F77521862293D2A3008140BC /* MainTabBarController.swift in Sources */,
+				F7DEBB7022886FAB0078B4FA /* UIView+Extension.swift in Sources */,
+				F7DEBB7122886FAB0078B4FA /* RegistrationViewModel.swift in Sources */,
+				F7DEBB5422886F980078B4FA /* AppDelegate+Setup.swift in Sources */,
 				F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */,
+				F775218A22942624008140BC /* MapViewController.swift in Sources */,
+				F7DEBB7222886FAB0078B4FA /* RegistrationViewController.swift in Sources */,
+				F7DEBB6C22886FAB0078B4FA /* AppService.swift in Sources */,
+				F7DEBB6B22886FAB0078B4FA /* Coordinator.swift in Sources */,
+				F7DEBB5722886FA00078B4FA /* customButton.swift in Sources */,
+				F77521882293EA9B008140BC /* MapViewModel.swift in Sources */,
+				F7DEBB6D22886FAB0078B4FA /* AppManager.swift in Sources */,
+				F7DEBB6A22886FAB0078B4FA /* RegistrationCoordinator.swift in Sources */,
+				F7DEBB6922886FAB0078B4FA /* ApplicationCoordinator.swift in Sources */,
+				F7DEBB6E22886FAB0078B4FA /* ViewModelType.swift in Sources */,
+				F7DEBB6F22886FAB0078B4FA /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +495,7 @@
 		};
 		F7DEBB5122886CC30078B4FA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 830B9E9A402B8E06768E2A49 /* Pods-AirCondition.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -298,6 +514,7 @@
 		};
 		F7DEBB5222886CC30078B4FA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 103787615D55C25F8C21DD7E /* Pods-AirCondition.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

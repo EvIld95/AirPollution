@@ -1,21 +1,37 @@
 //
 //  AppDelegate.swift
-//  AirCondition
+//  Sapiens
 //
-//  Created by Paweł Szudrowicz on 12/05/2019.
+//  Created by Paweł Szudrowicz on 26/03/2019.
 //  Copyright © 2019 Paweł Szudrowicz. All rights reserved.
 //
 
 import UIKit
+import Swinject
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    private var applicationCoordinator: ApplicationCoordinator!
+    let container = Container()
+    
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        setupDependencies()
+        return true
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        FirebaseApp.configure()
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+
+        window = UIWindow()
+        self.applicationCoordinator = ApplicationCoordinator(window: window!, container: container)
+        self.applicationCoordinator.start()
         return true
     }
 

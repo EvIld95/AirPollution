@@ -37,10 +37,13 @@ class MainTabBarCoordinator: Coordinator {
     func setupViewControllers() {
         let mapViewController = self.container.resolve(MapViewController.self)
         let mapNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "profile_unselected"), selectedImage: #imageLiteral(resourceName: "profile_unselected"), rootViewController: mapViewController!)
-        let testViewController = templateNavController(unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"))
+        
+        let deviceCollectionViewController = self.container.resolve(DevicesCollectionViewController.self)
+        let deviceViewController = templateNavController(unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"), rootViewController: deviceCollectionViewController!)
+        deviceViewController.isNavigationBarHidden = true
 
         self.mainTabBarController.tabBar.tintColor = .black
-        self.mainTabBarController.viewControllers = [mapNavController, testViewController]
+        self.mainTabBarController.viewControllers = [mapNavController, deviceViewController]
         
         for item in  self.mainTabBarController.tabBar.items! {
             item.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)

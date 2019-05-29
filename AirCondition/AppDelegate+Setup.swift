@@ -21,6 +21,9 @@ extension AppDelegate {
             return MapViewModel()
         }
         
+        container.register(DevicesListViewModel.self, factory: { _ in
+            return DevicesListViewModel()
+        })
         
         //otherDependencies
         container.register(AppManager.self) { _ in
@@ -48,6 +51,11 @@ extension AppDelegate {
             return tabVC
         }
         
+        container.register(DevicesCollectionViewController.self) { (r) in
+            let deviceVC = DevicesCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+            deviceVC.viewModel = r.resolve(DevicesListViewModel.self)
+            return deviceVC
+        }
        
         
     }

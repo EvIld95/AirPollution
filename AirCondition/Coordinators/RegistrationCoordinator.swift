@@ -30,12 +30,8 @@ class RegistrationCoordinator: Coordinator {
     func start() {
         self.registrationViewController = container.resolve(RegistrationViewController.self)!
         
-        self.registrationViewController.viewModel.action.elements.subscribe(onNext: {
+        Observable.merge(self.registrationViewController.viewModel.actionLogin.elements, self.registrationViewController.viewModel.actionRegister.elements).take(1).subscribe(onNext: {
             self.launchMainViewController()
-        }).disposed(by: disposeBag)
-        
-        self.registrationViewController.viewModel.action.errors.subscribe(onError: { error in
-            
         }).disposed(by: disposeBag)
         
         self.navigationController.present(self.registrationViewController, animated: true, completion: nil)

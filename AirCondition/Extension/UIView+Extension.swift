@@ -94,4 +94,17 @@ extension UIView {
         }
     }
     
+    
+    
+    func setupGradientLayer() {
+        let gradientLayer = CAGradientLayer()
+        let topColor = UIColor(red: 76.0/255.0, green: 130.0/255.0, blue: 164.0/255.0, alpha: 1.0)
+        let bottomColor = UIColor(red: 85.0/255.0, green: 159.0/255.0, blue: 122.0/255.0, alpha: 1.0)
+        // make sure to user cgColor
+        gradientLayer.colors = [bottomColor.cgColor, topColor.cgColor]
+        gradientLayer.locations = [0, 1.5]
+        self.layer.insertSublayer(gradientLayer, below: layer)
+        gradientLayer.frame = bounds
+    }
+    
 }

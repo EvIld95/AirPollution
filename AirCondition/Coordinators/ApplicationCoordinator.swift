@@ -33,7 +33,7 @@ class ApplicationCoordinator: Coordinator {
     }
     
     func start() {
-      //  guard let _ = try? Auth.auth().signOut() else { return }
+        guard let _ = try? Auth.auth().signOut() else { return }
         
         if Auth.auth().currentUser == nil {
             //presentedModally

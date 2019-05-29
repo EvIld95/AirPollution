@@ -25,27 +25,30 @@ class RegistrationViewModel: ViewModelType {
         let valid: Observable<Bool>
     }
     
-    lazy var action: Action<Void, Void> = Action<Void, Void>(workFactory: { input in
+    lazy var actionRegister: Action<Void, Void> = Action<Void, Void>(workFactory: { input in
         return Observable.create({ (observer) -> Disposable in
-            
+            Auth.auth().createUser(withEmail: self.input.email.value, password: self.input.password.value) { authResult, error in
+                if let error = error {
+                    observer.onError(error)
+                } else {
+                    observer.onNext(Void())
+                    observer.onCompleted()
+                }
+            }
+            return Disposables.create()
+        })
+    })
+    
+    lazy var actionLogin: Action<Void, Void> = Action<Void, Void>(workFactory: { input in
+        return Observable.create({ (observer) -> Disposable in
             Auth.auth().signIn(withEmail: self.input.email.value, password: self.input.password.value, completion: { (result, error) in
                 if let error = error {
                     observer.onError(error)
                 } else {
-                observer.onNext(Void())
-                observer.onCompleted()
+                    observer.onNext(Void())
+                    observer.onCompleted()
                 }
             })
-            
-            
-            //Auth.auth().createUser(withEmail: self.input.email.value, password: self.input.password.value) { authResult, error in
-              //  if let error = error {
-                //    observer.onError(error)
-                //} else {
-                 //   observer.onNext(Void())
-                 //   observer.onCompleted()
-                //}
-            //}
             return Disposables.create()
         })
     })

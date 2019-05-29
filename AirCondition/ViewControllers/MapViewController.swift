@@ -8,11 +8,12 @@
 
 import UIKit
 import MapKit
+import RxSwift
 
 class MapViewController: UIViewController {
     var viewModel: MapViewModel!
     var locationManager = CLLocationManager()
-    
+    let disposeBag = DisposeBag()
     lazy var mapView: MKMapView! = {
         let mv = MKMapView()
         mv.showsUserLocation = true
@@ -24,13 +25,23 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         self.setupLayout()
         self.setupLocationManager()
-        self.addTestAnnotation()
+        self.setupRx()
     }
     
     private func setupLayout() {
         self.view.addSubview(mapView)
         mapView.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
-       
+    }
+    
+    private func setupRx() {
+        self.viewModel.output.devices.asObservable().subscribe(onNext: { (devices) in
+            for device in devices {
+                let annotation = MKPointAnnotation()
+                annotation.title = "Location"
+                annotation.coordinate = CLLocationCoordinate2D(latitude: device.latitude, longitude: device.longitude)
+                self.mapView.addAnnotation(annotation)
+            }
+        }).disposed(by: disposeBag)
     }
     
     private func setupLocationManager() {
@@ -41,12 +52,6 @@ class MapViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
     }
     
-    private func addTestAnnotation() {
-        let london = MKPointAnnotation()
-        london.title = "London"
-        london.coordinate = CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275)
-        mapView.addAnnotation(london)
-    }
 }
 
 
@@ -88,6 +93,6 @@ extension MapViewController: CLLocationManagerDelegate {
         let newLocation = locations.last!
         let center = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        mapView.setRegion(region, animated: true)
+      //  mapView.setRegion(region, animated: true)
     }
 }

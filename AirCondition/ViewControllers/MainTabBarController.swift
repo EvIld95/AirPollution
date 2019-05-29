@@ -25,9 +25,6 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .green
-        self.view.addSubview(button)
-        button.fillSuperview()
     }
     
 }

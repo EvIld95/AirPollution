@@ -11,58 +11,16 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = info[.originalImage] as? UIImage
-        selectPhotoButton.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
-        selectPhotoButton.layer.cornerRadius = selectPhotoButton.frame.width/2
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true)
-    }
-    
-}
-
 class RegistrationViewController: UIViewController {
     var viewModel: RegistrationViewModel!
     var appManager: AppManager!
     
-    let selectPhotoButton: UIButton = {
-        let button = UIButton(type: .system)
-        
-        button.setTitle("Select Photo", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
-        button.backgroundColor = .clear
-        button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(handleSelectPhoto), for: .touchUpInside)
-        button.imageView?.contentMode = .scaleAspectFill
-        
-        let shadowLayer = CAShapeLayer()
-        shadowLayer.path = UIBezierPath(roundedRect: button.bounds, cornerRadius: 8).cgPath
-        button.layer.borderColor = UIColor(red: 38.0/255.0, green: 47.0/255.0, blue: 73.0/255.0, alpha: 1.0).cgColor
-        button.layer.borderWidth = 4
-        shadowLayer.shadowOffset = CGSize(width: 10, height: 10)
-        shadowLayer.shadowColor = UIColor.black.cgColor
-        shadowLayer.shadowRadius = 5
-        shadowLayer.shadowOpacity = 0.8
-        //button.layer.insertSublayer(shadowLayer, at: 0)
-        //button.layer.shadowPath = UIBezierPath(rect: button.bounds).cgPath
-        button.clipsToBounds = false
-        return button
-    }()
-    
     let logoButton: UIButton = {
         let button = UIButton(type: .system)
-        
         button.setTitle("Air", for: .normal)
         button.backgroundColor = .clear
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(handleSelectPhoto), for: .touchUpInside)
         button.imageView?.contentMode = .scaleAspectFill
         button.titleLabel?.font = UIFont(name: "Futura", size: 60)
         button.clipsToBounds = false
@@ -104,11 +62,6 @@ class RegistrationViewController: UIViewController {
         }, completion: nil)
     }
     
-    @objc func handleSelectPhoto() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true)
-    }
     
     let emailTextField: CustomTextField = {
         var textField = CustomTextField(padding: 8, height: 50, image: #imageLiteral(resourceName: "avatar"))
@@ -172,7 +125,6 @@ class RegistrationViewController: UIViewController {
     func setupRx() {
         emailTextField.rx.text.orEmpty.throttle(0.5, scheduler: MainScheduler.instance).bind(to: self.viewModel.input.email).disposed(by: disposeBag)
         passwordTextField.rx.text.orEmpty.throttle(0.5, scheduler: MainScheduler.instance).bind(to: self.viewModel.input.password).disposed(by: disposeBag)
-        
         viewModel.output.valid.bind(to: registerButton.rx.isEnabled).disposed(by: disposeBag)
     }
     
@@ -207,11 +159,15 @@ class RegistrationViewController: UIViewController {
     
     
     @objc func handleRegister() {
-        viewModel.action.execute(Void())
+        if self.registerButton.currentTitle == "Login" {
+            viewModel.actionLogin.execute(Void())
+        } else {
+            viewModel.actionRegister.execute(Void())
+        }
+        
     }
     
     func setupLayout() {
-        selectPhotoButton.heightAnchor.constraint(equalToConstant: 275).isActive = true
         
         view.addSubview(overallStackView)
         overallStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 50, left: 50, bottom: 50, right: 50))
@@ -225,21 +181,9 @@ class RegistrationViewController: UIViewController {
         view.backgroundColor = .white
         setupRx()
         setupNotificationObservers()
-        setupGradientLayer()
+        self.view.setupGradientLayer()
         setupLayout()
         setupTapGesture()
-    }
-    
-    let gradientLayer = CAGradientLayer()
-    
-    fileprivate func setupGradientLayer() {
-        let topColor = UIColor(red: 76.0/255.0, green: 130.0/255.0, blue: 164.0/255.0, alpha: 1.0)
-        let bottomColor = UIColor(red: 85.0/255.0, green: 159.0/255.0, blue: 122.0/255.0, alpha: 1.0)
-        // make sure to user cgColor
-        gradientLayer.colors = [bottomColor.cgColor, topColor.cgColor]
-        gradientLayer.locations = [0, 1.5]
-        view.layer.addSublayer(gradientLayer)
-        gradientLayer.frame = view.bounds
     }
     
     

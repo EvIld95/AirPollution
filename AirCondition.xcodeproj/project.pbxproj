@@ -18,6 +18,7 @@
 		F7752197229DA260008140BC /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7752196229DA260008140BC /* DeviceModel.swift */; };
 		F775219A229DA524008140BC /* DevicesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7752199229DA524008140BC /* DevicesCollectionViewCell.swift */; };
 		F775219F229EBE4D008140BC /* AirStatusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775219E229EBE4D008140BC /* AirStatusIndicatorView.swift */; };
+		F77521A3229EF7A1008140BC /* AnnotationPointDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521A2229EF7A1008140BC /* AnnotationPointDevice.swift */; };
 		F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */; };
 		F7DEBB4722886CBF0078B4FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4522886CBF0078B4FA /* Main.storyboard */; };
 		F7DEBB4922886CC30078B4FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4822886CC30078B4FA /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		F7752196229DA260008140BC /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		F7752199229DA524008140BC /* DevicesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesCollectionViewCell.swift; sourceTree = "<group>"; };
 		F775219E229EBE4D008140BC /* AirStatusIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirStatusIndicatorView.swift; sourceTree = "<group>"; };
+		F77521A2229EF7A1008140BC /* AnnotationPointDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationPointDevice.swift; sourceTree = "<group>"; };
 		F7DEBB3E22886CBF0078B4FA /* AirCondition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirCondition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7DEBB4622886CBF0078B4FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,6 +141,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		F77521A1229EF6FA008140BC /* AnnotationPoints */ = {
+			isa = PBXGroup;
+			children = (
+				F77521A2229EF7A1008140BC /* AnnotationPointDevice.swift */,
+			);
+			path = AnnotationPoints;
+			sourceTree = "<group>";
+		};
 		F7DEBB3522886CBF0078B4FA = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +170,7 @@
 		F7DEBB4022886CBF0078B4FA /* AirCondition */ = {
 			isa = PBXGroup;
 			children = (
+				F77521A1229EF6FA008140BC /* AnnotationPoints */,
 				F775219D229EBE30008140BC /* Views */,
 				F7752198229DA4F2008140BC /* CollectionViewCells */,
 				F7752195229DA24B008140BC /* Models */,
@@ -376,6 +387,7 @@
 				F7124C7C228B0C9C0038614F /* MainTabBarCoordinator.swift in Sources */,
 				F7DEBB7322886FAB0078B4FA /* CustomTextField.swift in Sources */,
 				F7752197229DA260008140BC /* DeviceModel.swift in Sources */,
+				F77521A3229EF7A1008140BC /* AnnotationPointDevice.swift in Sources */,
 				F77521862293D2A3008140BC /* MainTabBarController.swift in Sources */,
 				F7DEBB7022886FAB0078B4FA /* UIView+Extension.swift in Sources */,
 				F7DEBB7122886FAB0078B4FA /* RegistrationViewModel.swift in Sources */,

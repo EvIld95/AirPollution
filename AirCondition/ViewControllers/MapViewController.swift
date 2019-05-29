@@ -36,9 +36,10 @@ class MapViewController: UIViewController {
     private func setupRx() {
         self.viewModel.output.devices.asObservable().subscribe(onNext: { (devices) in
             for device in devices {
-                let annotation = MKPointAnnotation()
+                let annotation = AnnotationPointDevice(device: device)
                 annotation.title = "Location"
                 annotation.coordinate = CLLocationCoordinate2D(latitude: device.latitude, longitude: device.longitude)
+               
                 self.mapView.addAnnotation(annotation)
             }
         }).disposed(by: disposeBag)
@@ -61,15 +62,20 @@ extension MapViewController: MKMapViewDelegate {
             return nil
         }
         
+        guard let annotation = annotation as? AnnotationPointDevice else { return nil }
+        
+        
         let id = "item"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: id)
         
         if annotationView == nil {
+            let indicatorView = AirStatusIndicatorView(device: annotation.device)
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: id)
             guard let annotationView = annotationView else { return nil }
             annotationView.canShowCallout = true
             annotationView.isEnabled = true
-            annotationView.image = #imageLiteral(resourceName: "home_selected")
+            annotationView.image = indicatorView.getImage()
+            
             let label = UILabel(frame: .init(x: 0, y: 0, width: 120, height: 40))
             label.text = "Time"
             annotationView.rightCalloutAccessoryView = label

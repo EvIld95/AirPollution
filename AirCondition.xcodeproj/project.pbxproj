@@ -19,6 +19,7 @@
 		F775219A229DA524008140BC /* DevicesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7752199229DA524008140BC /* DevicesCollectionViewCell.swift */; };
 		F775219F229EBE4D008140BC /* AirStatusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775219E229EBE4D008140BC /* AirStatusIndicatorView.swift */; };
 		F77521A3229EF7A1008140BC /* AnnotationPointDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521A2229EF7A1008140BC /* AnnotationPointDevice.swift */; };
+		F77521A522A64C5E008140BC /* DevicesCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521A422A64C5E008140BC /* DevicesCollectionViewHeader.swift */; };
 		F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */; };
 		F7DEBB4722886CBF0078B4FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4522886CBF0078B4FA /* Main.storyboard */; };
 		F7DEBB4922886CC30078B4FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4822886CC30078B4FA /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		F7752199229DA524008140BC /* DevicesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesCollectionViewCell.swift; sourceTree = "<group>"; };
 		F775219E229EBE4D008140BC /* AirStatusIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirStatusIndicatorView.swift; sourceTree = "<group>"; };
 		F77521A2229EF7A1008140BC /* AnnotationPointDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationPointDevice.swift; sourceTree = "<group>"; };
+		F77521A422A64C5E008140BC /* DevicesCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesCollectionViewHeader.swift; sourceTree = "<group>"; };
 		F7DEBB3E22886CBF0078B4FA /* AirCondition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirCondition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7DEBB4622886CBF0078B4FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				F7752199229DA524008140BC /* DevicesCollectionViewCell.swift */,
+				F77521A422A64C5E008140BC /* DevicesCollectionViewHeader.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				F7752194229DA050008140BC /* DevicesListViewModel.swift in Sources */,
 				F7DEBB6E22886FAB0078B4FA /* ViewModelType.swift in Sources */,
 				F7752192229D9F39008140BC /* DevicesCollectionViewController.swift in Sources */,
+				F77521A522A64C5E008140BC /* DevicesCollectionViewHeader.swift in Sources */,
 				F7DEBB6F22886FAB0078B4FA /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,10 +13,10 @@ struct DeviceModel {
     var pm10: Int!
     var pm25: Int!
     var pm100: Int!
-    var pressure: Float!
-    var temperature: Float!
-    var humidity: Float!
-    var CO: Float!
+    var pressure: Double!
+    var temperature: Double!
+    var humidity: Double!
+    var CO: Double!
     var latitude: Double!
     var longitude: Double!
 }

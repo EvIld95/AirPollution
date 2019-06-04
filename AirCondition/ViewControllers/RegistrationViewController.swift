@@ -168,13 +168,10 @@ class RegistrationViewController: UIViewController {
     }
     
     func setupLayout() {
-        
         view.addSubview(overallStackView)
         overallStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 50, left: 50, bottom: 50, right: 50))
         
-        
         overallStackView.axis = .vertical
-        
     }
     
     override func viewDidLoad() {

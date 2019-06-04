@@ -7,25 +7,68 @@
 //
 
 import UIKit
+import M13ProgressSuite
 
 class DevicesCollectionViewCell: UICollectionViewCell {
-    let deviceImageView: UIImageView = {
-        let div = UIImageView(image: #imageLiteral(resourceName: "device").withRenderingMode(.alwaysOriginal))
-        div.contentMode = .scaleAspectFit
-        div.clipsToBounds = true
-        return div
+    
+    lazy var progressBorderedCO : M13ProgressViewBorderedBar = {
+        let bar =  M13ProgressViewBorderedBar(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 40))
+        
+        bar.cornerType = M13ProgressViewBorderedBarCornerTypeRounded
+        bar.cornerRadius = 8.0
+        bar.animationDuration = 1.5
+        bar.primaryColor = .green
+        bar.secondaryColor = .clear
+        bar.setProgress(0.5, animated: true)
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        bar.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        return bar
     }()
     
-    let localizationLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Poznan"
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 15)
-        return label
-    }()
+    var CO: Double = 0.0 {
+        didSet {
+            self.progressBorderedCO.setProgress(CGFloat(CO/1024.0), animated: true)
+            self.progressBorderedCO.primaryColor = UIColor(hue: CGFloat(0.33 - ((CO/1024) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
+        }
+    }
     
-    let pressureLabel: UILabel = {
+    var temperature: Double = 0.0 {
+        didSet {
+            self.temperatureLabel.text = "\(temperature) C"
+        }
+    }
+    
+    var humidity: Double = 0.0 {
+        didSet {
+            self.humidityLabel.text = "\(humidity) %"
+        }
+    }
+    
+    var pressure: Double = 0.0 {
+        didSet {
+            self.pressureLabel.text = "\(pressure) hPa"
+        }
+    }
+    
+    var pm10: Int = 0 {
+        didSet {
+            self.pm10Label.text = "PM1.0: \(pm10)"
+        }
+    }
+    
+    var pm25: Int = 0 {
+        didSet {
+            self.pm25Label.text = "PM2.5: \(pm25)"
+        }
+    }
+    
+    var pm100: Int = 0 {
+        didSet {
+            self.pm100Label.text = "PM10: \(pm100)"
+        }
+    }
+    
+    private let pressureLabel: UILabel = {
         let label = UILabel()
         label.text = "1012hPa"
         label.textAlignment = .center
@@ -34,7 +77,7 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let humidityLabel: UILabel = {
+    private let humidityLabel: UILabel = {
         let label = UILabel()
         label.text = "88%"
         label.textAlignment = .center
@@ -43,7 +86,7 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let temperatureLabel: UILabel = {
+    private let temperatureLabel: UILabel = {
         let label = UILabel()
         label.text = "12C"
         label.textAlignment = .center
@@ -52,7 +95,7 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let pm10Label: UILabel = {
+    private let pm10Label: UILabel = {
         let label = UILabel()
         label.text = "Pm10"
         label.textAlignment = .center
@@ -61,7 +104,7 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let pm25Label: UILabel = {
+    private let pm25Label: UILabel = {
         let label = UILabel()
         label.text = "Pm25"
         label.textAlignment = .center
@@ -70,7 +113,7 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let pm100Label: UILabel = {
+    private let pm100Label: UILabel = {
         let label = UILabel()
         label.text = "Pm100"
         label.textAlignment = .center
@@ -79,16 +122,18 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let COLabel: UILabel = {
+    private let COLabel: UILabel = {
         let label = UILabel()
-        label.text = "CO"
+        label.text = "CO: "
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 15)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.widthAnchor.constraint(equalToConstant: 50).isActive = true
         return label
     }()
     
-    let temperatureImageView: UIImageView = {
+    private let temperatureImageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "thermometer").withRenderingMode(.alwaysOriginal))
         iv.clipsToBounds = true
         iv.contentMode = UIView.ContentMode.scaleAspectFill
@@ -98,7 +143,7 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return iv
     }()
     
-    let pressureImageView: UIImageView = {
+    private let pressureImageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "pressure").withRenderingMode(.alwaysOriginal))
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
@@ -108,7 +153,7 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return iv
     }()
     
-    let humidityImageView: UIImageView = {
+    private let humidityImageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "humidity").withRenderingMode(.alwaysOriginal))
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
@@ -118,16 +163,8 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return iv
     }()
     
-    lazy var leftStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.deviceImageView, self.localizationLabel])
-        stackView.distribution = UIStackView.Distribution.fillEqually
-        stackView.alignment = UIStackView.Alignment.fill
-        stackView.axis = .vertical
-        
-        return stackView
-    }()
     
-    lazy var sensorStackView: UIStackView = {
+    private lazy var sensorStackView: UIStackView = {
         let stackViewTemperature = UIStackView(arrangedSubviews: [self.temperatureImageView, self.temperatureLabel])
         stackViewTemperature.distribution = .fill
         stackViewTemperature.alignment = .center
@@ -160,10 +197,13 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         stackViewCenter.alignment = .fill
         stackViewCenter.axis = .horizontal
         
-        let stackViewBottom = UIStackView(arrangedSubviews: [self.COLabel])
-        stackViewBottom.distribution = .fillEqually
-        stackViewBottom.alignment = .fill
+        let stackViewBottom = UIStackView(arrangedSubviews: [self.COLabel, self.progressBorderedCO])
+        stackViewBottom.distribution = UIStackView.Distribution.fill
+        stackViewBottom.alignment = .leading
         stackViewBottom.axis = .horizontal
+        stackViewBottom.spacing = 10
+        stackViewBottom.isLayoutMarginsRelativeArrangement = true
+        stackViewBottom.layoutMargins = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
         
         let stackView = UIStackView(arrangedSubviews: [stackViewTop, stackViewCenter, stackViewBottom])
         stackView.distribution = UIStackView.Distribution.fillEqually
@@ -173,12 +213,14 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
+    
+    
     override func didMoveToSuperview() {
-        self.backgroundColor = UIColor.init(white: 0.7, alpha: 0.5)
-        self.addSubview(leftStackView)
+    
         self.addSubview(sensorStackView)
-        leftStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: nil, padding: .init(top: 8, left: 8, bottom: 8, right: 0), size: .init(width: self.frame.width/5, height: 0))
-        sensorStackView.anchor(top: self.topAnchor, leading: leftStackView.trailingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 8, left: 8, bottom: 8, right: 8))
+    
+        sensorStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 8, left: 8, bottom: 8, right: 8))
+        
     }
     
 }

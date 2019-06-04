@@ -19,5 +19,6 @@ target 'AirCondition' do
   pod 'Moya-SwiftyJSONMapper'
   pod 'Swinject'
   pod 'GoogleAppMeasurement', '~> 5.2.0'
+  pod 'M13ProgressSuite'
 
 end

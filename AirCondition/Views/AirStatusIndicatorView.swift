@@ -13,7 +13,7 @@ class AirStatusIndicatorView: UIView {
     let device: DeviceModel!
     init(device: DeviceModel) {
         self.device = device
-        super.init(frame: .init(x: 0, y: 0, width: 20, height: 20))
+        super.init(frame: .init(x: 0, y: 0, width: 15, height: 15))
     }
     
     required init?(coder aDecoder: NSCoder) {

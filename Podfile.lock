@@ -121,6 +121,7 @@ PODS:
   - GTMSessionFetcher/Core (1.2.0)
   - JGProgressHUD (2.0.3)
   - leveldb-library (1.20)
+  - M13ProgressSuite (1.2.9)
   - Moya (10.0.2):
     - Moya/Core (= 10.0.2)
   - Moya-SwiftyJSONMapper (3.0.0):
@@ -155,6 +156,7 @@ DEPENDENCIES:
   - Firebase/Storage (~> 5.10.0)
   - GoogleAppMeasurement (~> 5.2.0)
   - JGProgressHUD (~> 2.0.3)
+  - M13ProgressSuite
   - Moya
   - Moya-SwiftyJSONMapper
   - RxCocoa (~> 4.0)
@@ -185,6 +187,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - JGProgressHUD
     - leveldb-library
+    - M13ProgressSuite
     - Moya
     - Moya-SwiftyJSONMapper
     - nanopb
@@ -218,6 +221,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  M13ProgressSuite: ea9f7263e73e9215e6849dfa54e29ee0ad6a145c
   Moya: 2b0531a9fef318e0bc484030c3db1e6f279ccb66
   Moya-SwiftyJSONMapper: ceecd41a96b31ae4d17cd80a271a544563fe2c57
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
@@ -229,6 +233,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
 
-PODFILE CHECKSUM: 73c247a66deebd14875e3fcfa47a8b8c44b5951e
+PODFILE CHECKSUM: f33de22d000a35687450e282352c1301fffeef25
 
 COCOAPODS: 1.7.0.beta.2

@@ -23,6 +23,12 @@ class AirStatusIndicatorView: UIView {
     override func draw(_ rect: CGRect) {
         let bezierPath = UIBezierPath(ovalIn: rect)
         
+        if(device.CO == nil) { //airly
+            UIColor.black.setFill()
+            bezierPath.fill()
+            return
+        }
+        
         if(device.pm100 < 50) {
             UIColor.green.setFill()
         } else {

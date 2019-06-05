@@ -19,10 +19,7 @@ final class AirlyDeviceSensor : ALSwiftyJSONAble {
     var humidity: Double?
     var temperature: Double?
     
-    convenience init?(jsonData: JSON, id: Int) {
-        self.init(jsonData: jsonData)
-        self.id = id
-    }
+    var deviceAirly: NearestDevice?
     
     required init?(jsonData:JSON){
         let json = jsonData["current"]["values"]

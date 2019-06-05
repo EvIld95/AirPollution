@@ -11,16 +11,16 @@ import RxSwift
 import CoreLocation
 
 struct DeviceModel {
-    var serial: String!
+    var serial: String?
     var pm10: Int!
     var pm25: Int!
     var pm100: Int!
     var pressure: Double!
     var temperature: Double!
     var humidity: Double!
-    var CO: Double!
-    var latitude: Variable<Double>
-    var longitude: Variable<Double>
+    var CO: Double?
+    var latitude: Variable<Double> = Variable<Double>(0.0)
+    var longitude: Variable<Double> = Variable<Double>(0.0)
     
     var address: Observable<String> {
         get {
@@ -55,6 +55,32 @@ struct DeviceModel {
             
             return Disposables.create()
         }
+    }
+    
+    init(serial: String, pm10: Int, pm25: Int, pm100: Int, pressure: Double, temperature: Double, humidity: Double, CO: Double, latitude: Variable<Double>, longitude: Variable<Double>) {
+        self.serial = serial
+        self.pm10 = pm10
+        self.pm25 = pm25
+        self.pm100 = pm100
+        self.pressure = pressure
+        self.temperature = temperature
+        self.humidity = humidity
+        self.CO = CO
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+    
+    init(deviceAirly: AirlyDeviceSensor) {
+        self.serial = nil
+        self.pm10 = Int(deviceAirly.pm10!)
+        self.pm25 = Int(deviceAirly.pm25!)
+        self.pm100 = Int(deviceAirly.pm100!)
+        self.pressure = deviceAirly.pressure
+        self.temperature = deviceAirly.temperature
+        self.humidity = deviceAirly.humidity
+        self.CO = nil
+        self.latitude.value = deviceAirly.deviceAirly!.latitude!
+        self.longitude.value = deviceAirly.deviceAirly!.longitude!
     }
     
 }

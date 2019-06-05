@@ -49,7 +49,7 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         cell.pm10 = device.pm10
         cell.pm100 = device.pm100
         cell.pm25 = device.pm25
-        cell.CO = device.CO
+        cell.CO = device.CO ?? 0.0
         cell.backgroundColor = .clear
         return cell
     }

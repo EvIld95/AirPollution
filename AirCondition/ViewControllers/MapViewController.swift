@@ -37,6 +37,7 @@ class MapViewController: UIViewController {
     
     private func setupRx() {
         let devices = self.viewModel.output.devices.asObservable().flatMap({ (devices) -> Observable<DeviceModel> in
+            self.mapView.removeAnnotations(self.mapView.annotations)
             return Observable.from(devices)
         })
         
@@ -108,8 +109,16 @@ extension MapViewController: CLLocationManagerDelegate {
 //        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         
         if !request {
-            //appManager.nearestInstallation(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
-            appManager.measurement(id: 7468)
+            appManager.nearestInstallation(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude) { devices in
+                for device in devices {
+                    self.appManager.measurement(id: device.id!) { sensor in
+                        sensor.deviceAirly = device
+                        let deviceModel = DeviceModel(deviceAirly: sensor)
+                        self.viewModel.output.devices.value.append(deviceModel)
+                    }
+                }
+            }
+            
         }
         request = true
         

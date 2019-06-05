@@ -45,13 +45,27 @@ class AppManager {
     }
     
     
-    func testAirly(latitude: Double, longitude: Double) {
+    func nearestInstallation(latitude: Double, longitude: Double) {
         let provider = MoyaProvider<AirlyService>(plugins: [CompleteUrlLoggerPlugin()])
         
         provider.request(.nearestInstallations(latitude: latitude, longitude: longitude, distance: 10.0)) { result in
             switch result {
             case let .success(response):
                 let data = try? response.map(to: AirlyNearestDevice.self)
+            case .failure:
+                print("ERROR")
+            }
+        }
+    }
+    
+    func measurement(id: Int) {
+        let provider = MoyaProvider<AirlyService>(plugins: [CompleteUrlLoggerPlugin()])
+        
+        provider.request(.measurement(installationId: id)) { result in
+            switch result {
+            case let .success(response):
+                let data = try? response.map(to: AirlyDeviceSensor.self)
+                data?.id = id
             case .failure:
                 print("ERROR")
             }

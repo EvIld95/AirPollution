@@ -108,7 +108,8 @@ extension MapViewController: CLLocationManagerDelegate {
 //        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         
         if !request {
-            appManager.testAirly(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
+            //appManager.nearestInstallation(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
+            appManager.measurement(id: 7468)
         }
         request = true
         

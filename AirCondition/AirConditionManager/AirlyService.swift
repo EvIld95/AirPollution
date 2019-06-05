@@ -18,6 +18,7 @@ class CompleteUrlLoggerPlugin : PluginType {
 enum AirlyService {
     case basic
     case nearestInstallations(latitude: Double, longitude: Double, distance: Double)
+    case measurement(installationId: Int)
 }
 
 extension AirlyService: TargetType {
@@ -28,6 +29,8 @@ extension AirlyService: TargetType {
             return "/testAddress"
         case .nearestInstallations:
             return "/installations/nearest"
+        case .measurement:
+            return "/measurements/installation"
         }
     }
     
@@ -36,6 +39,8 @@ extension AirlyService: TargetType {
         case .basic:
             return .get
         case .nearestInstallations:
+            return .get
+        case .measurement:
             return .get
         }
     }
@@ -46,6 +51,8 @@ extension AirlyService: TargetType {
             return .requestPlain
         case .nearestInstallations(let lat, let lon, let distance):
             return .requestParameters(parameters: ["lat": lat, "lng": lon, "maxDistanceKM": distance, "maxResults" : 2], encoding: URLEncoding.default)
+        case .measurement(let installationId):
+            return .requestParameters(parameters: ["installationId": installationId], encoding: URLEncoding.default)
         }
     }
     
@@ -54,6 +61,8 @@ extension AirlyService: TargetType {
         case .basic:
             return "{\"id\": \"http://52.236.165.15/hls/test.m3u8\"}".utf8Encoded
         case .nearestInstallations:
+            return "Test".utf8Encoded
+        case .measurement:
             return "Test".utf8Encoded
         }
     }

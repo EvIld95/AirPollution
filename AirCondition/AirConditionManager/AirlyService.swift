@@ -1,0 +1,74 @@
+//
+//  AirlyService.swift
+//  AirCondition
+//
+//  Created by Paweł Szudrowicz on 05/06/2019.
+//  Copyright © 2019 Paweł Szudrowicz. All rights reserved.
+//
+
+import Foundation
+import Moya
+
+class CompleteUrlLoggerPlugin : PluginType {
+    func willSend(_ request: RequestType, target: TargetType) {
+        print(request.request?.url?.absoluteString ?? "Something is wrong")
+    }
+}
+
+enum AirlyService {
+    case basic
+    case nearestInstallations(latitude: Double, longitude: Double, distance: Double)
+}
+
+extension AirlyService: TargetType {
+    var baseURL: URL { return URL(string: "https://airapi.airly.eu/v2")! }
+    var path: String {
+        switch self {
+        case .basic:
+            return "/testAddress"
+        case .nearestInstallations:
+            return "/installations/nearest"
+        }
+    }
+    
+    var method: Moya.Method {
+        switch self {
+        case .basic:
+            return .get
+        case .nearestInstallations:
+            return .get
+        }
+    }
+    
+    var task: Task {
+        switch self {
+        case .basic:
+            return .requestPlain
+        case .nearestInstallations(let lat, let lon, let distance):
+            return .requestParameters(parameters: ["lat": lat, "lng": lon, "maxDistanceKM": distance, "maxResults" : 2], encoding: URLEncoding.default)
+        }
+    }
+    
+    var sampleData: Data {
+        switch self {
+        case .basic:
+            return "{\"id\": \"http://52.236.165.15/hls/test.m3u8\"}".utf8Encoded
+        case .nearestInstallations:
+            return "Test".utf8Encoded
+        }
+    }
+    
+    var headers: [String: String]? {
+        return ["Content-type": "application/json", "apikey" : "alzZ40TC5ZLvO1lzw8o0BWdmdLBeDTF6"]
+    }
+}
+
+private extension String {
+    var urlEscaped: String {
+        return addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+    }
+    
+    var utf8Encoded: Data {
+        return data(using: .utf8)!
+    }
+}

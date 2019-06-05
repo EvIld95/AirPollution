@@ -15,7 +15,7 @@ enum DevicesCollectionCellIDs: String {
 }
 
 class DevicesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    var viewModel: DevicesListViewModel!
+    var viewModel: MapViewModel!
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
@@ -37,7 +37,7 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: self.view.frame.width, height: 250)
+        return .init(width: self.view.frame.width, height: 220)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -65,8 +65,7 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: DevicesCollectionCellIDs.header.rawValue, for: indexPath) as! DevicesCollectionViewHeader
         let device = self.viewModel.output.devices.value[indexPath.section]
-        header.longitude.value = device.longitude
-        header.latitude.value = device.latitude
+        header.device = device
         return header
     }
     

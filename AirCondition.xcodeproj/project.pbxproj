@@ -14,12 +14,14 @@
 		F775218A22942624008140BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775218922942624008140BC /* MapViewController.swift */; };
 		F775218C229431CC008140BC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F775218B229431CC008140BC /* MapKit.framework */; };
 		F7752192229D9F39008140BC /* DevicesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7752191229D9F39008140BC /* DevicesCollectionViewController.swift */; };
-		F7752194229DA050008140BC /* DevicesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7752193229DA050008140BC /* DevicesListViewModel.swift */; };
 		F7752197229DA260008140BC /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7752196229DA260008140BC /* DeviceModel.swift */; };
 		F775219A229DA524008140BC /* DevicesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7752199229DA524008140BC /* DevicesCollectionViewCell.swift */; };
 		F775219F229EBE4D008140BC /* AirStatusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775219E229EBE4D008140BC /* AirStatusIndicatorView.swift */; };
 		F77521A3229EF7A1008140BC /* AnnotationPointDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521A2229EF7A1008140BC /* AnnotationPointDevice.swift */; };
 		F77521A522A64C5E008140BC /* DevicesCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521A422A64C5E008140BC /* DevicesCollectionViewHeader.swift */; };
+		F77521A722A7D077008140BC /* AirlyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521A622A7D077008140BC /* AirlyService.swift */; };
+		F77521A922A7DB70008140BC /* AirlyNearestDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521A822A7DB70008140BC /* AirlyNearestDevice.swift */; };
+		F77521AB22A7E1DF008140BC /* AirlyDeviceSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521AA22A7E1DF008140BC /* AirlyDeviceSensor.swift */; };
 		F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */; };
 		F7DEBB4722886CBF0078B4FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4522886CBF0078B4FA /* Main.storyboard */; };
 		F7DEBB4922886CC30078B4FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4822886CC30078B4FA /* Assets.xcassets */; };
@@ -50,12 +52,14 @@
 		F775218922942624008140BC /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		F775218B229431CC008140BC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F7752191229D9F39008140BC /* DevicesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesCollectionViewController.swift; sourceTree = "<group>"; };
-		F7752193229DA050008140BC /* DevicesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesListViewModel.swift; sourceTree = "<group>"; };
 		F7752196229DA260008140BC /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		F7752199229DA524008140BC /* DevicesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesCollectionViewCell.swift; sourceTree = "<group>"; };
 		F775219E229EBE4D008140BC /* AirStatusIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirStatusIndicatorView.swift; sourceTree = "<group>"; };
 		F77521A2229EF7A1008140BC /* AnnotationPointDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationPointDevice.swift; sourceTree = "<group>"; };
 		F77521A422A64C5E008140BC /* DevicesCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesCollectionViewHeader.swift; sourceTree = "<group>"; };
+		F77521A622A7D077008140BC /* AirlyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlyService.swift; sourceTree = "<group>"; };
+		F77521A822A7DB70008140BC /* AirlyNearestDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlyNearestDevice.swift; sourceTree = "<group>"; };
+		F77521AA22A7E1DF008140BC /* AirlyDeviceSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlyDeviceSensor.swift; sourceTree = "<group>"; };
 		F7DEBB3E22886CBF0078B4FA /* AirCondition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirCondition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7DEBB4622886CBF0078B4FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -114,7 +118,6 @@
 			children = (
 				F77521872293EA9B008140BC /* MapViewModel.swift */,
 				F7DEBB6522886FAB0078B4FA /* RegistrationViewModel.swift */,
-				F7752193229DA050008140BC /* DevicesListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -123,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				F7752196229DA260008140BC /* DeviceModel.swift */,
+				F77521A822A7DB70008140BC /* AirlyNearestDevice.swift */,
+				F77521AA22A7E1DF008140BC /* AirlyDeviceSensor.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 			children = (
 				F7DEBB5D22886FAA0078B4FA /* AppService.swift */,
 				F7DEBB5E22886FAA0078B4FA /* AppManager.swift */,
+				F77521A622A7D077008140BC /* AirlyService.swift */,
 			);
 			name = AirConditionManager;
 			path = AirCondition/AirConditionManager;
@@ -387,6 +393,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F77521AB22A7E1DF008140BC /* AirlyDeviceSensor.swift in Sources */,
 				F7124C7C228B0C9C0038614F /* MainTabBarCoordinator.swift in Sources */,
 				F7DEBB7322886FAB0078B4FA /* CustomTextField.swift in Sources */,
 				F7752197229DA260008140BC /* DeviceModel.swift in Sources */,
@@ -397,17 +404,18 @@
 				F7DEBB5422886F980078B4FA /* AppDelegate+Setup.swift in Sources */,
 				F775219F229EBE4D008140BC /* AirStatusIndicatorView.swift in Sources */,
 				F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */,
+				F77521A722A7D077008140BC /* AirlyService.swift in Sources */,
 				F775218A22942624008140BC /* MapViewController.swift in Sources */,
 				F7DEBB7222886FAB0078B4FA /* RegistrationViewController.swift in Sources */,
 				F7DEBB6C22886FAB0078B4FA /* AppService.swift in Sources */,
 				F7DEBB6B22886FAB0078B4FA /* Coordinator.swift in Sources */,
 				F7DEBB5722886FA00078B4FA /* customButton.swift in Sources */,
+				F77521A922A7DB70008140BC /* AirlyNearestDevice.swift in Sources */,
 				F77521882293EA9B008140BC /* MapViewModel.swift in Sources */,
 				F7DEBB6D22886FAB0078B4FA /* AppManager.swift in Sources */,
 				F7DEBB6A22886FAB0078B4FA /* RegistrationCoordinator.swift in Sources */,
 				F775219A229DA524008140BC /* DevicesCollectionViewCell.swift in Sources */,
 				F7DEBB6922886FAB0078B4FA /* ApplicationCoordinator.swift in Sources */,
-				F7752194229DA050008140BC /* DevicesListViewModel.swift in Sources */,
 				F7DEBB6E22886FAB0078B4FA /* ViewModelType.swift in Sources */,
 				F7752192229D9F39008140BC /* DevicesCollectionViewController.swift in Sources */,
 				F77521A522A64C5E008140BC /* DevicesCollectionViewHeader.swift in Sources */,

@@ -12,7 +12,7 @@ import M13ProgressSuite
 class DevicesCollectionViewCell: UICollectionViewCell {
     
     lazy var progressBorderedCO : M13ProgressViewBorderedBar = {
-        let bar =  M13ProgressViewBorderedBar(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 40))
+        let bar =  M13ProgressViewBorderedBar(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 20))
         
         bar.cornerType = M13ProgressViewBorderedBarCornerTypeRounded
         bar.cornerRadius = 8.0
@@ -21,7 +21,7 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         bar.secondaryColor = .clear
         bar.setProgress(0.5, animated: true)
         bar.translatesAutoresizingMaskIntoConstraints = false
-        bar.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        bar.heightAnchor.constraint(equalToConstant: 20).isActive = true
         return bar
     }()
     
@@ -134,7 +134,7 @@ class DevicesCollectionViewCell: UICollectionViewCell {
     }()
     
     private let temperatureImageView: UIImageView = {
-        let iv = UIImageView(image: #imageLiteral(resourceName: "thermometer").withRenderingMode(.alwaysOriginal))
+        let iv = UIImageView(image: #imageLiteral(resourceName: "icons8-thermometer-50").withRenderingMode(.alwaysOriginal))
         iv.clipsToBounds = true
         iv.contentMode = UIView.ContentMode.scaleAspectFill
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -144,7 +144,7 @@ class DevicesCollectionViewCell: UICollectionViewCell {
     }()
     
     private let pressureImageView: UIImageView = {
-        let iv = UIImageView(image: #imageLiteral(resourceName: "pressure").withRenderingMode(.alwaysOriginal))
+        let iv = UIImageView(image: #imageLiteral(resourceName: "icons8-pressure-gauge-50").withRenderingMode(.alwaysOriginal))
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -154,7 +154,7 @@ class DevicesCollectionViewCell: UICollectionViewCell {
     }()
     
     private let humidityImageView: UIImageView = {
-        let iv = UIImageView(image: #imageLiteral(resourceName: "humidity").withRenderingMode(.alwaysOriginal))
+        let iv = UIImageView(image: #imageLiteral(resourceName: "icons8-humidity-50").withRenderingMode(.alwaysOriginal))
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
         iv.translatesAutoresizingMaskIntoConstraints = false

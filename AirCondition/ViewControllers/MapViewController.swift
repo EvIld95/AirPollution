@@ -14,6 +14,8 @@ class MapViewController: UIViewController {
     var viewModel: MapViewModel!
     var locationManager = CLLocationManager()
     let disposeBag = DisposeBag()
+    var appManager: AppManager!
+    
     lazy var mapView: MKMapView! = {
         let mv = MKMapView()
         mv.showsUserLocation = true
@@ -34,14 +36,19 @@ class MapViewController: UIViewController {
     }
     
     private func setupRx() {
-        self.viewModel.output.devices.asObservable().subscribe(onNext: { (devices) in
-            for device in devices {
+        let devices = self.viewModel.output.devices.asObservable().flatMap({ (devices) -> Observable<DeviceModel> in
+            return Observable.from(devices)
+        })
+        
+        devices.flatMap { (device) in
+            return device.address.map({ (address) -> AnnotationPointDevice in
                 let annotation = AnnotationPointDevice(device: device)
-                annotation.title = "Location"
-                annotation.coordinate = CLLocationCoordinate2D(latitude: device.latitude, longitude: device.longitude)
-               
-                self.mapView.addAnnotation(annotation)
-            }
+                annotation.title = address
+                annotation.coordinate = CLLocationCoordinate2D(latitude: device.latitude.value, longitude: device.longitude.value)
+                return annotation
+            })
+        }.subscribe(onNext: { annotation in
+            self.mapView.addAnnotation(annotation)
         }).disposed(by: disposeBag)
     }
     
@@ -54,7 +61,6 @@ class MapViewController: UIViewController {
     }
     
 }
-
 
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -86,6 +92,7 @@ extension MapViewController: MKMapViewDelegate {
         return annotationView
     }
 }
+var request = false
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -97,8 +104,14 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
-        let center = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//        let center = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
+//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        
+        if !request {
+            appManager.testAirly(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
+        }
+        request = true
+        
       //  mapView.setRegion(region, animated: true)
     }
 }

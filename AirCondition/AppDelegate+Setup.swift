@@ -19,16 +19,13 @@ extension AppDelegate {
         
         container.register(MapViewModel.self) { (_) in
             return MapViewModel()
-        }
-        
-        container.register(DevicesListViewModel.self, factory: { _ in
-            return DevicesListViewModel()
-        })
+        }.inObjectScope(.container)
+
         
         //otherDependencies
         container.register(AppManager.self) { _ in
             return AppManager()
-        }
+        }.inObjectScope(.container)
         
         
         //viewControllers
@@ -42,7 +39,7 @@ extension AppDelegate {
         container.register(MapViewController.self) { r in
             let mainVC = MapViewController()
             mainVC.viewModel = r.resolve(MapViewModel.self)
-         
+            mainVC.appManager = r.resolve(AppManager.self)
             return mainVC
         }
         
@@ -53,7 +50,7 @@ extension AppDelegate {
         
         container.register(DevicesCollectionViewController.self) { (r) in
             let deviceVC = DevicesCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-            deviceVC.viewModel = r.resolve(DevicesListViewModel.self)
+            deviceVC.viewModel = r.resolve(MapViewModel.self)
             return deviceVC
         }
        

@@ -43,4 +43,18 @@ class AppManager {
             }
         }
     }
+    
+    
+    func testAirly(latitude: Double, longitude: Double) {
+        let provider = MoyaProvider<AirlyService>(plugins: [CompleteUrlLoggerPlugin()])
+        
+        provider.request(.nearestInstallations(latitude: latitude, longitude: longitude, distance: 10.0)) { result in
+            switch result {
+            case let .success(response):
+                let data = try? response.map(to: AirlyNearestDevice.self)
+            case .failure:
+                print("ERROR")
+            }
+        }
+    }
 }

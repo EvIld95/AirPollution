@@ -37,7 +37,12 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: self.view.frame.width, height: 220)
+        let device = self.viewModel.output.devices.value[indexPath.section]
+        if device.CO != nil {
+            return .init(width: self.view.frame.width, height: 220)
+        } else {
+            return .init(width: self.view.frame.width, height: 170)
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -49,7 +54,9 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         cell.pm10 = device.pm10
         cell.pm100 = device.pm100
         cell.pm25 = device.pm25
-        cell.CO = device.CO ?? 0.0
+        cell.CO = device.CO
+        cell.hideProgressBar(hide: device.CO == nil)
+        
         cell.backgroundColor = .clear
         return cell
     }

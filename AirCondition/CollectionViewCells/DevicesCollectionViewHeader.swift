@@ -15,6 +15,11 @@ class DevicesCollectionViewHeader: UICollectionViewCell {
     let disposeBag = DisposeBag()
     var device: DeviceModel! {
         didSet {
+            if(device.CO == nil) {
+                self.deviceImageView.image = #imageLiteral(resourceName: "airlyDevice").withRenderingMode(.alwaysOriginal)
+            } else {
+                self.deviceImageView.image = #imageLiteral(resourceName: "device1").withRenderingMode(.alwaysOriginal)
+            }
             self.setupRx()
         }
     }

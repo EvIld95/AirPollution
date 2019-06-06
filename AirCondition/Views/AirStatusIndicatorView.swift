@@ -8,12 +8,28 @@
 
 import UIKit
 
+enum AirQuality {
+    case normal
+    case bad
+    case alarm
+}
+
 class AirStatusIndicatorView: UIView {
 
     let device: DeviceModel!
     init(device: DeviceModel) {
         self.device = device
         super.init(frame: .init(x: 0, y: 0, width: 15, height: 15))
+        
+        if(device.CO == nil) { //airly
+            let label = UILabel(frame: .init(x: 0, y: 0, width: 15, height: 15))
+            label.font = UIFont.systemFont(ofSize: 10)
+            label.text = "A"
+            label.textAlignment = .center
+            label.numberOfLines = 0
+            self.addSubview(label)
+        }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -23,18 +39,19 @@ class AirStatusIndicatorView: UIView {
     override func draw(_ rect: CGRect) {
         let bezierPath = UIBezierPath(ovalIn: rect)
         
-        if(device.CO == nil) { //airly
-            UIColor.black.setFill()
-            bezierPath.fill()
-            return
-        }
+       
         
-        if(device.pm100 < 50) {
-            UIColor.green.setFill()
-        } else {
-            UIColor.red.setFill()
+        switch calculateAirQuality() {
+            case .normal:
+                UIColor.green.setFill()
+            case .bad:
+                UIColor.orange.setFill()
+            case .alarm:
+                UIColor.red.setFill()
         }
+  
         bezierPath.fill()
+
         
     }
  
@@ -43,6 +60,19 @@ class AirStatusIndicatorView: UIView {
             self.draw(bounds)
         }
         return image
+    }
+    
+    func calculateAirQuality() -> AirQuality {
+        let pm100 = device.pm100!
+        let pm25 = device.pm25!
+        
+        if pm25 < 25 && pm100 < 50 {
+            return .normal
+        } else if pm100 < 200 {
+            return .bad
+        } else {
+            return .alarm
+        }
     }
 
 }

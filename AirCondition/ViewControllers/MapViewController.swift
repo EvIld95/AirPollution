@@ -25,6 +25,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //mapView.register(DeviceValuesAnnotationView.self, forAnnotationViewWithReuseIdentifier: "id")
         self.setupLayout()
         self.setupLocationManager()
         self.setupRx()
@@ -33,6 +34,7 @@ class MapViewController: UIViewController {
     private func setupLayout() {
         self.view.addSubview(mapView)
         mapView.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+        
     }
     
     private func setupRx() {
@@ -72,26 +74,32 @@ extension MapViewController: MKMapViewDelegate {
         guard let annotation = annotation as? AnnotationPointDevice else { return nil }
         
         
-        let id = "item"
+        let id = "id"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: id)
         
+
+        let indicatorView = AirStatusIndicatorView(device: annotation.device)
+        let deviceView = DeviceValuesView(device: annotation.device, frame: .init(x: 0, y: 0, width: 300, height: 200))
+       
+        
         if annotationView == nil {
-            let indicatorView = AirStatusIndicatorView(device: annotation.device)
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: id)
             guard let annotationView = annotationView else { return nil }
             annotationView.canShowCallout = true
             annotationView.isEnabled = true
             annotationView.image = indicatorView.getImage()
-            
-            let label = UILabel(frame: .init(x: 0, y: 0, width: 120, height: 40))
-            label.text = "Time"
-            annotationView.rightCalloutAccessoryView = label
+            annotationView.detailCalloutAccessoryView = deviceView
+        
         } else {
-            annotationView?.annotation = annotation
+            annotationView!.annotation = annotation
+            annotationView!.image = indicatorView.getImage()
+            annotationView!.detailCalloutAccessoryView = deviceView
+       
         }
         
         return annotationView
     }
+    
 }
 var request = false
 
@@ -121,7 +129,6 @@ extension MapViewController: CLLocationManagerDelegate {
             
         }
         request = true
-        
-      //  mapView.setRegion(region, animated: true)
+
     }
 }

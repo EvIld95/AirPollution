@@ -25,8 +25,9 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return bar
     }()
     
-    var CO: Double = 0.0 {
+    var CO: Double? = nil {
         didSet {
+            guard let CO = CO else { return }
             self.progressBorderedCO.setProgress(CGFloat(CO/1024.0), animated: true)
             self.progressBorderedCO.primaryColor = UIColor(hue: CGFloat(0.33 - ((CO/1024) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
         }
@@ -163,6 +164,18 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return iv
     }()
     
+    private lazy var stackViewBottom: UIStackView = {
+        let stackViewBottom = UIStackView(arrangedSubviews: [self.COLabel, self.progressBorderedCO])
+        stackViewBottom.distribution = UIStackView.Distribution.fill
+        stackViewBottom.alignment = .leading
+        stackViewBottom.axis = .horizontal
+        stackViewBottom.spacing = 10
+        stackViewBottom.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        stackViewBottom.isLayoutMarginsRelativeArrangement = true
+        stackViewBottom.layoutMargins = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
+        stackViewBottom.isHidden = true
+        return stackViewBottom
+    }()
     
     private lazy var sensorStackView: UIStackView = {
         let stackViewTemperature = UIStackView(arrangedSubviews: [self.temperatureImageView, self.temperatureLabel])
@@ -197,30 +210,47 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         stackViewCenter.alignment = .fill
         stackViewCenter.axis = .horizontal
         
-        let stackViewBottom = UIStackView(arrangedSubviews: [self.COLabel, self.progressBorderedCO])
-        stackViewBottom.distribution = UIStackView.Distribution.fill
-        stackViewBottom.alignment = .leading
-        stackViewBottom.axis = .horizontal
-        stackViewBottom.spacing = 10
-        stackViewBottom.isLayoutMarginsRelativeArrangement = true
-        stackViewBottom.layoutMargins = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
+//        let stackViewBottom = UIStackView(arrangedSubviews: [self.COLabel, self.progressBorderedCO])
+//        stackViewBottom.distribution = UIStackView.Distribution.fill
+//        stackViewBottom.alignment = .leading
+//        stackViewBottom.axis = .horizontal
+//        stackViewBottom.spacing = 10
+//        stackViewBottom.isLayoutMarginsRelativeArrangement = true
+//        stackViewBottom.layoutMargins = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
+        
+//        var arrangedSubview: [UIView]
+//        if self.CO != nil {
+//            arrangedSubview = [stackViewTop, stackViewCenter, stackViewBottom]
+//        } else {
+//            arrangedSubview = [stackViewTop, stackViewCenter]
+//        }
         
         let stackView = UIStackView(arrangedSubviews: [stackViewTop, stackViewCenter, stackViewBottom])
-        stackView.distribution = UIStackView.Distribution.fillEqually
+        stackView.distribution = UIStackView.Distribution.equalSpacing
         stackView.alignment = UIStackView.Alignment.fill
         stackView.axis = .vertical
         
         return stackView
     }()
     
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//    }
+//
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+    
     
     
     override func didMoveToSuperview() {
-    
         self.addSubview(sensorStackView)
-    
         sensorStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 8, left: 8, bottom: 8, right: 8))
         
+    }
+    
+    func hideProgressBar(hide: Bool) {
+        self.stackViewBottom.isHidden = hide
     }
     
 }

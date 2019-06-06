@@ -42,15 +42,17 @@ struct DeviceModel {
                     if (error != nil) {
                         print("reverse geodcode fail: \(error!.localizedDescription)")
                         obs.onError(error!)
+                    } else {
+                        guard let pm = placemarks else { return }
+                        
+                        if pm.count > 0 {
+                            let pm = placemarks![0]
+                            let locality = (pm.locality != nil ? "\(pm.locality!)" : "")
+                            let text = locality + (pm.thoroughfare != nil ? ", \(pm.thoroughfare!)" : "")
+                            obs.onNext(text)
+                        }
                     }
-                    let pm = placemarks! as [CLPlacemark]
-                    
-                    if pm.count > 0 {
-                        let pm = placemarks![0]
-                        let locality = (pm.locality != nil ? "\(pm.locality!)" : "")
-                        let text = locality + (pm.thoroughfare != nil ? ", \(pm.thoroughfare!)" : "")
-                        obs.onNext(text)
-                    }
+                    obs.onCompleted()
             })
             
             return Disposables.create()

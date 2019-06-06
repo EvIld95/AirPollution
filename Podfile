@@ -10,6 +10,8 @@ target 'AirCondition' do
   pod 'Firebase/Auth’,’~>5.10.0’
   pod 'Firebase/Storage’,’~>5.10.0’
   pod 'Firebase/Core’
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Database'
   pod 'SDWebImage','~>4.4.2’
   pod 'JGProgressHUD','~>2.0.3'
   pod 'RxSwift',    '~> 4.0'

@@ -8,9 +8,11 @@
 
 import UIKit
 import M13ProgressSuite
+import RxSwift
 
 class DevicesCollectionViewCell: UICollectionViewCell {
-    
+    let disposeBag = DisposeBag()
+    var device: DeviceModel!
     lazy var progressBorderedCO : M13ProgressViewBorderedBar = {
         let bar =  M13ProgressViewBorderedBar(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 20))
         
@@ -25,49 +27,49 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return bar
     }()
     
-    var CO: Double? = nil {
-        didSet {
-            guard let CO = CO else { return }
-            self.progressBorderedCO.setProgress(CGFloat(CO/1024.0), animated: true)
-            self.progressBorderedCO.primaryColor = UIColor(hue: CGFloat(0.33 - ((CO/1024) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
-        }
-    }
-    
-    var temperature: Double = 0.0 {
-        didSet {
-            self.temperatureLabel.text = "\(temperature) C"
-        }
-    }
-    
-    var humidity: Double = 0.0 {
-        didSet {
-            self.humidityLabel.text = "\(humidity) %"
-        }
-    }
-    
-    var pressure: Double = 0.0 {
-        didSet {
-            self.pressureLabel.text = "\(pressure) hPa"
-        }
-    }
-    
-    var pm10: Int = 0 {
-        didSet {
-            self.pm10Label.text = "PM1.0: \(pm10)"
-        }
-    }
-    
-    var pm25: Int = 0 {
-        didSet {
-            self.pm25Label.text = "PM2.5: \(pm25)"
-        }
-    }
-    
-    var pm100: Int = 0 {
-        didSet {
-            self.pm100Label.text = "PM10: \(pm100)"
-        }
-    }
+//    var CO: Double? = nil {
+//        didSet {
+//            guard let CO = CO else { return }
+//            self.progressBorderedCO.setProgress(CGFloat(CO/1024.0), animated: true)
+//            self.progressBorderedCO.primaryColor = UIColor(hue: CGFloat(0.33 - ((CO/1024) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
+//        }
+//    }
+//
+//    var temperature: Double = 0.0 {
+//        didSet {
+//            self.temperatureLabel.text = "\(temperature) C"
+//        }
+//    }
+//
+//    var humidity: Double = 0.0 {
+//        didSet {
+//            self.humidityLabel.text = "\(humidity) %"
+//        }
+//    }
+//
+//    var pressure: Double = 0.0 {
+//        didSet {
+//            self.pressureLabel.text = "\(pressure) hPa"
+//        }
+//    }
+//
+//    var pm10: Int = 0 {
+//        didSet {
+//            self.pm10Label.text = "PM1.0: \(pm10)"
+//        }
+//    }
+//
+//    var pm25: Int = 0 {
+//        didSet {
+//            self.pm25Label.text = "PM2.5: \(pm25)"
+//        }
+//    }
+//
+//    var pm100: Int = 0 {
+//        didSet {
+//            self.pm100Label.text = "PM10: \(pm100)"
+//        }
+//    }
     
     private let pressureLabel: UILabel = {
         let label = UILabel()
@@ -232,21 +234,24 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         
         return stackView
     }()
-    
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
-    
-    
+
     override func didMoveToSuperview() {
+        self.setupRx()
         self.addSubview(sensorStackView)
         sensorStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 8, left: 8, bottom: 8, right: 8))
-        
+    }
+    
+    func setupRx() {
+        device.temperature.asDriver().map({ (value) -> String in "\(value!) C" }).drive(self.temperatureLabel.rx.text).disposed(by: disposeBag)
+        device.humidity.asDriver().map({ (value) -> String in "\(value!) %" }).drive(self.humidityLabel.rx.text).disposed(by: disposeBag)
+        device.pressure.asDriver().map({ (value) -> String in "\(value!) hPa" }).drive(self.pressureLabel.rx.text).disposed(by: disposeBag)
+        device.pm10.asDriver().map({ (value) -> String in "PM1.0: \(value!)" }).drive(self.pm10Label.rx.text).disposed(by: disposeBag)
+        device.pm100.asDriver().map({ (value) -> String in "PM10: \(value!)" }).drive(self.pm100Label.rx.text).disposed(by: disposeBag)
+        device.pm25.asDriver().map({ (value) -> String in "PM2.5: \(value!)" }).drive(self.pm25Label.rx.text).disposed(by: disposeBag)
+        device.CO.asObservable().map({ (value) -> Double in Double(value ?? 0.0) / 1024.0  }).subscribe(onNext: { value in
+            self.progressBorderedCO.setProgress(CGFloat(value/1024.0), animated: true)
+            self.progressBorderedCO.primaryColor = UIColor(hue: CGFloat(0.33 - ((value/1024) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
+        }).disposed(by: disposeBag)
     }
     
     func hideProgressBar(hide: Bool) {

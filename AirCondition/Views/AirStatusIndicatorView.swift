@@ -63,8 +63,8 @@ class AirStatusIndicatorView: UIView {
     }
     
     func calculateAirQuality() -> AirQuality {
-        let pm100 = device.pm100!
-        let pm25 = device.pm25!
+        let pm100 = device.pm100.value!
+        let pm25 = device.pm25.value!
         
         if pm25 < 25 && pm100 < 50 {
             return .normal

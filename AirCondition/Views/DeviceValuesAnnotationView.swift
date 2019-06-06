@@ -8,8 +8,10 @@
 
 import UIKit
 import MapKit
+import RxSwift
 
 class DeviceValuesView: UIView {
+    let disposeBag = DisposeBag()
     var typeOfDevice: String = "" {
         didSet {
             self.typeOfDeviceLabel.text = typeOfDevice
@@ -149,14 +151,21 @@ class DeviceValuesView: UIView {
     
 
     init(device: DeviceModel, frame: CGRect) {
-        self.temperatureLabel.text = "\(device.temperature!) C"
-        self.humidityLabel.text = "\(device.humidity!) %"
-        self.pressureLabel.text = "\(device.pressure!) hPa"
-        self.pm10Label.text = "PM1.0: \(device.pm10!)"
-        self.pm25Label.text = "PM2.5: \(device.pm25!)"
-        self.pm100Label.text = "PM10: \(device.pm100!)"
+        
+        device.temperature.asDriver().map({ (value) -> String in "\(value!) C" }).drive(self.temperatureLabel.rx.text).disposed(by: disposeBag)
+        device.humidity.asDriver().map({ (value) -> String in "\(value!) %" }).drive(self.humidityLabel.rx.text).disposed(by: disposeBag)
+        device.pressure.asDriver().map({ (value) -> String in "\(value!) hPa" }).drive(self.pressureLabel.rx.text).disposed(by: disposeBag)
+        device.pm10.asDriver().map({ (value) -> String in "PM1.0: \(value!)" }).drive(self.pm10Label.rx.text).disposed(by: disposeBag)
+        device.pm100.asDriver().map({ (value) -> String in "PM10: \(value!)" }).drive(self.pm100Label.rx.text).disposed(by: disposeBag)
+        device.pm25.asDriver().map({ (value) -> String in "PM2.5: \(value!)" }).drive(self.pm25Label.rx.text).disposed(by: disposeBag)
+//        self.temperatureLabel.text = "\(device.temperature.value!) C"
+//        self.humidityLabel.text = "\(device.humidity.value!) %"
+//        self.pressureLabel.text = "\(device.pressure.value!) hPa"
+//        self.pm10Label.text = "PM1.0: \(device.pm10.value!)"
+//        self.pm25Label.text = "PM2.5: \(device.pm25.value!)"
+//        self.pm100Label.text = "PM10: \(device.pm100.value!)"
       
-        if device.CO == nil {
+        if device.CO.value == nil {
             self.typeOfDeviceLabel.text = "Airly"
         } else {
             self.typeOfDeviceLabel.text = "Raspberry"

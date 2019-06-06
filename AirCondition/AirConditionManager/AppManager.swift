@@ -11,6 +11,7 @@ import Moya
 import Moya_SwiftyJSONMapper
 import SwiftyJSON
 import Firebase
+import FirebaseDatabase
 
 class AppManager {
     func basic() {
@@ -73,4 +74,5 @@ class AppManager {
             }
         }
     }
+
 }

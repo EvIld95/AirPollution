@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 enum DevicesCollectionCellIDs: String {
     case device
@@ -16,6 +17,7 @@ enum DevicesCollectionCellIDs: String {
 
 class DevicesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var viewModel: MapViewModel!
+    let disposeBag = DisposeBag()
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
@@ -39,7 +41,7 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let device = self.viewModel.output.devices.value[indexPath.section]
-        if device.CO != nil {
+        if device.CO.value != nil {
             return .init(width: self.view.frame.width, height: 220)
         } else {
             return .init(width: self.view.frame.width, height: 170)
@@ -49,14 +51,16 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DevicesCollectionCellIDs.device.rawValue, for: indexPath) as! DevicesCollectionViewCell
         let device = self.viewModel.output.devices.value[indexPath.section]
-        cell.temperature = device.temperature
-        cell.humidity = device.humidity
-        cell.pressure = device.pressure
-        cell.pm10 = device.pm10
-        cell.pm100 = device.pm100
-        cell.pm25 = device.pm25
-        cell.CO = device.CO
-        cell.hideProgressBar(hide: device.CO == nil)
+        
+//        cell.temperature = device.temperature.value!
+//        cell.humidity = device.humidity.value!
+//        cell.pressure = device.pressure.value!
+//        cell.pm10 = device.pm10.value!
+//        cell.pm100 = device.pm100.value!
+//        cell.pm25 = device.pm25.value!
+//        cell.CO = device.CO.value
+        cell.hideProgressBar(hide: device.CO.value == nil)
+        cell.device = device
         
         cell.backgroundColor = .clear
         return cell

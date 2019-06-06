@@ -9,16 +9,18 @@
 import Foundation
 import RxSwift
 import CoreLocation
+import FirebaseDatabase
+import Firebase
 
-struct DeviceModel {
-    var serial: String?
-    var pm10: Int!
-    var pm25: Int!
-    var pm100: Int!
-    var pressure: Double!
-    var temperature: Double!
-    var humidity: Double!
-    var CO: Double?
+class DeviceModel {
+    var serial: Variable<String?> = Variable<String?>(nil)
+    var pm10: Variable<Int?> = Variable<Int?>(nil)
+    var pm25: Variable<Int?> = Variable<Int?>(nil)
+    var pm100: Variable<Int?> = Variable<Int?>(nil)
+    var pressure: Variable<Double?> = Variable<Double?>(nil)
+    var temperature: Variable<Double?> = Variable<Double?>(nil)
+    var humidity: Variable<Double?> = Variable<Double?>(nil)
+    var CO: Variable<Double?> = Variable<Double?>(nil)
     var latitude: Variable<Double> = Variable<Double>(0.0)
     var longitude: Variable<Double> = Variable<Double>(0.0)
     
@@ -60,29 +62,47 @@ struct DeviceModel {
     }
     
     init(serial: String, pm10: Int, pm25: Int, pm100: Int, pressure: Double, temperature: Double, humidity: Double, CO: Double, latitude: Variable<Double>, longitude: Variable<Double>) {
-        self.serial = serial
-        self.pm10 = pm10
-        self.pm25 = pm25
-        self.pm100 = pm100
-        self.pressure = pressure
-        self.temperature = temperature
-        self.humidity = humidity
-        self.CO = CO
+        self.serial.value = serial
+        self.pm10.value = pm10
+        self.pm25.value = pm25
+        self.pm100.value = pm100
+        self.pressure.value = pressure
+        self.temperature.value = temperature
+        self.humidity.value = humidity
+        self.CO.value = CO
         self.latitude = latitude
         self.longitude = longitude
     }
     
     init(deviceAirly: AirlyDeviceSensor) {
-        self.serial = nil
-        self.pm10 = Int(deviceAirly.pm10!)
-        self.pm25 = Int(deviceAirly.pm25!)
-        self.pm100 = Int(deviceAirly.pm100!)
-        self.pressure = deviceAirly.pressure
-        self.temperature = deviceAirly.temperature
-        self.humidity = deviceAirly.humidity
-        self.CO = nil
+        self.serial.value = nil
+        self.pm10.value = Int(deviceAirly.pm10!)
+        self.pm25.value = Int(deviceAirly.pm25!)
+        self.pm100.value = Int(deviceAirly.pm100!)
+        self.pressure.value = deviceAirly.pressure
+        self.temperature.value = deviceAirly.temperature
+        self.humidity.value = deviceAirly.humidity
+        self.CO.value = nil
         self.latitude.value = deviceAirly.deviceAirly!.latitude!
         self.longitude.value = deviceAirly.deviceAirly!.longitude!
+    }
+    
+    func listenForDeviceUpdates() {
+        guard let id = self.serial.value else { return }
+        let ref = Database.database().reference().child("airDevice").child(id)
+        ref.observe(.value, with: { (snapshot) in
+            if let dict = snapshot.value as? [String: AnyObject] {
+                print(dict)
+                
+                self.humidity.value = (dict["Humidity"]! as! Double)
+                self.pm10.value = (dict["PM10"]! as! Int)
+                self.pm25.value = (dict["PM25"]! as! Int)
+                self.pm100.value = (dict["PM100"]! as! Int)
+                self.pressure.value = (dict["Pressure"]! as! Double)
+                self.temperature.value = (dict["Temp"] as! Double)
+                
+            }
+        })
     }
     
 }

@@ -21,7 +21,7 @@ class MapViewModel: ViewModelType {
     
     struct Output {
         var devices = Variable<[DeviceModel]>([])
-        
+        var logout = Variable<Bool>(false)
     }
     
     init() {

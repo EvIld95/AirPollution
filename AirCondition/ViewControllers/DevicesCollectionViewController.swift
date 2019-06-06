@@ -30,7 +30,8 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         if let cvLayout = self.collectionViewLayout as? UICollectionViewFlowLayout {
             cvLayout.scrollDirection = .vertical
         }
-        
+        self.title = "Device"
+    
         self.collectionView.backgroundView = setupGradientLayer()
         self.collectionView.register(DevicesCollectionViewCell.self, forCellWithReuseIdentifier: DevicesCollectionCellIDs.device.rawValue)
         self.collectionView.register(DevicesCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DevicesCollectionCellIDs.header.rawValue)

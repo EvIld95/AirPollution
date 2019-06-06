@@ -173,6 +173,4 @@ class DeviceValuesView: UIView {
         self.addSubview(sensorStackView)
         sensorStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 8, left: 8, bottom: 8, right: 8))
     }
-
-
 }

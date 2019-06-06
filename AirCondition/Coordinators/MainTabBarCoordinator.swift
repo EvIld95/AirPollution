@@ -18,24 +18,26 @@ class MainTabBarCoordinator: Coordinator {
     var childCoordinators: [AppChildCoordinator: Coordinator]
     var navigationController: UINavigationController
     var mainTabBarController: MainTabBarController!
+    var parentCoordiantor: Coordinator!
     let disposeBag = DisposeBag()
     
-    init(presenter: UINavigationController, container: Container) {
+    init(presenter: UINavigationController, container: Container, parent: Coordinator) {
         self.childCoordinators = [AppChildCoordinator: Coordinator]()
         self.navigationController = presenter
-        self.navigationController.title = "Air"
         self.container = container
+        self.parentCoordiantor = parent
     }
     
     func start() {
         self.mainTabBarController = container.resolve(MainTabBarController.self)!
         self.setupViewControllers()
         self.navigationController.pushViewController(mainTabBarController, animated: true)
-        
+        self.navigationController.isNavigationBarHidden = true
     }
     
     func setupViewControllers() {
         let mapViewController = self.container.resolve(MapViewController.self)
+        mapViewController!.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(logout))
         let mapNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "profile_unselected"), selectedImage: #imageLiteral(resourceName: "profile_unselected"), rootViewController: mapViewController!)
         
         let deviceCollectionViewController = self.container.resolve(DevicesCollectionViewController.self)
@@ -44,10 +46,18 @@ class MainTabBarCoordinator: Coordinator {
 
         self.mainTabBarController.tabBar.tintColor = .black
         self.mainTabBarController.viewControllers = [mapNavController, deviceViewController]
+      
+        
         
         for item in  self.mainTabBarController.tabBar.items! {
             item.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
         }
+    }
+    
+    
+    @objc func logout() {
+        guard let _ = try? Auth.auth().signOut() else { return }
+        self.parentCoordiantor.start()
     }
     
     fileprivate func templateNavController(unselectedImage: UIImage, selectedImage: UIImage, rootViewController: UIViewController = UIViewController()) -> UINavigationController {
@@ -58,7 +68,5 @@ class MainTabBarCoordinator: Coordinator {
         
         return navController
     }
-    
-    
 }
 

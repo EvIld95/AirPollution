@@ -33,8 +33,6 @@ class ApplicationCoordinator: Coordinator {
     }
     
     func start() {
-        guard let _ = try? Auth.auth().signOut() else { return }
-        
         if Auth.auth().currentUser == nil {
             //presentedModally
             DispatchQueue.main.async {
@@ -42,10 +40,11 @@ class ApplicationCoordinator: Coordinator {
                 self.childCoordinators[.register] = registrationCoordinator
                 registrationCoordinator.start()
             }
+        } else if self.childCoordinators[.main] == nil {
+            let mainCoordinator = MainTabBarCoordinator(presenter: self.navigationController, container: self.container, parent: self)
+            self.childCoordinators[.main] = mainCoordinator
+            mainCoordinator.start()
         }
-        let mainCoordinator = MainTabBarCoordinator(presenter: self.navigationController, container: self.container)
-        self.childCoordinators[.main] = mainCoordinator
-        mainCoordinator.start()
         
     }
 }

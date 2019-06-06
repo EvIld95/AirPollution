@@ -39,8 +39,8 @@ class RegistrationCoordinator: Coordinator {
     }
     
     func launchMainViewController() {
-        self.navigationController.dismiss(animated: true) {
-            self.parentCoordiantor.childCoordinators.removeValue(forKey: .register)
-        }
+        self.navigationController.dismiss(animated: true, completion: nil)
+        self.parentCoordiantor.childCoordinators.removeValue(forKey: .register)
+        self.parentCoordiantor.start()
     }
 }

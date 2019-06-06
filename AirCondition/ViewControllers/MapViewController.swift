@@ -25,16 +25,15 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //mapView.register(DeviceValuesAnnotationView.self, forAnnotationViewWithReuseIdentifier: "id")
+        self.title = "Map"
         self.setupLayout()
         self.setupLocationManager()
         self.setupRx()
-    }
+     }
     
     private func setupLayout() {
         self.view.addSubview(mapView)
         mapView.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
-        
     }
     
     private func setupRx() {
@@ -73,7 +72,6 @@ extension MapViewController: MKMapViewDelegate {
         
         guard let annotation = annotation as? AnnotationPointDevice else { return nil }
         
-        
         let id = "id"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: id)
         
@@ -94,7 +92,6 @@ extension MapViewController: MKMapViewDelegate {
             annotationView!.annotation = annotation
             annotationView!.image = indicatorView.getImage()
             annotationView!.detailCalloutAccessoryView = deviceView
-       
         }
         
         return annotationView

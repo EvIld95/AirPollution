@@ -158,12 +158,6 @@ class DeviceValuesView: UIView {
         device.pm10.asDriver().map({ (value) -> String in "PM1.0: \(value!)" }).drive(self.pm10Label.rx.text).disposed(by: disposeBag)
         device.pm100.asDriver().map({ (value) -> String in "PM10: \(value!)" }).drive(self.pm100Label.rx.text).disposed(by: disposeBag)
         device.pm25.asDriver().map({ (value) -> String in "PM2.5: \(value!)" }).drive(self.pm25Label.rx.text).disposed(by: disposeBag)
-//        self.temperatureLabel.text = "\(device.temperature.value!) C"
-//        self.humidityLabel.text = "\(device.humidity.value!) %"
-//        self.pressureLabel.text = "\(device.pressure.value!) hPa"
-//        self.pm10Label.text = "PM1.0: \(device.pm10.value!)"
-//        self.pm25Label.text = "PM2.5: \(device.pm25.value!)"
-//        self.pm100Label.text = "PM10: \(device.pm100.value!)"
       
         if device.CO.value == nil {
             self.typeOfDeviceLabel.text = "Airly"

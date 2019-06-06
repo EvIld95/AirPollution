@@ -27,50 +27,6 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         return bar
     }()
     
-//    var CO: Double? = nil {
-//        didSet {
-//            guard let CO = CO else { return }
-//            self.progressBorderedCO.setProgress(CGFloat(CO/1024.0), animated: true)
-//            self.progressBorderedCO.primaryColor = UIColor(hue: CGFloat(0.33 - ((CO/1024) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
-//        }
-//    }
-//
-//    var temperature: Double = 0.0 {
-//        didSet {
-//            self.temperatureLabel.text = "\(temperature) C"
-//        }
-//    }
-//
-//    var humidity: Double = 0.0 {
-//        didSet {
-//            self.humidityLabel.text = "\(humidity) %"
-//        }
-//    }
-//
-//    var pressure: Double = 0.0 {
-//        didSet {
-//            self.pressureLabel.text = "\(pressure) hPa"
-//        }
-//    }
-//
-//    var pm10: Int = 0 {
-//        didSet {
-//            self.pm10Label.text = "PM1.0: \(pm10)"
-//        }
-//    }
-//
-//    var pm25: Int = 0 {
-//        didSet {
-//            self.pm25Label.text = "PM2.5: \(pm25)"
-//        }
-//    }
-//
-//    var pm100: Int = 0 {
-//        didSet {
-//            self.pm100Label.text = "PM10: \(pm100)"
-//        }
-//    }
-    
     private let pressureLabel: UILabel = {
         let label = UILabel()
         label.text = "1012hPa"
@@ -211,21 +167,6 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         stackViewCenter.distribution = .fillEqually
         stackViewCenter.alignment = .fill
         stackViewCenter.axis = .horizontal
-        
-//        let stackViewBottom = UIStackView(arrangedSubviews: [self.COLabel, self.progressBorderedCO])
-//        stackViewBottom.distribution = UIStackView.Distribution.fill
-//        stackViewBottom.alignment = .leading
-//        stackViewBottom.axis = .horizontal
-//        stackViewBottom.spacing = 10
-//        stackViewBottom.isLayoutMarginsRelativeArrangement = true
-//        stackViewBottom.layoutMargins = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
-        
-//        var arrangedSubview: [UIView]
-//        if self.CO != nil {
-//            arrangedSubview = [stackViewTop, stackViewCenter, stackViewBottom]
-//        } else {
-//            arrangedSubview = [stackViewTop, stackViewCenter]
-//        }
         
         let stackView = UIStackView(arrangedSubviews: [stackViewTop, stackViewCenter, stackViewBottom])
         stackView.distribution = UIStackView.Distribution.equalSpacing

@@ -20,16 +20,6 @@ class AirStatusIndicatorView: UIView {
     init(device: DeviceModel) {
         self.device = device
         super.init(frame: .init(x: 0, y: 0, width: 15, height: 15))
-        
-        if(device.CO == nil) { //airly
-            let label = UILabel(frame: .init(x: 0, y: 0, width: 15, height: 15))
-            label.font = UIFont.systemFont(ofSize: 10)
-            label.text = "A"
-            label.textAlignment = .center
-            label.numberOfLines = 0
-            self.addSubview(label)
-        }
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

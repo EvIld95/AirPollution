@@ -100,6 +100,7 @@ class DeviceModel {
                 self.pm100.value = (dict["PM100"]! as! Int)
                 self.pressure.value = (dict["Pressure"]! as! Double)
                 self.temperature.value = (dict["Temp"] as! Double)
+                self.CO.value = (dict["CO"] as! Double)
                 
             }
         })

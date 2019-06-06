@@ -190,8 +190,8 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         device.pm100.asDriver().map({ (value) -> String in "PM10: \(value!)" }).drive(self.pm100Label.rx.text).disposed(by: disposeBag)
         device.pm25.asDriver().map({ (value) -> String in "PM2.5: \(value!)" }).drive(self.pm25Label.rx.text).disposed(by: disposeBag)
         device.CO.asObservable().map({ (value) -> Double in Double(value ?? 0.0) / 1024.0  }).subscribe(onNext: { value in
-            self.progressBorderedCO.setProgress(CGFloat(value/1024.0), animated: true)
-            self.progressBorderedCO.primaryColor = UIColor(hue: CGFloat(0.33 - ((value/1024) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
+            self.progressBorderedCO.setProgress(CGFloat(value), animated: true)
+            self.progressBorderedCO.primaryColor = UIColor(hue: CGFloat(0.33 - ((value) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
         }).disposed(by: disposeBag)
     }
     

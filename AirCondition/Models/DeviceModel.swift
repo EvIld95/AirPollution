@@ -34,6 +34,8 @@ class DeviceModel {
         }
     }
     
+    var airQualityChanged: Observable<DeviceModel>!
+    
     private func getAddressFromLatLon(lat: Double, withLongitude lon: Double) -> Observable<String> {
         return Observable<String>.create { (obs) -> Disposable in
             let ceo: CLGeocoder = CLGeocoder()
@@ -72,6 +74,7 @@ class DeviceModel {
         self.CO.value = CO
         self.latitude = latitude
         self.longitude = longitude
+        self.setupRx()
     }
     
     init(deviceAirly: AirlyDeviceSensor) {
@@ -85,6 +88,13 @@ class DeviceModel {
         self.CO.value = nil
         self.latitude.value = deviceAirly.deviceAirly!.latitude!
         self.longitude.value = deviceAirly.deviceAirly!.longitude!
+        self.setupRx()
+    }
+    
+    func setupRx() {
+        self.airQualityChanged = Observable.merge([pm100.asObservable(), pm25.asObservable()]).map { (value) -> DeviceModel in
+            return self
+        }
     }
     
     func listenForDeviceUpdates() {

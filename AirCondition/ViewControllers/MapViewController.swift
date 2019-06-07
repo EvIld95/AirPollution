@@ -37,21 +37,45 @@ class MapViewController: UIViewController {
     }
     
     private func setupRx() {
-        let devices = self.viewModel.output.devices.asObservable().flatMap({ (devices) -> Observable<DeviceModel> in
-            self.mapView.removeAnnotations(self.mapView.annotations)
-            return Observable.from(devices)
-        })
-        
-        devices.flatMap { (device) in
+        self.viewModel.output.deviceStream.flatMap { (device) in
             return device.address.map({ (address) -> AnnotationPointDevice in
                 let annotation = AnnotationPointDevice(device: device)
                 annotation.title = address
                 annotation.coordinate = CLLocationCoordinate2D(latitude: device.latitude.value, longitude: device.longitude.value)
                 return annotation
             })
-        }.subscribe(onNext: { annotation in
+            }.filter({ (annotation) -> Bool in
+                for oldAnnotation in self.mapView.annotations {
+                    guard let oldAnnotationDevice = oldAnnotation as? AnnotationPointDevice else { continue }
+                    if oldAnnotationDevice.device === annotation.device {
+                        return false
+                    }
+                }
+                return true
+            }).subscribe(onNext: { annotation in
             self.mapView.addAnnotation(annotation)
         }).disposed(by: disposeBag)
+        
+        
+        self.viewModel.output.deviceStream.flatMap { (device) in
+            return device.airQualityChanged
+            }.flatMap { (device) in
+                Observable<AnnotationPointDevice>.create({ (obs) -> Disposable in
+                    let annotations = self.mapView.annotations.filter({ (annotation) -> Bool in
+                        guard let annotationDevice = annotation as? AnnotationPointDevice else { return false }
+                        return annotationDevice.device === device
+                    })
+                    if annotations.count > 0 {
+                        obs.onNext(annotations.first! as! AnnotationPointDevice)
+                    }
+                    return Disposables.create()
+                })
+        }.subscribe(onNext: { annotation in
+            
+                let annotationView = self.mapView.view(for: annotation)
+                let indicatorView = AirStatusIndicatorView(device: annotation.device)
+                annotationView?.image = indicatorView.getImage()
+            }).disposed(by: disposeBag)
     }
     
     private func setupLocationManager() {
@@ -65,6 +89,7 @@ class MapViewController: UIViewController {
 }
 
 extension MapViewController: MKMapViewDelegate {
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation.isKind(of: MKUserLocation.self) {
             return nil
@@ -75,12 +100,10 @@ extension MapViewController: MKMapViewDelegate {
         let id = "id"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: id)
         
-
-        let indicatorView = AirStatusIndicatorView(device: annotation.device)
         let deviceView = DeviceValuesView(device: annotation.device, frame: .init(x: 0, y: 0, width: 300, height: 200))
        
-        
         if annotationView == nil {
+            let indicatorView = AirStatusIndicatorView(device: annotation.device)
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: id)
             guard let annotationView = annotationView else { return nil }
             annotationView.canShowCallout = true
@@ -90,7 +113,6 @@ extension MapViewController: MKMapViewDelegate {
         
         } else {
             annotationView!.annotation = annotation
-            annotationView!.image = indicatorView.getImage()
             annotationView!.detailCalloutAccessoryView = deviceView
         }
         
@@ -110,8 +132,6 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
-//        let center = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
-//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         
         if !request {
             appManager.nearestInstallation(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude) { devices in
@@ -119,7 +139,7 @@ extension MapViewController: CLLocationManagerDelegate {
                     self.appManager.measurement(id: device.id!) { sensor in
                         sensor.deviceAirly = device
                         let deviceModel = DeviceModel(deviceAirly: sensor)
-                        self.viewModel.output.devices.value.append(deviceModel)
+                        self.viewModel.addNewDevice(dev: deviceModel)
                     }
                 }
             }
@@ -129,3 +149,4 @@ extension MapViewController: CLLocationManagerDelegate {
 
     }
 }
+

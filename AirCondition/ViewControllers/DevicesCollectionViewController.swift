@@ -19,12 +19,35 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     var viewModel: MapViewModel!
     let disposeBag = DisposeBag()
     
+    var filteredData = Variable<[DeviceModel]>([])
+    lazy var searchBar: UISearchBar = {
+        let sb = UISearchBar()
+        sb.placeholder = "Enter city"
+        sb.barTintColor = .gray
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.rgb(red: 230, green: 230, blue: 230)
+        sb.delegate = self
+        return sb
+    }()
+    
+    lazy var tapGesure: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
+        
+        return tap
+    }()
+    
+    @objc func tapHandler() {
+        self.searchBar.endEditing(true)
+        self.collectionView.resignFirstResponder()
+        self.collectionView.endEditing(true)
+   
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return viewModel.output.devices.value.count
+        return filteredData.value.count
     }
     
     
@@ -32,15 +55,31 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         if let cvLayout = self.collectionViewLayout as? UICollectionViewFlowLayout {
             cvLayout.scrollDirection = .vertical
         }
+        navigationController?.navigationBar.addSubview(searchBar)
+        let navBar = navigationController?.navigationBar
+        searchBar.anchor(top: navBar?.topAnchor, leading: navBar?.leadingAnchor, bottom: navBar?.bottomAnchor, trailing: navBar?.trailingAnchor, padding: .init(top: 4, left: 40, bottom: 4, right: 40))
+        
+        
+        self.collectionView.addGestureRecognizer(tapGesure)
+        self.collectionView.keyboardDismissMode = .onDrag
         self.title = "Device"
-    
+        self.setupRx()
         self.collectionView.backgroundView = setupGradientLayer()
         self.collectionView.register(DevicesCollectionViewCell.self, forCellWithReuseIdentifier: DevicesCollectionCellIDs.device.rawValue)
         self.collectionView.register(DevicesCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DevicesCollectionCellIDs.header.rawValue)
     }
     
+    func setupRx() {
+        self.viewModel.output.devices.asObservable().subscribe(onNext: { devices in
+            self.filteredData.value = devices
+        }).disposed(by: disposeBag)
+        self.filteredData.asObservable().subscribe(onNext: { _ in
+            self.collectionView.reloadData()
+        }).disposed(by: disposeBag)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let device = self.viewModel.output.devices.value[indexPath.section]
+        let device = self.filteredData.value[indexPath.section]
         if device.CO.value != nil {
             return .init(width: self.view.frame.width, height: 220)
         } else {
@@ -50,15 +89,8 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DevicesCollectionCellIDs.device.rawValue, for: indexPath) as! DevicesCollectionViewCell
-        let device = self.viewModel.output.devices.value[indexPath.section]
-        
-//        cell.temperature = device.temperature.value!
-//        cell.humidity = device.humidity.value!
-//        cell.pressure = device.pressure.value!
-//        cell.pm10 = device.pm10.value!
-//        cell.pm100 = device.pm100.value!
-//        cell.pm25 = device.pm25.value!
-//        cell.CO = device.CO.value
+        let device = self.filteredData.value[indexPath.section]
+
         cell.hideProgressBar(hide: device.CO.value == nil)
         cell.device = device
         
@@ -76,8 +108,9 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
 
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: DevicesCollectionCellIDs.header.rawValue, for: indexPath) as! DevicesCollectionViewHeader
-        let device = self.viewModel.output.devices.value[indexPath.section]
+        let device = self.filteredData.value[indexPath.section]
         header.device = device
+        header.delegate = self
         return header
     }
     
@@ -93,4 +126,25 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         return viewBG
     }
     
+}
+
+extension DevicesCollectionViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+             self.filteredData.value = self.viewModel.output.devices.value.filter { (device) -> Bool in
+                return device.addressVariable.value.lowercased().contains(searchText.lowercased())
+             }
+        } else {
+            self.filteredData.value = self.viewModel.output.devices.value
+        }
+    }
+}
+
+extension DevicesCollectionViewController: DevicesSelectableToTrackDelegate {
+    func didSelectDeviceToTrack(device: DeviceModel) {
+        for dev in self.viewModel.output.devices.value {
+            dev.isTracked.value = false
+        }
+        device.isTracked.value = true
+    }
 }

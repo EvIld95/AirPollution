@@ -11,8 +11,14 @@ import UIKit
 import RxSwift
 import CoreLocation
 
+protocol DevicesSelectableToTrackDelegate {
+    func didSelectDeviceToTrack(device: DeviceModel)
+}
+
 class DevicesCollectionViewHeader: UICollectionViewCell {
     let disposeBag = DisposeBag()
+    var delegate: DevicesSelectableToTrackDelegate!
+    
     var device: DeviceModel! {
         didSet {
             if(device.CO.value == nil) {
@@ -39,6 +45,28 @@ class DevicesCollectionViewHeader: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
+    
+    let serialLabel: UILabel = {
+        let label = UILabel()
+        label.text = "serial"
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
+    }()
+    
+    lazy var buttonTrack: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Track", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(trackHandler), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func trackHandler() {
+        print("ASDASDASD")
+        self.delegate.didSelectDeviceToTrack(device: device)
+    }
 
     
     func setupRx() {
@@ -52,8 +80,12 @@ class DevicesCollectionViewHeader: UICollectionViewCell {
         self.backgroundColor = UIColor.init(white: 1.0, alpha: 0.2)
         self.addSubview(deviceImageView)
         self.addSubview(localizationLabel)
+        self.addSubview(serialLabel)
+        self.addSubview(buttonTrack)
         deviceImageView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 2, left: 16, bottom: 2, right: 0), size: .init(width: 50, height: 0))
-        localizationLabel.anchor(top: topAnchor, leading: deviceImageView.trailingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 2, left: 8, bottom: 2, right: 2))
+        localizationLabel.anchor(top: topAnchor, leading: deviceImageView.trailingAnchor, bottom: nil, trailing: buttonTrack.leadingAnchor, padding: .init(top: 2, left: 8, bottom: 0, right: 2), size: .init(width: 0, height: 25))
+        serialLabel.anchor(top: localizationLabel.bottomAnchor, leading: deviceImageView.trailingAnchor, bottom: bottomAnchor, trailing: buttonTrack.leadingAnchor , padding: .init(top: 2, left: 8, bottom: 2, right: 2))
+        buttonTrack.anchor(top: topAnchor, leading: nil, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 2, bottom: 0, right: 8), size: .init(width: 60, height: 0))
     }
 
     

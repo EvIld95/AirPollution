@@ -42,7 +42,7 @@ class MainTabBarCoordinator: Coordinator {
         
         let deviceCollectionViewController = self.container.resolve(DevicesCollectionViewController.self)
         let deviceViewController = templateNavController(unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"), rootViewController: deviceCollectionViewController!)
-        deviceViewController.isNavigationBarHidden = true
+        //deviceViewController.isNavigationBarHidden = true
 
         self.mainTabBarController.tabBar.tintColor = .black
         self.mainTabBarController.viewControllers = [mapNavController, deviceViewController]

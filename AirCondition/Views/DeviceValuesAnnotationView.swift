@@ -152,9 +152,9 @@ class DeviceValuesView: UIView {
 
     init(device: DeviceModel, frame: CGRect) {
         
-        device.temperature.asDriver().map({ (value) -> String in "\(value!) C" }).drive(self.temperatureLabel.rx.text).disposed(by: disposeBag)
-        device.humidity.asDriver().map({ (value) -> String in "\(value!) %" }).drive(self.humidityLabel.rx.text).disposed(by: disposeBag)
-        device.pressure.asDriver().map({ (value) -> String in "\(value!) hPa" }).drive(self.pressureLabel.rx.text).disposed(by: disposeBag)
+        device.temperature.asDriver().map({ (value) -> String in "\(value!.roundTo(places: 2)) C" }).drive(self.temperatureLabel.rx.text).disposed(by: disposeBag)
+        device.humidity.asDriver().map({ (value) -> String in "\(value!.roundTo(places: 2)) %" }).drive(self.humidityLabel.rx.text).disposed(by: disposeBag)
+        device.pressure.asDriver().map({ (value) -> String in "\(value!.roundTo(places: 2)) hPa" }).drive(self.pressureLabel.rx.text).disposed(by: disposeBag)
         device.pm10.asDriver().map({ (value) -> String in "PM1.0: \(value!)" }).drive(self.pm10Label.rx.text).disposed(by: disposeBag)
         device.pm100.asDriver().map({ (value) -> String in "PM10: \(value!)" }).drive(self.pm100Label.rx.text).disposed(by: disposeBag)
         device.pm25.asDriver().map({ (value) -> String in "PM2.5: \(value!)" }).drive(self.pm25Label.rx.text).disposed(by: disposeBag)

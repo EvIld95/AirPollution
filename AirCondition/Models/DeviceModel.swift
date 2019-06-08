@@ -13,6 +13,8 @@ import FirebaseDatabase
 import Firebase
 
 class DeviceModel {
+    let disposeBag = DisposeBag()
+    var userId: String?
     var serial: Variable<String?> = Variable<String?>(nil)
     var pm10: Variable<Int?> = Variable<Int?>(nil)
     var pm25: Variable<Int?> = Variable<Int?>(nil)
@@ -23,7 +25,7 @@ class DeviceModel {
     var CO: Variable<Double?> = Variable<Double?>(nil)
     var latitude: Variable<Double> = Variable<Double>(0.0)
     var longitude: Variable<Double> = Variable<Double>(0.0)
-    
+    var isTracked: Variable<Bool> = Variable<Bool>(false)
     var address: Observable<String> {
         get {
             return Observable.zip([latitude.asObservable(), longitude.asObservable()]).flatMap({ (geo) -> Observable<String> in
@@ -33,6 +35,7 @@ class DeviceModel {
             })
         }
     }
+    var addressVariable = Variable<String>("")
     
     var airQualityChanged: Observable<DeviceModel>!
     
@@ -63,7 +66,7 @@ class DeviceModel {
         }
     }
     
-    init(serial: String, pm10: Int, pm25: Int, pm100: Int, pressure: Double, temperature: Double, humidity: Double, CO: Double, latitude: Variable<Double>, longitude: Variable<Double>) {
+    init(serial: String, pm10: Int, pm25: Int, pm100: Int, pressure: Double, temperature: Double, humidity: Double, CO: Double, latitude: Variable<Double>, longitude: Variable<Double>, userId: String?) {
         self.serial.value = serial
         self.pm10.value = pm10
         self.pm25.value = pm25
@@ -74,6 +77,8 @@ class DeviceModel {
         self.CO.value = CO
         self.latitude = latitude
         self.longitude = longitude
+        self.userId = userId
+        self.isTracked.value = false
         self.setupRx()
     }
     
@@ -86,15 +91,18 @@ class DeviceModel {
         self.temperature.value = deviceAirly.temperature
         self.humidity.value = deviceAirly.humidity
         self.CO.value = nil
+        self.userId = nil
         self.latitude.value = deviceAirly.deviceAirly!.latitude!
         self.longitude.value = deviceAirly.deviceAirly!.longitude!
+        self.isTracked.value = false
         self.setupRx()
     }
     
     func setupRx() {
-        self.airQualityChanged = Observable.merge([pm100.asObservable(), pm25.asObservable()]).map { (value) -> DeviceModel in
+        self.airQualityChanged = Observable.merge([pm100.asObservable(), pm25.asObservable(), isTracked.asObservable().map({ tracked -> Int? in return tracked ? 1 : 0}) ]).map { (value) -> DeviceModel in
             return self
         }
+        self.address.bind(to: addressVariable).disposed(by: disposeBag)
     }
     
     func listenForDeviceUpdates() {

@@ -56,7 +56,6 @@ class MapViewController: UIViewController {
             self.mapView.addAnnotation(annotation)
         }).disposed(by: disposeBag)
         
-        
         self.viewModel.output.deviceStream.flatMap { (device) in
             return device.airQualityChanged
             }.flatMap { (device) in
@@ -146,7 +145,5 @@ extension MapViewController: CLLocationManagerDelegate {
             
         }
         request = true
-
     }
 }
-

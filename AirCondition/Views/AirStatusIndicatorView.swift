@@ -29,8 +29,12 @@ class AirStatusIndicatorView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        let bezierPath = UIBezierPath(ovalIn: rect)
-        
+        let bezierPath: UIBezierPath
+        if(!device.isTracked.value) {
+            bezierPath = UIBezierPath(ovalIn: rect)
+        } else {
+            bezierPath = UIBezierPath(rect: rect)
+        }
        
         
         switch calculateAirQuality() {

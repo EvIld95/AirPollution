@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 import CoreLocation
-
+import Firebase
 
 class MapViewModel: ViewModelType {
     var input: MapViewModel.Input
@@ -23,7 +23,7 @@ class MapViewModel: ViewModelType {
         fileprivate(set) var devices = Variable<[DeviceModel]>([])
         var deviceStream: Observable<DeviceModel>!
         var logout = Variable<Bool>(false)
-        //var PMs = Observable<[Int?]>([])
+        //var deviceToTrack = Variable<DeviceModel?>(nil)
         
     }
     
@@ -39,7 +39,7 @@ class MapViewModel: ViewModelType {
         })
         
         
-        let testDevice = DeviceModel(serial: "0000000076e88405", pm10: 1, pm25: 1*2, pm100: 1*9, pressure: 1015, temperature: 16, humidity: 75, CO: Double(1) * 80.0, latitude: .init(52.0 + Double.random(in: 0.0..<1.0)), longitude: .init(16.5 + Double.random(in: 0.0..<0.5)))
+        let testDevice = DeviceModel(serial: "0000000076e88405", pm10: 1, pm25: 2, pm100: 9, pressure: 1015, temperature: 16, humidity: 75, CO: Double(1) * 80.0, latitude: .init(52.0 + Double.random(in: 0.0..<1.0)), longitude: .init(16.5 + Double.random(in: 0.0..<0.5)), userId: Auth.auth().currentUser?.uid)
         
         self.output.devices.value.append(testDevice)
         testDevice.listenForDeviceUpdates()

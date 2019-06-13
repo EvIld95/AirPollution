@@ -10,11 +10,14 @@ import Foundation
 import RxSwift
 import CoreLocation
 import Firebase
+import MapKit
 
 class MapViewModel: ViewModelType {
     var input: MapViewModel.Input
     var output: MapViewModel.Output
     let disposeBag = DisposeBag()
+    var appManager: AppManager!
+    
     struct Input {
     
     }
@@ -23,8 +26,8 @@ class MapViewModel: ViewModelType {
         fileprivate(set) var devices = Variable<[DeviceModel]>([])
         var deviceStream: Observable<DeviceModel>!
         var logout = Variable<Bool>(false)
-        //var deviceToTrack = Variable<DeviceModel?>(nil)
-        
+        var userLocation = Variable<CLLocation?>(nil)
+        var trackDevice = Variable<DeviceModel?>(nil)
     }
     
     func addNewDevice(dev: DeviceModel) {
@@ -43,6 +46,18 @@ class MapViewModel: ViewModelType {
         
         self.output.devices.value.append(testDevice)
         testDevice.listenForDeviceUpdates()
+        
+        Observable.combineLatest(self.output.trackDevice.asObservable(), self.output.userLocation.asObservable()) { device, location -> (DeviceModel?, CLLocation?) in
+            return (device,location)
+            }.skipWhile({ tuple -> Bool in
+                return tuple.0 == nil || tuple.1 == nil
+            }).subscribe(onNext: { tuple in
+            let device = tuple.0
+            let location = tuple.1
+            self.appManager.addSnapshot(serial: device!.serial.value!, temperature: device!.temperature.value!, pressure: device!.pressure.value!, humidity: device!.humidity.value!, pm10: device!.pm10.value ?? 0, pm100: device!.pm100.value ?? 0, pm25: device!.pm25.value ?? 0, CO: device!.CO.value ?? 0.0, location: location!, completion: nil)
+        }).disposed(by: disposeBag)
+        
+        
         
     
 //        for i in 1..<10 {

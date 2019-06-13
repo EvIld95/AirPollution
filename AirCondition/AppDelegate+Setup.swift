@@ -12,20 +12,23 @@ import Swinject
 extension AppDelegate {
     internal func setupDependencies() {
         
+        //otherDependencies
+        container.register(AppManager.self) { _ in
+            return AppManager()
+        }.inObjectScope(.container)
+        
         //viewModels
         container.register(RegistrationViewModel.self) { _ in
             return RegistrationViewModel()
         }
         
-        container.register(MapViewModel.self) { (_) in
-            return MapViewModel()
+        container.register(MapViewModel.self) { (r) in
+            let mv = MapViewModel()
+            mv.appManager = r.resolve(AppManager.self)
+            return mv
         }.inObjectScope(.container)
 
-        
-        //otherDependencies
-        container.register(AppManager.self) { _ in
-            return AppManager()
-        }.inObjectScope(.container)
+    
         
         
         //viewControllers
@@ -51,6 +54,7 @@ extension AppDelegate {
         container.register(DevicesCollectionViewController.self) { (r) in
             let deviceVC = DevicesCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
             deviceVC.viewModel = r.resolve(MapViewModel.self)
+            
             return deviceVC
         }
        

@@ -146,5 +146,6 @@ extension DevicesCollectionViewController: DevicesSelectableToTrackDelegate {
             dev.isTracked.value = false
         }
         device.isTracked.value = true
+        viewModel.output.trackDevice.value = device
     }
 }

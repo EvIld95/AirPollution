@@ -12,6 +12,7 @@ import Moya_SwiftyJSONMapper
 import SwiftyJSON
 import Firebase
 import FirebaseDatabase
+import CoreLocation
 
 class AppManager {
     func basic() {
@@ -43,6 +44,23 @@ class AppManager {
                 }
             }
         }
+    }
+    
+    func addSnapshot(serial: String, temperature: Double, pressure: Double, humidity: Double, pm10: Int, pm100: Int, pm25: Int, CO: Double, location: CLLocation, completion: (() -> ())?) {
+        let provider = MoyaProvider<AppService>()
+        let currentUser = Auth.auth().currentUser
+        currentUser?.getIDTokenForcingRefresh(true
+            , completion: { (idToken, error) in
+                provider.request(.addSnapshot(token: idToken!, serial: serial, temperature: temperature, pressure: pressure, humidity: humidity, pm10: pm10, pm25: pm25, pm100: pm100, CO: CO, latitude: location.coordinate.longitude, longitude: location.coordinate.latitude), completion: { (result) in
+                    switch result {
+                    case .success:
+                        completion?()
+                    
+                    case .failure:
+                        print("ERROR")
+                    }
+                })
+        })
     }
     
     

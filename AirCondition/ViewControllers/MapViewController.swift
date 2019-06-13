@@ -132,6 +132,8 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
         
+        self.viewModel.output.userLocation.value = newLocation
+        
         if !request {
             appManager.nearestInstallation(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude) { devices in
                 for device in devices {

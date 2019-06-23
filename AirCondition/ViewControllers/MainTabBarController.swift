@@ -11,21 +11,9 @@ import Firebase
 
 class MainTabBarController: UITabBarController {
     let appManager = AppManager()
-    let button: UIButton = {
-        let button = UIButton(type: .system)
-        button.addTarget(self, action: #selector(addHandler), for: .touchUpInside)
-        return button
-    }()
-    
-    @objc func addHandler() {
-        appManager.addNewDevice(serial: "123123123") {
-            print("DO?ne")
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     

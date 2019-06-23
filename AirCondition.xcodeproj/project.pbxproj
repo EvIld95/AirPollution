@@ -24,6 +24,8 @@
 		F77521AB22A7E1DF008140BC /* AirlyDeviceSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521AA22A7E1DF008140BC /* AirlyDeviceSensor.swift */; };
 		F77521AD22A90A7D008140BC /* DeviceValuesAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521AC22A90A7C008140BC /* DeviceValuesAnnotationView.swift */; };
 		F77521B022ABC68D008140BC /* Double + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521AF22ABC68D008140BC /* Double + Extension.swift */; };
+		F77521B422B937E6008140BC /* MultipleDevicesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521B322B937E5008140BC /* MultipleDevicesModel.swift */; };
+		F77521B622BF90E9008140BC /* TrackingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521B522BF90E9008140BC /* TrackingModel.swift */; };
 		F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */; };
 		F7DEBB4722886CBF0078B4FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4522886CBF0078B4FA /* Main.storyboard */; };
 		F7DEBB4922886CC30078B4FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4822886CC30078B4FA /* Assets.xcassets */; };
@@ -64,6 +66,8 @@
 		F77521AA22A7E1DF008140BC /* AirlyDeviceSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlyDeviceSensor.swift; sourceTree = "<group>"; };
 		F77521AC22A90A7C008140BC /* DeviceValuesAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceValuesAnnotationView.swift; sourceTree = "<group>"; };
 		F77521AF22ABC68D008140BC /* Double + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Extension.swift"; sourceTree = "<group>"; };
+		F77521B322B937E5008140BC /* MultipleDevicesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleDevicesModel.swift; sourceTree = "<group>"; };
+		F77521B522BF90E9008140BC /* TrackingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingModel.swift; sourceTree = "<group>"; };
 		F7DEBB3E22886CBF0078B4FA /* AirCondition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirCondition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7DEBB4622886CBF0078B4FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -132,6 +136,8 @@
 				F7752196229DA260008140BC /* DeviceModel.swift */,
 				F77521A822A7DB70008140BC /* AirlyNearestDevice.swift */,
 				F77521AA22A7E1DF008140BC /* AirlyDeviceSensor.swift */,
+				F77521B322B937E5008140BC /* MultipleDevicesModel.swift */,
+				F77521B522BF90E9008140BC /* TrackingModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -407,6 +413,7 @@
 				F77521862293D2A3008140BC /* MainTabBarController.swift in Sources */,
 				F7DEBB7022886FAB0078B4FA /* UIView+Extension.swift in Sources */,
 				F7DEBB7122886FAB0078B4FA /* RegistrationViewModel.swift in Sources */,
+				F77521B622BF90E9008140BC /* TrackingModel.swift in Sources */,
 				F7DEBB5422886F980078B4FA /* AppDelegate+Setup.swift in Sources */,
 				F775219F229EBE4D008140BC /* AirStatusIndicatorView.swift in Sources */,
 				F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */,
@@ -416,6 +423,7 @@
 				F7DEBB7222886FAB0078B4FA /* RegistrationViewController.swift in Sources */,
 				F7DEBB6C22886FAB0078B4FA /* AppService.swift in Sources */,
 				F7DEBB6B22886FAB0078B4FA /* Coordinator.swift in Sources */,
+				F77521B422B937E6008140BC /* MultipleDevicesModel.swift in Sources */,
 				F7DEBB5722886FA00078B4FA /* customButton.swift in Sources */,
 				F77521A922A7DB70008140BC /* AirlyNearestDevice.swift in Sources */,
 				F77521882293EA9B008140BC /* MapViewModel.swift in Sources */,

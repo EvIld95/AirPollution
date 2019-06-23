@@ -15,29 +15,16 @@ import FirebaseDatabase
 import CoreLocation
 
 class AppManager {
-    func basic() {
-        let provider = MoyaProvider<AppService>()
-        
-        provider.request(.basic) { result in
-            switch result {
-            case let .success(response):
-                print(String(bytes: response.data, encoding: .utf8) ?? "Success")
-                
-            case .failure:
-                print("ERROR")
-            }
-        }
-    }
-    
-    func addNewDevice(serial: String, completion: @escaping () -> ()) {
+    func addNewDevice(serial: String, email: String, longitude: Double, latitude: Double , completion: @escaping (DeviceModel) -> ()) {
         let provider = MoyaProvider<AppService>()
         let currentUser = Auth.auth().currentUser
         let email = Auth.auth().currentUser!.email
         currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
-            provider.request(.addDevice(token: idToken!, serial: serial, email: email!)) { result in
+            provider.request(.addDevice(token: idToken!, serial: serial, email: email!, latitude: latitude, longitude: longitude)) { result in
                 switch result {
                 case .success:
-                    completion()
+                    guard let deviceModel = DeviceModel(device: Device(email: email, serial: serial, latitude: latitude, longitude: longitude)) else { return }
+                    completion(deviceModel)
                     
                 case .failure:
                     print("ERROR")
@@ -46,12 +33,62 @@ class AppManager {
         }
     }
     
-    func addSnapshot(serial: String, temperature: Double, pressure: Double, humidity: Double, pm10: Int, pm100: Int, pm25: Int, CO: Double, location: CLLocation, completion: (() -> ())?) {
+    func getAllDevices(completion: @escaping ([Device]) -> ()) {
         let provider = MoyaProvider<AppService>()
         let currentUser = Auth.auth().currentUser
-        currentUser?.getIDTokenForcingRefresh(true
-            , completion: { (idToken, error) in
-                provider.request(.addSnapshot(token: idToken!, serial: serial, temperature: temperature, pressure: pressure, humidity: humidity, pm10: pm10, pm25: pm25, pm100: pm100, CO: CO, latitude: location.coordinate.longitude, longitude: location.coordinate.latitude), completion: { (result) in
+        currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+            guard let idToken = idToken else { return }
+            
+            provider.request(.getAllDevices(token: idToken), completion: { (result) in
+                switch result {
+                case let .success(response):
+                    guard let data = try? response.map(to: MultipleDevicesModel.self) else { return }
+                    completion(data.array)
+                case .failure:
+                    print("ERROR")
+                }
+            })
+        }
+    }
+    
+    func checkIfDeviceExists(serial: String, completion: @escaping (Bool) -> ()) {
+        let ref = Database.database().reference().child("airDevice")
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            if let dict = snapshot.value as? [String: AnyObject] {
+                let keys = dict.keys
+                completion(keys.contains(serial))
+            }
+        }
+    }
+    
+    func addTracking(serial: String, completion: @escaping (TrackingModel) -> ()) {
+        let provider = MoyaProvider<AppService>()
+        let currentUser = Auth.auth().currentUser
+        currentUser?.getIDTokenForcingRefresh(true, completion: { (idToken, error) in
+                guard let id = idToken else { return }
+                provider.request(.addTracking(token: id, serial: serial), completion: { (result) in
+                    switch result {
+                    case let .success(response):
+                        if response.statusCode == 404 {
+                            print("Error")
+                        } else {
+                             let data = try! response.map(to: TrackingModel.self) //else { return }
+                            completion(data)
+                        }
+                        
+                    case .failure:
+                        print("ERROR")
+                    }
+                })
+        })
+    }
+    
+    func addSnapshot(serial: String, trackingId: Int, temperature: Double, pressure: Double, humidity: Double, pm10: Int, pm100: Int, pm25: Int, CO: Double, location: CLLocation, completion: (() -> ())?) {
+        let provider = MoyaProvider<AppService>()
+        let currentUser = Auth.auth().currentUser
+        currentUser?.getIDTokenForcingRefresh(true, completion: { (idToken, error) in
+                guard let id = idToken else { return }
+            provider.request(.addSnapshot(token: id, serial: serial, trackingId: trackingId, temperature: temperature, pressure: pressure, humidity: humidity, pm10: pm10, pm25: pm25, pm100: pm100, CO: CO, latitude: location.coordinate.longitude, longitude: location.coordinate.latitude), completion: { (result) in
                     switch result {
                     case .success:
                         completion?()
@@ -67,7 +104,7 @@ class AppManager {
     func nearestInstallation(latitude: Double, longitude: Double, completionHandler: @escaping ([NearestDevice]) -> ()) {
         let provider = MoyaProvider<AirlyService>(plugins: [CompleteUrlLoggerPlugin()])
         
-        provider.request(.nearestInstallations(latitude: latitude, longitude: longitude, distance: 10.0)) { result in
+        provider.request(.nearestInstallations(latitude: latitude, longitude: longitude, distance: 50.0)) { result in
             switch result {
             case let .success(response):
                 guard let data = try? response.map(to: AirlyNearestDevice.self) else { return }
@@ -78,14 +115,15 @@ class AppManager {
         }
     }
     
-    func measurement(id: Int, completionHandler: @escaping (AirlyDeviceSensor) -> ()) {
+    func measurement(device: NearestDevice, completionHandler: @escaping (AirlyDeviceSensor) -> ()) {
         let provider = MoyaProvider<AirlyService>(plugins: [CompleteUrlLoggerPlugin()])
         
-        provider.request(.measurement(installationId: id)) { result in
+        provider.request(.measurement(installationId: device.id!)) { result in
             switch result {
             case let .success(response):
                 guard let data = try? response.map(to: AirlyDeviceSensor.self) else { return }
-                data.id = id
+                data.id = device.id
+                data.deviceAirly = device
                 completionHandler(data)
             case .failure:
                 print("ERROR")

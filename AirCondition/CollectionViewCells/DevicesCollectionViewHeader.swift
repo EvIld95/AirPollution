@@ -23,8 +23,10 @@ class DevicesCollectionViewHeader: UICollectionViewCell {
         didSet {
             if(device.CO.value == nil) {
                 self.deviceImageView.image = #imageLiteral(resourceName: "airlyDevice").withRenderingMode(.alwaysOriginal)
+                self.buttonTrack.isHidden = true
             } else {
                 self.deviceImageView.image = #imageLiteral(resourceName: "device1").withRenderingMode(.alwaysOriginal)
+                self.buttonTrack.isHidden = false
             }
             self.setupRx()
         }
@@ -64,7 +66,6 @@ class DevicesCollectionViewHeader: UICollectionViewCell {
     }()
     
     @objc func trackHandler() {
-        print("ASDASDASD")
         self.delegate.didSelectDeviceToTrack(device: device)
     }
 
@@ -73,6 +74,8 @@ class DevicesCollectionViewHeader: UICollectionViewCell {
         device.address.subscribe(onNext: { address in
             self.localizationLabel.text = address
         }).disposed(by: disposeBag)
+        
+        device.serial.asDriver().drive(self.serialLabel.rx.text).disposed(by: disposeBag)
     }
     
     override init(frame: CGRect) {

@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import RxSwift
+import Firebase
 
 class MapViewController: UIViewController {
     var viewModel: MapViewModel!
@@ -29,13 +30,34 @@ class MapViewController: UIViewController {
         self.setupLayout()
         self.setupLocationManager()
         self.setupRx()
+        self.viewModel.getAllDevices()
      }
     
     private func setupLayout() {
         self.view.addSubview(mapView)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewDeviceHandler))
         mapView.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
     }
     
+    @objc func addNewDeviceHandler() {
+        let alert = UIAlertController(title: "Add new device", message: "Insert serial number of the device you want to add", preferredStyle: .alert)
+        
+        alert.addTextField(configurationHandler: { (textField) in
+            textField.placeholder = "Serial"
+        })
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alertAction -> Void in
+            let textField = alert.textFields![0] as UITextField
+            guard let serial = textField.text, textField.text != "" else { return }
+            self.viewModel.addNewDeviceToDatabase(serial: serial)
+        })
+        
+        alert.addAction(saveAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+   
     private func setupRx() {
         self.viewModel.output.deviceStream.flatMap { (device) in
             return device.address.map({ (address) -> AnnotationPointDevice in
@@ -52,8 +74,9 @@ class MapViewController: UIViewController {
                     }
                 }
                 return true
-            }).subscribe(onNext: { annotation in
-            self.mapView.addAnnotation(annotation)
+            }).observeOn(MainScheduler.instance).subscribe(onNext: { annotation in
+                self.mapView.addAnnotation(annotation)
+                //self.mapView.showAnnotations(self.mapView.annotations, animated: true)
         }).disposed(by: disposeBag)
         
         self.viewModel.output.deviceStream.flatMap { (device) in
@@ -137,8 +160,7 @@ extension MapViewController: CLLocationManagerDelegate {
         if !request {
             appManager.nearestInstallation(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude) { devices in
                 for device in devices {
-                    self.appManager.measurement(id: device.id!) { sensor in
-                        sensor.deviceAirly = device
+                    self.appManager.measurement(device: device) { sensor in
                         let deviceModel = DeviceModel(deviceAirly: sensor)
                         self.viewModel.addNewDevice(dev: deviceModel)
                     }

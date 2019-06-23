@@ -142,10 +142,6 @@ extension DevicesCollectionViewController: UISearchBarDelegate {
 
 extension DevicesCollectionViewController: DevicesSelectableToTrackDelegate {
     func didSelectDeviceToTrack(device: DeviceModel) {
-        for dev in self.viewModel.output.devices.value {
-            dev.isTracked.value = false
-        }
-        device.isTracked.value = true
-        viewModel.output.trackDevice.value = device
+        viewModel.startTracking(device: device)
     }
 }

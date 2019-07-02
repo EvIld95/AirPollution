@@ -83,12 +83,30 @@ class AppManager {
         })
     }
     
+    func getAllTrackingSnapshots(completion: @escaping ([Int: [SensorData]]) -> ()) {
+        let provider = MoyaProvider<AppService>()
+        let currentUser = Auth.auth().currentUser
+        currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+            guard let idToken = idToken else { return }
+            
+            provider.request(.getAllTrackingSnapshots(token: idToken), completion: { (result) in
+                switch result {
+                case let .success(response):
+                    guard let data = try? response.map(to: TrackingSnapshotModel.self) else { return }
+                    completion(data.dict)
+                case .failure:
+                    print("ERROR")
+                }
+            })
+        }
+    }
+    
     func addSnapshot(serial: String, trackingId: Int, temperature: Double, pressure: Double, humidity: Double, pm10: Int, pm100: Int, pm25: Int, CO: Double, location: CLLocation, completion: (() -> ())?) {
         let provider = MoyaProvider<AppService>()
         let currentUser = Auth.auth().currentUser
         currentUser?.getIDTokenForcingRefresh(true, completion: { (idToken, error) in
                 guard let id = idToken else { return }
-            provider.request(.addSnapshot(token: id, serial: serial, trackingId: trackingId, temperature: temperature, pressure: pressure, humidity: humidity, pm10: pm10, pm25: pm25, pm100: pm100, CO: CO, latitude: location.coordinate.longitude, longitude: location.coordinate.latitude), completion: { (result) in
+            provider.request(.addSnapshot(token: id, serial: serial, trackingId: trackingId, temperature: temperature, pressure: pressure, humidity: humidity, pm10: pm10, pm25: pm25, pm100: pm100, CO: CO, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), completion: { (result) in
                     switch result {
                     case .success:
                         completion?()

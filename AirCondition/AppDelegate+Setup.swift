@@ -22,6 +22,12 @@ extension AppDelegate {
             return RegistrationViewModel()
         }
         
+        container.register(TrackingHistoryViewModel.self) { r in
+            let tvm = TrackingHistoryViewModel()
+            tvm.appManager = r.resolve(AppManager.self)
+            return tvm
+        }
+        
         container.register(MapViewModel.self) { (r) in
             let mv = MapViewModel()
             mv.appManager = r.resolve(AppManager.self)
@@ -58,6 +64,17 @@ extension AppDelegate {
             return deviceVC
         }
        
+        container.register(TrackingSnapshotsTableViewController.self) { (r) in
+            let snapshotTVC = TrackingSnapshotsTableViewController(style: .plain)
+            snapshotTVC.viewModel = r.resolve(TrackingHistoryViewModel.self)
+            return snapshotTVC
+        }
+        
+        container.register(DetailSnapshotTrackingViewController.self) { r in
+            let detailVC = DetailSnapshotTrackingViewController()
+            //detailVC.viewModel = r.resolve(MapViewModel.self)
+            return detailVC
+        }
         
     }
 }

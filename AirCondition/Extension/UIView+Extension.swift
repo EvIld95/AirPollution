@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 extension UIColor {
     static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
@@ -105,6 +106,18 @@ extension UIView {
         gradientLayer.locations = [0, 1.5]
         self.layer.insertSublayer(gradientLayer, below: layer)
         gradientLayer.frame = bounds
+    }
+    
+    static func getGradientLayer(view: UIView) -> UIView {
+        let viewBG = UIView(frame: CGRect.init(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        let gradientLayer = CAGradientLayer()
+        let topColor = UIColor(red: 76.0/255.0, green: 130.0/255.0, blue: 164.0/255.0, alpha: 1.0)
+        let bottomColor = UIColor(red: 85.0/255.0, green: 159.0/255.0, blue: 122.0/255.0, alpha: 1.0)
+        gradientLayer.colors = [bottomColor.cgColor, topColor.cgColor]
+        gradientLayer.locations = [0, 1.5]
+        gradientLayer.frame = viewBG.bounds
+        viewBG.layer.addSublayer(gradientLayer)
+        return viewBG
     }
     
 }

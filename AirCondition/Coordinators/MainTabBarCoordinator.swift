@@ -42,16 +42,27 @@ class MainTabBarCoordinator: Coordinator {
         
         let deviceCollectionViewController = self.container.resolve(DevicesCollectionViewController.self)
         let deviceViewController = templateNavController(unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"), rootViewController: deviceCollectionViewController!)
-        //deviceViewController.isNavigationBarHidden = true
+        
+        let snapshotsTableViewController = self.container.resolve(TrackingSnapshotsTableViewController.self)
+        let snapshotsNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"), rootViewController: snapshotsTableViewController!)
+        
+        
 
         self.mainTabBarController.tabBar.tintColor = .black
-        self.mainTabBarController.viewControllers = [mapNavController, deviceViewController]
+        self.mainTabBarController.viewControllers = [mapNavController, deviceViewController, snapshotsNavController]
       
         
         
         for item in  self.mainTabBarController.tabBar.items! {
             item.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
         }
+        
+        snapshotsTableViewController?.viewModel.output.selectedSnapshots.asObservable().skip(1).subscribe(onNext: { _ in
+            print(" Go to next page")
+            let snapshotsDetailViewController = self.container.resolve(DetailSnapshotTrackingViewController.self)
+            snapshotsDetailViewController?.sensorData = snapshotsTableViewController?.viewModel.output.selectedSnapshots.value
+            snapshotsNavController.pushViewController(snapshotsDetailViewController!, animated: true)
+        })
     }
     
     

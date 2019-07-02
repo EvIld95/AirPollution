@@ -26,6 +26,13 @@
 		F77521B022ABC68D008140BC /* Double + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521AF22ABC68D008140BC /* Double + Extension.swift */; };
 		F77521B422B937E6008140BC /* MultipleDevicesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521B322B937E5008140BC /* MultipleDevicesModel.swift */; };
 		F77521B622BF90E9008140BC /* TrackingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521B522BF90E9008140BC /* TrackingModel.swift */; };
+		F77521B822BFD8FE008140BC /* TrackingSnapshotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521B722BFD8FE008140BC /* TrackingSnapshotsViewController.swift */; };
+		F77521BB22BFDB19008140BC /* SnapshotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521BA22BFDB19008140BC /* SnapshotTableViewCell.swift */; };
+		F77521BD22BFED65008140BC /* TrackingHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521BC22BFED65008140BC /* TrackingHistoryViewModel.swift */; };
+		F77521BF22C23D71008140BC /* TrackingSnapshotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521BE22C23D71008140BC /* TrackingSnapshotModel.swift */; };
+		F77521C122CB66B4008140BC /* DetailSnapshotTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C022CB66B3008140BC /* DetailSnapshotTrackingViewController.swift */; };
+		F77521C422CB7310008140BC /* MulticolorPolylineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C322CB7310008140BC /* MulticolorPolylineSegment.swift */; };
+		F77521C622CBBD88008140BC /* AnnotationPointSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C522CBBD87008140BC /* AnnotationPointSnapshot.swift */; };
 		F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */; };
 		F7DEBB4722886CBF0078B4FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4522886CBF0078B4FA /* Main.storyboard */; };
 		F7DEBB4922886CC30078B4FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4822886CC30078B4FA /* Assets.xcassets */; };
@@ -68,6 +75,13 @@
 		F77521AF22ABC68D008140BC /* Double + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Extension.swift"; sourceTree = "<group>"; };
 		F77521B322B937E5008140BC /* MultipleDevicesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleDevicesModel.swift; sourceTree = "<group>"; };
 		F77521B522BF90E9008140BC /* TrackingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingModel.swift; sourceTree = "<group>"; };
+		F77521B722BFD8FE008140BC /* TrackingSnapshotsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingSnapshotsViewController.swift; sourceTree = "<group>"; };
+		F77521BA22BFDB19008140BC /* SnapshotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotTableViewCell.swift; sourceTree = "<group>"; };
+		F77521BC22BFED65008140BC /* TrackingHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingHistoryViewModel.swift; sourceTree = "<group>"; };
+		F77521BE22C23D71008140BC /* TrackingSnapshotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingSnapshotModel.swift; sourceTree = "<group>"; };
+		F77521C022CB66B3008140BC /* DetailSnapshotTrackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSnapshotTrackingViewController.swift; sourceTree = "<group>"; };
+		F77521C322CB7310008140BC /* MulticolorPolylineSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticolorPolylineSegment.swift; sourceTree = "<group>"; };
+		F77521C522CBBD87008140BC /* AnnotationPointSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnnotationPointSnapshot.swift; path = Pods/AnnotationPointSnapshot.swift; sourceTree = SOURCE_ROOT; };
 		F7DEBB3E22886CBF0078B4FA /* AirCondition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirCondition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7DEBB4622886CBF0078B4FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -126,6 +140,7 @@
 			children = (
 				F77521872293EA9B008140BC /* MapViewModel.swift */,
 				F7DEBB6522886FAB0078B4FA /* RegistrationViewModel.swift */,
+				F77521BC22BFED65008140BC /* TrackingHistoryViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -138,6 +153,7 @@
 				F77521AA22A7E1DF008140BC /* AirlyDeviceSensor.swift */,
 				F77521B322B937E5008140BC /* MultipleDevicesModel.swift */,
 				F77521B522BF90E9008140BC /* TrackingModel.swift */,
+				F77521BE22C23D71008140BC /* TrackingSnapshotModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -164,8 +180,25 @@
 			isa = PBXGroup;
 			children = (
 				F77521A2229EF7A1008140BC /* AnnotationPointDevice.swift */,
+				F77521C522CBBD87008140BC /* AnnotationPointSnapshot.swift */,
 			);
 			path = AnnotationPoints;
+			sourceTree = "<group>";
+		};
+		F77521B922BFDAC1008140BC /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				F77521BA22BFDB19008140BC /* SnapshotTableViewCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		F77521C222CB72F0008140BC /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				F77521C322CB7310008140BC /* MulticolorPolylineSegment.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		F7DEBB3522886CBF0078B4FA = {
@@ -189,6 +222,8 @@
 		F7DEBB4022886CBF0078B4FA /* AirCondition */ = {
 			isa = PBXGroup;
 			children = (
+				F77521C222CB72F0008140BC /* Support */,
+				F77521B922BFDAC1008140BC /* TableViewCells */,
 				F77521A1229EF6FA008140BC /* AnnotationPoints */,
 				F775219D229EBE30008140BC /* Views */,
 				F7752198229DA4F2008140BC /* CollectionViewCells */,
@@ -270,6 +305,8 @@
 				F775218922942624008140BC /* MapViewController.swift */,
 				F77521852293D2A3008140BC /* MainTabBarController.swift */,
 				F7752191229D9F39008140BC /* DevicesCollectionViewController.swift */,
+				F77521B722BFD8FE008140BC /* TrackingSnapshotsViewController.swift */,
+				F77521C022CB66B3008140BC /* DetailSnapshotTrackingViewController.swift */,
 			);
 			name = ViewControllers;
 			path = AirCondition/ViewControllers;
@@ -407,6 +444,7 @@
 			files = (
 				F77521AB22A7E1DF008140BC /* AirlyDeviceSensor.swift in Sources */,
 				F7124C7C228B0C9C0038614F /* MainTabBarCoordinator.swift in Sources */,
+				F77521BD22BFED65008140BC /* TrackingHistoryViewModel.swift in Sources */,
 				F7DEBB7322886FAB0078B4FA /* CustomTextField.swift in Sources */,
 				F7752197229DA260008140BC /* DeviceModel.swift in Sources */,
 				F77521A3229EF7A1008140BC /* AnnotationPointDevice.swift in Sources */,
@@ -422,6 +460,7 @@
 				F77521B022ABC68D008140BC /* Double + Extension.swift in Sources */,
 				F7DEBB7222886FAB0078B4FA /* RegistrationViewController.swift in Sources */,
 				F7DEBB6C22886FAB0078B4FA /* AppService.swift in Sources */,
+				F77521BF22C23D71008140BC /* TrackingSnapshotModel.swift in Sources */,
 				F7DEBB6B22886FAB0078B4FA /* Coordinator.swift in Sources */,
 				F77521B422B937E6008140BC /* MultipleDevicesModel.swift in Sources */,
 				F7DEBB5722886FA00078B4FA /* customButton.swift in Sources */,
@@ -429,10 +468,15 @@
 				F77521882293EA9B008140BC /* MapViewModel.swift in Sources */,
 				F7DEBB6D22886FAB0078B4FA /* AppManager.swift in Sources */,
 				F7DEBB6A22886FAB0078B4FA /* RegistrationCoordinator.swift in Sources */,
+				F77521C122CB66B4008140BC /* DetailSnapshotTrackingViewController.swift in Sources */,
+				F77521C622CBBD88008140BC /* AnnotationPointSnapshot.swift in Sources */,
 				F775219A229DA524008140BC /* DevicesCollectionViewCell.swift in Sources */,
 				F77521AD22A90A7D008140BC /* DeviceValuesAnnotationView.swift in Sources */,
+				F77521BB22BFDB19008140BC /* SnapshotTableViewCell.swift in Sources */,
+				F77521B822BFD8FE008140BC /* TrackingSnapshotsViewController.swift in Sources */,
 				F7DEBB6922886FAB0078B4FA /* ApplicationCoordinator.swift in Sources */,
 				F7DEBB6E22886FAB0078B4FA /* ViewModelType.swift in Sources */,
+				F77521C422CB7310008140BC /* MulticolorPolylineSegment.swift in Sources */,
 				F7752192229D9F39008140BC /* DevicesCollectionViewController.swift in Sources */,
 				F77521A522A64C5E008140BC /* DevicesCollectionViewHeader.swift in Sources */,
 				F7DEBB6F22886FAB0078B4FA /* UIColor+Extension.swift in Sources */,

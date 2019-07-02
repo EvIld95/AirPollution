@@ -76,7 +76,6 @@ class MapViewController: UIViewController {
                 return true
             }).observeOn(MainScheduler.instance).subscribe(onNext: { annotation in
                 self.mapView.addAnnotation(annotation)
-                //self.mapView.showAnnotations(self.mapView.annotations, animated: true)
         }).disposed(by: disposeBag)
         
         self.viewModel.output.deviceStream.flatMap { (device) in

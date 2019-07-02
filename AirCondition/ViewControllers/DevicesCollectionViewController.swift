@@ -64,7 +64,7 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         self.collectionView.keyboardDismissMode = .onDrag
         self.title = "Device"
         self.setupRx()
-        self.collectionView.backgroundView = setupGradientLayer()
+        self.collectionView.backgroundView = UIView.getGradientLayer(view: self.collectionView)
         self.collectionView.register(DevicesCollectionViewCell.self, forCellWithReuseIdentifier: DevicesCollectionCellIDs.device.rawValue)
         self.collectionView.register(DevicesCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DevicesCollectionCellIDs.header.rawValue)
     }
@@ -112,18 +112,6 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         header.device = device
         header.delegate = self
         return header
-    }
-    
-    func setupGradientLayer() -> UIView {
-        let viewBG = UIView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        let gradientLayer = CAGradientLayer()
-        let topColor = UIColor(red: 76.0/255.0, green: 130.0/255.0, blue: 164.0/255.0, alpha: 1.0)
-        let bottomColor = UIColor(red: 85.0/255.0, green: 159.0/255.0, blue: 122.0/255.0, alpha: 1.0)
-        gradientLayer.colors = [bottomColor.cgColor, topColor.cgColor]
-        gradientLayer.locations = [0, 1.5]
-        gradientLayer.frame = viewBG.bounds
-        viewBG.layer.addSublayer(gradientLayer)
-        return viewBG
     }
     
 }

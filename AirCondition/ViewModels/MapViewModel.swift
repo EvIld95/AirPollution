@@ -57,6 +57,12 @@ class MapViewModel: ViewModelType {
         }
     }
     
+    func stopTracking(device: DeviceModel) {
+        device.isTracked.value = false
+        self.output.trackDevice.value = nil
+        self.output.currentlyTrackingID = nil
+    }
+    
     func getAllDevices() {
         self.appManager.getAllDevices { devices in
             for dev in devices {
@@ -76,8 +82,8 @@ class MapViewModel: ViewModelType {
         
         Observable.combineLatest(self.output.trackDevice.asObservable(), self.output.userLocation.asObservable().throttle(5, scheduler: MainScheduler.instance)) { device, location -> (DeviceModel?, CLLocation?) in
             return (device,location)
-            }.skipWhile({ tuple -> Bool in
-                return tuple.0 == nil || tuple.1 == nil || self.output.currentlyTrackingID == nil
+            }.filter({ tuple -> Bool in
+                return tuple.0 != nil && tuple.1 != nil && self.output.currentlyTrackingID != nil
             }).subscribe(onNext: { tuple in
             let device = tuple.0
             let location = tuple.1

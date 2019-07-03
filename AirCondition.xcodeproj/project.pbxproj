@@ -33,6 +33,7 @@
 		F77521C122CB66B4008140BC /* DetailSnapshotTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C022CB66B3008140BC /* DetailSnapshotTrackingViewController.swift */; };
 		F77521C422CB7310008140BC /* MulticolorPolylineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C322CB7310008140BC /* MulticolorPolylineSegment.swift */; };
 		F77521C622CBBD88008140BC /* AnnotationPointSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C522CBBD87008140BC /* AnnotationPointSnapshot.swift */; };
+		F77521C822CC89F7008140BC /* DetailSnapshotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C722CC89F7008140BC /* DetailSnapshotViewModel.swift */; };
 		F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */; };
 		F7DEBB4722886CBF0078B4FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4522886CBF0078B4FA /* Main.storyboard */; };
 		F7DEBB4922886CC30078B4FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4822886CC30078B4FA /* Assets.xcassets */; };
@@ -82,6 +83,7 @@
 		F77521C022CB66B3008140BC /* DetailSnapshotTrackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSnapshotTrackingViewController.swift; sourceTree = "<group>"; };
 		F77521C322CB7310008140BC /* MulticolorPolylineSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticolorPolylineSegment.swift; sourceTree = "<group>"; };
 		F77521C522CBBD87008140BC /* AnnotationPointSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnnotationPointSnapshot.swift; path = Pods/AnnotationPointSnapshot.swift; sourceTree = SOURCE_ROOT; };
+		F77521C722CC89F7008140BC /* DetailSnapshotViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSnapshotViewModel.swift; sourceTree = "<group>"; };
 		F7DEBB3E22886CBF0078B4FA /* AirCondition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirCondition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7DEBB4622886CBF0078B4FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				F77521872293EA9B008140BC /* MapViewModel.swift */,
 				F7DEBB6522886FAB0078B4FA /* RegistrationViewModel.swift */,
 				F77521BC22BFED65008140BC /* TrackingHistoryViewModel.swift */,
+				F77521C722CC89F7008140BC /* DetailSnapshotViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				F77521A3229EF7A1008140BC /* AnnotationPointDevice.swift in Sources */,
 				F77521862293D2A3008140BC /* MainTabBarController.swift in Sources */,
 				F7DEBB7022886FAB0078B4FA /* UIView+Extension.swift in Sources */,
+				F77521C822CC89F7008140BC /* DetailSnapshotViewModel.swift in Sources */,
 				F7DEBB7122886FAB0078B4FA /* RegistrationViewModel.swift in Sources */,
 				F77521B622BF90E9008140BC /* TrackingModel.swift in Sources */,
 				F7DEBB5422886F980078B4FA /* AppDelegate+Setup.swift in Sources */,

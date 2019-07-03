@@ -13,6 +13,7 @@ import CoreLocation
 
 protocol DevicesSelectableToTrackDelegate {
     func didSelectDeviceToTrack(device: DeviceModel)
+    func stopTrackDevice(device: DeviceModel)
 }
 
 class DevicesCollectionViewHeader: UICollectionViewCell {
@@ -66,7 +67,14 @@ class DevicesCollectionViewHeader: UICollectionViewCell {
     }()
     
     @objc func trackHandler() {
-        self.delegate.didSelectDeviceToTrack(device: device)
+        if buttonTrack.currentTitle == "Track" {
+            self.delegate.didSelectDeviceToTrack(device: device)
+            buttonTrack.setTitle("Stop", for: .normal)
+        } else {
+            self.delegate.stopTrackDevice(device: device)
+            buttonTrack.setTitle("Track", for: .normal)
+        }
+        
     }
 
     

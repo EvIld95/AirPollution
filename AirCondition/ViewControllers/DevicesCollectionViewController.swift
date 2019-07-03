@@ -132,4 +132,8 @@ extension DevicesCollectionViewController: DevicesSelectableToTrackDelegate {
     func didSelectDeviceToTrack(device: DeviceModel) {
         viewModel.startTracking(device: device)
     }
+    
+    func stopTrackDevice(device: DeviceModel) {
+        viewModel.stopTracking(device: device)
+    }
 }

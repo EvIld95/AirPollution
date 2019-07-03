@@ -9,12 +9,16 @@
 import Foundation
 import UIKit
 import RxSwift
+import RxCocoa
 import MapKit
 
+enum PolylineDisplayMode {
+    case normalized
+    case standard
+}
 
 class DetailSnapshotTrackingViewController: UIViewController {
-    
-    var sensorData: [SensorData]!
+    var viewModel: DetailSnapshotViewModel!
     lazy var mapView: MKMapView! = {
         let mv = MKMapView()
         mv.showsUserLocation = false
@@ -22,19 +26,32 @@ class DetailSnapshotTrackingViewController: UIViewController {
         return mv
     }()
     
+    let displayModeSegmentedControl: UISegmentedControl = {
+        let sc = UISegmentedControl(items: ["Normalized", "3 colors"])
+        sc.selectedSegmentIndex = 0
+        return sc
+    }()
+    
     override func viewDidLoad() {
         setupLayout()
-        for data in sensorData {
+        setupRx()
+        for data in self.viewModel.output.selectedSnapshots.value {
             let annotation = AnnotationPointSnapshot(data: data)
             self.mapView.addAnnotation(annotation)
         }
-        
-        loadMap()
+    }
+    
+    func setupRx() {
+        displayModeSegmentedControl.rx.selectedSegmentIndex.distinctUntilChanged().asObservable().subscribe(onNext: { value in
+            self.loadMap(mode: value == 0 ? .normalized : .standard)
+        })
     }
     
     private func setupLayout() {
         self.view.addSubview(mapView)
+        self.view.addSubview(displayModeSegmentedControl)
         mapView.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+        displayModeSegmentedControl.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, bottom: nil, trailing: self.view.trailingAnchor , padding: .init(top: 10, left: 40, bottom: 0, right: 40), size: .init(width: 0, height: 30))
     }
 }
 
@@ -51,7 +68,6 @@ extension DetailSnapshotTrackingViewController: MKMapViewDelegate {
         let id = "id"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: id)
         
-        print(annotation.data.pm100!)
         let deviceView = DeviceValuesView(frame: .init(x: 0, y: 0, width: 300, height: 200))
         
         deviceView.temperature = annotation.data.temperature!
@@ -80,7 +96,7 @@ extension DetailSnapshotTrackingViewController: MKMapViewDelegate {
     
     func mapRegion() -> MKCoordinateRegion {
         
-        let locations = sensorData.map { (sensor) -> CLLocationCoordinate2D in
+        let locations = self.viewModel.output.selectedSnapshots.value.map { (sensor) -> CLLocationCoordinate2D in
             return CLLocationCoordinate2D(latitude: sensor.latitude!, longitude: sensor.longitude!)
         }
         
@@ -103,10 +119,8 @@ extension DetailSnapshotTrackingViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let polyline = overlay as! MulticolorPolylineSegment
-        //let polyline = overlay as! MKPolyline
         
         let renderer = MKPolylineRenderer(polyline: polyline)
-        //renderer.strokeColor = UIColor.red
         renderer.lineCap = .round
         renderer.strokeColor = polyline.color
         renderer.lineWidth = 5
@@ -116,23 +130,17 @@ extension DetailSnapshotTrackingViewController: MKMapViewDelegate {
     
     
     func polyline() -> MKPolyline {
-        var coords = [CLLocationCoordinate2D]()
-        
-        let locations = sensorData.map { (sensor) -> CLLocationCoordinate2D in
+        let locations = self.viewModel.output.selectedSnapshots.value.map { (sensor) -> CLLocationCoordinate2D in
             return CLLocationCoordinate2D(latitude: sensor.latitude!, longitude: sensor.longitude!)
         }
-        
-        
         return MKPolyline(coordinates: locations, count: locations.count)
     }
     
-    
-    func loadMap() {
-        if sensorData.count > 0 {
+    func loadMap(mode: PolylineDisplayMode) {
+        if self.viewModel.output.selectedSnapshots.value.count > 0 {
             mapView.region = mapRegion()
-            let colorSegments = MulticolorPolylineSegment.colorSegments(forData: sensorData)
+            let colorSegments = MulticolorPolylineSegment.colorSegments(forData: self.viewModel.output.selectedSnapshots.value, mode: mode)
             mapView.addOverlays(colorSegments)
-            //mapView.add(polyline())
         } else {
             print("ERROR with map")
         }

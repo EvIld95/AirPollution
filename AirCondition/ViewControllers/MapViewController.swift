@@ -52,7 +52,10 @@ class MapViewController: UIViewController {
             self.viewModel.addNewDeviceToDatabase(serial: serial)
         })
         
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
         alert.addAction(saveAction)
+        alert.addAction(cancelAction)
         
         self.present(alert, animated: true, completion: nil)
     }

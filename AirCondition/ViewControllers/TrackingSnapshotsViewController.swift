@@ -15,6 +15,11 @@ class TrackingSnapshotsTableViewController: UITableViewController {
     let disposeBag = DisposeBag()
     
     let cellId = "cellId"
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.viewModel.getAllTrackingSnapshots()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Tracking"
@@ -22,7 +27,6 @@ class TrackingSnapshotsTableViewController: UITableViewController {
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundView = UIView.getGradientLayer(view: self.tableView)
         self.setupRx()
-        self.viewModel.getAllTrackingSnapshots()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

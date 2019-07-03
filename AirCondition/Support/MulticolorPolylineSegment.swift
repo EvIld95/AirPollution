@@ -21,11 +21,15 @@ class MulticolorPolylineSegment: MKPolyline {
             return (minVal!, maxVal!)
     }
     
-    class func colorSegments(forData data: [SensorData]) -> [MulticolorPolylineSegment] {
+    class func colorSegments(forData data: [SensorData], mode: PolylineDisplayMode) -> [MulticolorPolylineSegment] {
         var colorSegments = [MulticolorPolylineSegment]()
         
         let pm100s = data.map { (sensor) -> Int in
             return sensor.pm100 ?? 0
+        }
+        
+        let pm25s = data.map { (sensor) -> Int in
+            return sensor.pm25 ?? 0
         }
         
         let locations = data.map { (sensor) -> CLLocation in
@@ -44,11 +48,22 @@ class MulticolorPolylineSegment: MKPolyline {
             coords.append(l2.coordinate)
             
             let pm100 = pm100s[i-1]
+            let pm25 = pm25s[i-1]
             
-            let ratio = Double(pm100 - minPM) / Double(maxPM - minPM)
             
-            let color = UIColor(hue: CGFloat(0.33 - ((ratio) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
-            
+            var color: UIColor!
+            if mode == .normalized {
+                let ratio = Double(pm100 - minPM) / Double(maxPM - minPM)
+                color = UIColor(hue: CGFloat(0.33 - ((ratio) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
+            } else {
+                if pm25 < 25 && pm100 < 50 {
+                    color = UIColor.green
+                } else if pm100 < 200 {
+                    color = UIColor.orange
+                } else {
+                    color = UIColor.red
+                }
+            }
             
             let segment = MulticolorPolylineSegment(coordinates: &coords, count: coords.count)
             segment.color = color

@@ -58,9 +58,8 @@ class MainTabBarCoordinator: Coordinator {
         }
         
         snapshotsTableViewController?.viewModel.output.selectedSnapshots.asObservable().skip(1).subscribe(onNext: { _ in
-            print(" Go to next page")
             let snapshotsDetailViewController = self.container.resolve(DetailSnapshotTrackingViewController.self)
-            snapshotsDetailViewController?.sensorData = snapshotsTableViewController?.viewModel.output.selectedSnapshots.value
+            snapshotsDetailViewController?.viewModel.output.selectedSnapshots.value = snapshotsTableViewController!.viewModel.output.selectedSnapshots.value
             snapshotsNavController.pushViewController(snapshotsDetailViewController!, animated: true)
         })
     }

@@ -44,6 +44,7 @@ class TrackingSnapshotsTableViewController: UITableViewController {
         let id = sortedKeys[indexPath.row]
         cell.tag = id
         if let data = self.viewModel.output.trackingSnapshots.value[id]!.first {
+            cell.data = data
             cell.dateLabel.text = String(data.createdOn!.split(separator: " ").first!)
         }
         return cell

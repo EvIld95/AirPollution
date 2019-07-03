@@ -22,5 +22,6 @@ target 'AirCondition' do
   pod 'Swinject'
   pod 'GoogleAppMeasurement', '~> 5.2.0'
   pod 'M13ProgressSuite'
+  pod 'Charts'
 
 end

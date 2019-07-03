@@ -34,6 +34,7 @@
 		F77521C422CB7310008140BC /* MulticolorPolylineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C322CB7310008140BC /* MulticolorPolylineSegment.swift */; };
 		F77521C622CBBD88008140BC /* AnnotationPointSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C522CBBD87008140BC /* AnnotationPointSnapshot.swift */; };
 		F77521C822CC89F7008140BC /* DetailSnapshotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C722CC89F7008140BC /* DetailSnapshotViewModel.swift */; };
+		F77521CA22CCD029008140BC /* DeviceHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C922CCD028008140BC /* DeviceHistoryViewController.swift */; };
 		F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */; };
 		F7DEBB4722886CBF0078B4FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4522886CBF0078B4FA /* Main.storyboard */; };
 		F7DEBB4922886CC30078B4FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4822886CC30078B4FA /* Assets.xcassets */; };
@@ -84,6 +85,7 @@
 		F77521C322CB7310008140BC /* MulticolorPolylineSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticolorPolylineSegment.swift; sourceTree = "<group>"; };
 		F77521C522CBBD87008140BC /* AnnotationPointSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnnotationPointSnapshot.swift; path = Pods/AnnotationPointSnapshot.swift; sourceTree = SOURCE_ROOT; };
 		F77521C722CC89F7008140BC /* DetailSnapshotViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSnapshotViewModel.swift; sourceTree = "<group>"; };
+		F77521C922CCD028008140BC /* DeviceHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHistoryViewController.swift; sourceTree = "<group>"; };
 		F7DEBB3E22886CBF0078B4FA /* AirCondition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirCondition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7DEBB4622886CBF0078B4FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				F7752191229D9F39008140BC /* DevicesCollectionViewController.swift */,
 				F77521B722BFD8FE008140BC /* TrackingSnapshotsViewController.swift */,
 				F77521C022CB66B3008140BC /* DetailSnapshotTrackingViewController.swift */,
+				F77521C922CCD028008140BC /* DeviceHistoryViewController.swift */,
 			);
 			name = ViewControllers;
 			path = AirCondition/ViewControllers;
@@ -468,6 +471,7 @@
 				F7DEBB6B22886FAB0078B4FA /* Coordinator.swift in Sources */,
 				F77521B422B937E6008140BC /* MultipleDevicesModel.swift in Sources */,
 				F7DEBB5722886FA00078B4FA /* customButton.swift in Sources */,
+				F77521CA22CCD029008140BC /* DeviceHistoryViewController.swift in Sources */,
 				F77521A922A7DB70008140BC /* AirlyNearestDevice.swift in Sources */,
 				F77521882293EA9B008140BC /* MapViewModel.swift in Sources */,
 				F7DEBB6D22886FAB0078B4FA /* AppManager.swift in Sources */,

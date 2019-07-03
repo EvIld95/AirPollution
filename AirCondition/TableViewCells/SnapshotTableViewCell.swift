@@ -7,9 +7,33 @@
 //
 
 import UIKit
+import Foundation
+import CoreLocation
+
 
 class SnapshotTableViewCell: UITableViewCell {
     
+    var data: SensorData! {
+        didSet {
+            let ceo: CLGeocoder = CLGeocoder()
+            let loc: CLLocation = CLLocation(latitude: data.latitude!, longitude: data.longitude!)
+            
+            ceo.reverseGeocodeLocation(loc, completionHandler:
+                {(placemarks, error) in
+                    if (error != nil) {
+                        print("reverse geodcode fail: \(error!.localizedDescription)")
+                    } else {
+                        guard let pm = placemarks else { return }
+                        if pm.count > 0 {
+                            let pm = placemarks![0]
+                            let locality = (pm.locality != nil ? "\(pm.locality!)" : "")
+                            let text = locality + (pm.thoroughfare != nil ? ", \(pm.thoroughfare!)" : "")
+                            self.cityLabel.text = text
+                        }
+                    }
+            })
+        }
+    }
     let cityLabel: UILabel = {
         let label = UILabel()
         label.text = "Poznan"

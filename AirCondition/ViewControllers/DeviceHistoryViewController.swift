@@ -11,7 +11,9 @@ import UIKit
 
 
 class DeviceHistoryViewController: UIViewController {
+    var serial: String!
     override func viewDidLoad() {
         self.view.backgroundColor = .red
+        print(serial)
     }
 }

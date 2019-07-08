@@ -175,7 +175,7 @@ extension MapViewController: CLLocationManagerDelegate {
 }
 
 extension MapViewController: DeviceValuesViewDelegate {
-    func viewTapped() {
-        self.viewModel.input.showDeviceHistory.value = true
+    func viewTapped(withSerial serial: String) {
+        self.viewModel.input.showDeviceHistoryWithSerial.value = serial
     }
 }

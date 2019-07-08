@@ -63,10 +63,11 @@ class MainTabBarCoordinator: Coordinator {
             snapshotsNavController.pushViewController(snapshotsDetailViewController!, animated: true)
         }).disposed(by: disposeBag)
         
-        mapViewController?.viewModel.input.showDeviceHistory.asObservable().filter({ (value) -> Bool in
-            return value
-        }).observeOn(MainScheduler.instance).subscribe(onNext: { _ in
+        mapViewController?.viewModel.input.showDeviceHistoryWithSerial.asObservable().filter({ (value) -> Bool in
+            return value != ""
+        }).observeOn(MainScheduler.instance).subscribe(onNext: { serial in
             let dhViewController = self.container.resolve(DeviceHistoryViewController.self)!
+            dhViewController.serial = serial
             mapNavController.show(dhViewController, sender: nil)
         }).disposed(by: disposeBag)
     }

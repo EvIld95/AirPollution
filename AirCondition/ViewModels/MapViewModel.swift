@@ -19,7 +19,7 @@ class MapViewModel: ViewModelType {
     var appManager: AppManager!
     
     struct Input {
-        var showDeviceHistory = Variable<Bool>(false)
+        var showDeviceHistoryWithSerial = Variable<String>("")
     }
     
     struct Output {

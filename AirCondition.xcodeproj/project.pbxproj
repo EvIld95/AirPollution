@@ -35,6 +35,7 @@
 		F77521C622CBBD88008140BC /* AnnotationPointSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C522CBBD87008140BC /* AnnotationPointSnapshot.swift */; };
 		F77521C822CC89F7008140BC /* DetailSnapshotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C722CC89F7008140BC /* DetailSnapshotViewModel.swift */; };
 		F77521CA22CCD029008140BC /* DeviceHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C922CCD028008140BC /* DeviceHistoryViewController.swift */; };
+		F77521CC22D35855008140BC /* HistorySnapshotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521CB22D35855008140BC /* HistorySnapshotModel.swift */; };
 		F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */; };
 		F7DEBB4722886CBF0078B4FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4522886CBF0078B4FA /* Main.storyboard */; };
 		F7DEBB4922886CC30078B4FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4822886CC30078B4FA /* Assets.xcassets */; };
@@ -86,6 +87,7 @@
 		F77521C522CBBD87008140BC /* AnnotationPointSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnnotationPointSnapshot.swift; path = Pods/AnnotationPointSnapshot.swift; sourceTree = SOURCE_ROOT; };
 		F77521C722CC89F7008140BC /* DetailSnapshotViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSnapshotViewModel.swift; sourceTree = "<group>"; };
 		F77521C922CCD028008140BC /* DeviceHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHistoryViewController.swift; sourceTree = "<group>"; };
+		F77521CB22D35855008140BC /* HistorySnapshotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySnapshotModel.swift; sourceTree = "<group>"; };
 		F7DEBB3E22886CBF0078B4FA /* AirCondition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirCondition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7DEBB4622886CBF0078B4FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				F77521B322B937E5008140BC /* MultipleDevicesModel.swift */,
 				F77521B522BF90E9008140BC /* TrackingModel.swift */,
 				F77521BE22C23D71008140BC /* TrackingSnapshotModel.swift */,
+				F77521CB22D35855008140BC /* HistorySnapshotModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				F7DEBB6D22886FAB0078B4FA /* AppManager.swift in Sources */,
 				F7DEBB6A22886FAB0078B4FA /* RegistrationCoordinator.swift in Sources */,
 				F77521C122CB66B4008140BC /* DetailSnapshotTrackingViewController.swift in Sources */,
+				F77521CC22D35855008140BC /* HistorySnapshotModel.swift in Sources */,
 				F77521C622CBBD88008140BC /* AnnotationPointSnapshot.swift in Sources */,
 				F775219A229DA524008140BC /* DevicesCollectionViewCell.swift in Sources */,
 				F77521AD22A90A7D008140BC /* DeviceValuesAnnotationView.swift in Sources */,

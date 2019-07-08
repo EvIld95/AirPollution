@@ -15,6 +15,7 @@ enum AppService {
     case addSnapshot(token: String, serial: String, trackingId: Int, temperature: Double, pressure: Double, humidity: Double, pm10: Int, pm25: Int, pm100: Int, CO: Double, latitude: Double, longitude: Double)
     case getAllDevices(token: String)
     case getAllTrackingSnapshots(token: String)
+    case getHistorySnapshots(token: String, serial: String)
 }
 
 extension AppService: TargetType {
@@ -31,7 +32,8 @@ extension AppService: TargetType {
             return "/getDevices"
         case .getAllTrackingSnapshots:
             return "/getTrackingSnapshots"
-        
+        case .getHistorySnapshots:
+            return "/getHistorySnapshots"
         }
     }
     
@@ -46,6 +48,8 @@ extension AppService: TargetType {
         case .getAllDevices:
             return .post
         case .getAllTrackingSnapshots:
+            return .post
+        case .getHistorySnapshots:
             return .post
         }
     }
@@ -62,6 +66,8 @@ extension AppService: TargetType {
             return .requestParameters(parameters: ["token": token], encoding: JSONEncoding.default)
         case .getAllTrackingSnapshots(let token):
             return .requestParameters(parameters: ["token": token], encoding: JSONEncoding.default)
+        case .getHistorySnapshots(let token, let serial):
+            return .requestParameters(parameters: ["token": token, "serial": serial], encoding: JSONEncoding.default)
         }
     }
     
@@ -77,6 +83,8 @@ extension AppService: TargetType {
             return "GETDEVICES".utf8Encoded
         case .getAllTrackingSnapshots:
             return "Snaps".utf8Encoded
+        case .getHistorySnapshots:
+            return "History".utf8Encoded
         }
     }
     

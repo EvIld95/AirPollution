@@ -118,6 +118,24 @@ class AppManager {
         })
     }
     
+    func getHistorySnapshots(serial: String, completion: @escaping ([SensorData]) -> ()) {
+        let provider = MoyaProvider<AppService>()
+        let currentUser = Auth.auth().currentUser
+        currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+            guard let idToken = idToken else { return }
+            
+            provider.request(.getHistorySnapshots(token: idToken, serial: serial), completion: { (result) in
+                switch result {
+                case let .success(response):
+                    guard let data = try? response.map(to: HistorySnapshotModel.self) else { return }
+                    completion(data.array)
+                case .failure:
+                    print("ERROR")
+                }
+            })
+        }
+    }
+    
     
     func nearestInstallation(latitude: Double, longitude: Double, completionHandler: @escaping ([NearestDevice]) -> ()) {
         let provider = MoyaProvider<AirlyService>(plugins: [CompleteUrlLoggerPlugin()])

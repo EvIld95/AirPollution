@@ -11,13 +11,14 @@ import MapKit
 import RxSwift
 
 protocol DeviceValuesViewDelegate {
-    func viewTapped()
+    func viewTapped(withSerial serial: String)
 }
 
 class DeviceValuesView: UIView {
     let disposeBag = DisposeBag()
     var delegate: DeviceValuesViewDelegate?
     
+    var serial = ""
     var typeOfDevice: String = "" {
         didSet {
             self.typeOfDeviceLabel.text = typeOfDevice
@@ -157,7 +158,7 @@ class DeviceValuesView: UIView {
     
 
     init(device: DeviceModel, frame: CGRect) {
-        
+        self.serial = device.serial.value!
         device.temperature.asDriver().map({ (value) -> String in "\(value!.roundTo(places: 2)) C" }).drive(self.temperatureLabel.rx.text).disposed(by: disposeBag)
         device.humidity.asDriver().map({ (value) -> String in "\(value!.roundTo(places: 2)) %" }).drive(self.humidityLabel.rx.text).disposed(by: disposeBag)
         device.pressure.asDriver().map({ (value) -> String in "\(value!.roundTo(places: 2)) hPa" }).drive(self.pressureLabel.rx.text).disposed(by: disposeBag)
@@ -189,6 +190,6 @@ class DeviceValuesView: UIView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("Touched")
-        delegate?.viewTapped()
+        delegate?.viewTapped(withSerial: serial)
     }
 }

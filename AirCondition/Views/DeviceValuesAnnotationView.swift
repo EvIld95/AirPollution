@@ -16,7 +16,7 @@ protocol DeviceValuesViewDelegate {
 
 class DeviceValuesView: UIView {
     let disposeBag = DisposeBag()
-    var delegate: DeviceValuesViewDelegate!
+    var delegate: DeviceValuesViewDelegate?
     
     var typeOfDevice: String = "" {
         didSet {
@@ -189,6 +189,6 @@ class DeviceValuesView: UIView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("Touched")
-        delegate.viewTapped()
+        delegate?.viewTapped()
     }
 }

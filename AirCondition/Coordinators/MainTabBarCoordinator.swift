@@ -61,7 +61,14 @@ class MainTabBarCoordinator: Coordinator {
             let snapshotsDetailViewController = self.container.resolve(DetailSnapshotTrackingViewController.self)
             snapshotsDetailViewController?.viewModel.output.selectedSnapshots.value = snapshotsTableViewController!.viewModel.output.selectedSnapshots.value
             snapshotsNavController.pushViewController(snapshotsDetailViewController!, animated: true)
-        })
+        }).disposed(by: disposeBag)
+        
+        mapViewController?.viewModel.input.showDeviceHistory.asObservable().filter({ (value) -> Bool in
+            return value
+        }).observeOn(MainScheduler.instance).subscribe(onNext: { _ in
+            let dhViewController = self.container.resolve(DeviceHistoryViewController.self)!
+            mapNavController.show(dhViewController, sender: nil)
+        }).disposed(by: disposeBag)
     }
     
     

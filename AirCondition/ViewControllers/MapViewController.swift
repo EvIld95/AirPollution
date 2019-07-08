@@ -125,7 +125,7 @@ extension MapViewController: MKMapViewDelegate {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: id)
         
         let deviceView = DeviceValuesView(device: annotation.device, frame: .init(x: 0, y: 0, width: 300, height: 200))
-       
+        deviceView.delegate = self
         if annotationView == nil {
             let indicatorView = AirStatusIndicatorView(device: annotation.device)
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: id)
@@ -171,5 +171,11 @@ extension MapViewController: CLLocationManagerDelegate {
             
         }
         request = true
+    }
+}
+
+extension MapViewController: DeviceValuesViewDelegate {
+    func viewTapped() {
+        self.viewModel.input.showDeviceHistory.value = true
     }
 }

@@ -80,5 +80,10 @@ extension AppDelegate {
             return detailVC
         }
         
+        container.register(DeviceHistoryViewController.self) { r in
+            let dhVC = DeviceHistoryViewController()
+            return dhVC
+        }
+        
     }
 }

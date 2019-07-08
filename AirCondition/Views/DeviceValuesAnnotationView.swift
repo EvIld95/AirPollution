@@ -10,8 +10,14 @@ import UIKit
 import MapKit
 import RxSwift
 
+protocol DeviceValuesViewDelegate {
+    func viewTapped()
+}
+
 class DeviceValuesView: UIView {
     let disposeBag = DisposeBag()
+    var delegate: DeviceValuesViewDelegate!
+    
     var typeOfDevice: String = "" {
         didSet {
             self.typeOfDeviceLabel.text = typeOfDevice
@@ -183,5 +189,6 @@ class DeviceValuesView: UIView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("Touched")
+        delegate.viewTapped()
     }
 }

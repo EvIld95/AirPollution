@@ -7,3 +7,11 @@
 //
 
 import Foundation
+import UIKit
+
+
+class DeviceHistoryViewController: UIViewController {
+    override func viewDidLoad() {
+        self.view.backgroundColor = .red
+    }
+}

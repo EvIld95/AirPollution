@@ -84,10 +84,20 @@ class DeviceModel {
         self.setupRx()
     }
     
-    convenience init(deviceAirly: AirlyDeviceSensor) {
-        self.init(serial:  "\(deviceAirly.deviceAirly?.id)", latitude: deviceAirly.deviceAirly!.latitude!, longitude: deviceAirly.deviceAirly!.longitude!, email: nil)
+    init(deviceAirly: AirlyDeviceSensor) {
+        self.serial.value = "\(deviceAirly.deviceAirly?.id)"//serial
+        self.pm10.value = Int(deviceAirly.pm10 ?? 0)
+        self.pm25.value = Int(deviceAirly.pm25 ?? 0)
+        self.pm100.value = Int(deviceAirly.pm100 ?? 0)
+        self.pressure.value = deviceAirly.pressure
+        self.temperature.value = deviceAirly.temperature
+        self.humidity.value = deviceAirly.humidity
         self.CO.value = nil
         self.email = nil
+        self.latitude.value = deviceAirly.deviceAirly!.latitude!
+        self.longitude.value = deviceAirly.deviceAirly!.longitude!
+        self.isTracked.value = false
+        self.setupRx()
     }
     
     convenience init?(device: Device) {

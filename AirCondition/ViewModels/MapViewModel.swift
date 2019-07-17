@@ -90,17 +90,6 @@ class MapViewModel: ViewModelType {
             self.appManager.addSnapshot(serial: device!.serial.value!, trackingId: self.output.currentlyTrackingID!, temperature: device!.temperature.value!, pressure: device!.pressure.value!, humidity: device!.humidity.value!, pm10: device!.pm10.value ?? 0, pm100: device!.pm100.value ?? 0, pm25: device!.pm25.value ?? 0, CO: device!.CO.value ?? 0.0, location: location!, completion: nil)
         }).disposed(by: disposeBag)
         
-        
-//        Observable<Int>.interval(10, scheduler: MainScheduler.instance).do(onNext: { (time) in
-//            for device in self.output.devices.value {
-//                self.appManager.addSnapshot(serial: device.serial.value!, temperature: device.temperature.value!, pressure: device.pressure.value!, humidity: device.humidity.value!, pm10: device.pm10.value ?? 0, pm100: device.pm100.value ?? 0, pm25: device.pm25.value ?? 0, CO: device.CO.value ?? 0.0, location: CLLocation(latitude: device.latitude.value, longitude: device.longitude.value), completion: nil)
-//            }
-//        }).subscribe().disposed(by: disposeBag)
-    
-//        for i in 1..<10 {
-//            self.output.devices.value.append(DeviceModel(serial: String(i), pm10: i, pm25: i*2, pm100: i*9, pressure: 1015, temperature: 16, humidity: 75, CO: Double(i) * 80.0, latitude: .init(52.0 + Double.random(in: 0.0..<1.0)), longitude: .init(16.5 + Double.random(in: 0.0..<0.5))))
-//        }
-        
     }
     
 }

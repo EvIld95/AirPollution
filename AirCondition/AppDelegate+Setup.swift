@@ -32,6 +32,12 @@ extension AppDelegate {
             return tvm
         }
         
+        container.register(DeviceHistoryViewModel.self) { r in
+            let dhvm = DeviceHistoryViewModel()
+            dhvm.appManager = r.resolve(AppManager.self)
+            return dhvm
+        }
+        
         container.register(MapViewModel.self) { (r) in
             let mv = MapViewModel()
             mv.appManager = r.resolve(AppManager.self)
@@ -82,6 +88,7 @@ extension AppDelegate {
         
         container.register(DeviceHistoryViewController.self) { r in
             let dhVC = DeviceHistoryViewController()
+            dhVC.viewModel = r.resolve(DeviceHistoryViewModel.self)
             return dhVC
         }
         

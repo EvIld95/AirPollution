@@ -67,7 +67,7 @@ class MainTabBarCoordinator: Coordinator {
             return value != ""
         }).observeOn(MainScheduler.instance).subscribe(onNext: { serial in
             let dhViewController = self.container.resolve(DeviceHistoryViewController.self)!
-            dhViewController.serial = serial
+            dhViewController.viewModel.input.serial.value = serial
             mapNavController.show(dhViewController, sender: nil)
         }).disposed(by: disposeBag)
     }

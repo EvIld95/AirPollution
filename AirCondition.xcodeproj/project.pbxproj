@@ -36,6 +36,9 @@
 		F77521C822CC89F7008140BC /* DetailSnapshotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C722CC89F7008140BC /* DetailSnapshotViewModel.swift */; };
 		F77521CA22CCD029008140BC /* DeviceHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521C922CCD028008140BC /* DeviceHistoryViewController.swift */; };
 		F77521CC22D35855008140BC /* HistorySnapshotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521CB22D35855008140BC /* HistorySnapshotModel.swift */; };
+		F77521CE22D35BEA008140BC /* DeviceHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521CD22D35BEA008140BC /* DeviceHistoryViewModel.swift */; };
+		F77521D022D7BB06008140BC /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521CF22D7BB05008140BC /* ChartView.swift */; };
+		F77521D222DF340A008140BC /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77521D122DF3409008140BC /* Date+Extension.swift */; };
 		F7DEBB4222886CBF0078B4FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */; };
 		F7DEBB4722886CBF0078B4FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4522886CBF0078B4FA /* Main.storyboard */; };
 		F7DEBB4922886CC30078B4FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB4822886CC30078B4FA /* Assets.xcassets */; };
@@ -88,6 +91,9 @@
 		F77521C722CC89F7008140BC /* DetailSnapshotViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSnapshotViewModel.swift; sourceTree = "<group>"; };
 		F77521C922CCD028008140BC /* DeviceHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHistoryViewController.swift; sourceTree = "<group>"; };
 		F77521CB22D35855008140BC /* HistorySnapshotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySnapshotModel.swift; sourceTree = "<group>"; };
+		F77521CD22D35BEA008140BC /* DeviceHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHistoryViewModel.swift; sourceTree = "<group>"; };
+		F77521CF22D7BB05008140BC /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		F77521D122DF3409008140BC /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		F7DEBB3E22886CBF0078B4FA /* AirCondition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirCondition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7DEBB4122886CBF0078B4FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7DEBB4622886CBF0078B4FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -148,6 +154,7 @@
 				F7DEBB6522886FAB0078B4FA /* RegistrationViewModel.swift */,
 				F77521BC22BFED65008140BC /* TrackingHistoryViewModel.swift */,
 				F77521C722CC89F7008140BC /* DetailSnapshotViewModel.swift */,
+				F77521CD22D35BEA008140BC /* DeviceHistoryViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -180,6 +187,7 @@
 			children = (
 				F77521AC22A90A7C008140BC /* DeviceValuesAnnotationView.swift */,
 				F775219E229EBE4D008140BC /* AirStatusIndicatorView.swift */,
+				F77521CF22D7BB05008140BC /* ChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -301,6 +309,7 @@
 				F7DEBB6222886FAB0078B4FA /* UIColor+Extension.swift */,
 				F7DEBB6322886FAB0078B4FA /* UIView+Extension.swift */,
 				F77521AF22ABC68D008140BC /* Double + Extension.swift */,
+				F77521D122DF3409008140BC /* Date+Extension.swift */,
 			);
 			name = Extension;
 			path = AirCondition/Extension;
@@ -452,6 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F77521AB22A7E1DF008140BC /* AirlyDeviceSensor.swift in Sources */,
+				F77521D222DF340A008140BC /* Date+Extension.swift in Sources */,
 				F7124C7C228B0C9C0038614F /* MainTabBarCoordinator.swift in Sources */,
 				F77521BD22BFED65008140BC /* TrackingHistoryViewModel.swift in Sources */,
 				F7DEBB7322886FAB0078B4FA /* CustomTextField.swift in Sources */,
@@ -480,6 +490,7 @@
 				F7DEBB6D22886FAB0078B4FA /* AppManager.swift in Sources */,
 				F7DEBB6A22886FAB0078B4FA /* RegistrationCoordinator.swift in Sources */,
 				F77521C122CB66B4008140BC /* DetailSnapshotTrackingViewController.swift in Sources */,
+				F77521CE22D35BEA008140BC /* DeviceHistoryViewModel.swift in Sources */,
 				F77521CC22D35855008140BC /* HistorySnapshotModel.swift in Sources */,
 				F77521C622CBBD88008140BC /* AnnotationPointSnapshot.swift in Sources */,
 				F775219A229DA524008140BC /* DevicesCollectionViewCell.swift in Sources */,
@@ -489,6 +500,7 @@
 				F7DEBB6922886FAB0078B4FA /* ApplicationCoordinator.swift in Sources */,
 				F7DEBB6E22886FAB0078B4FA /* ViewModelType.swift in Sources */,
 				F77521C422CB7310008140BC /* MulticolorPolylineSegment.swift in Sources */,
+				F77521D022D7BB06008140BC /* ChartView.swift in Sources */,
 				F7752192229D9F39008140BC /* DevicesCollectionViewController.swift in Sources */,
 				F77521A522A64C5E008140BC /* DevicesCollectionViewHeader.swift in Sources */,
 				F7DEBB6F22886FAB0078B4FA /* UIColor+Extension.swift in Sources */,

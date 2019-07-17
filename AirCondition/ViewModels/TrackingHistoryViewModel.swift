@@ -39,8 +39,6 @@ class TrackingHistoryViewModel: ViewModelType {
     init() {
         self.input = Input()
         self.output = Output()
-        
-        
     }
     
 }

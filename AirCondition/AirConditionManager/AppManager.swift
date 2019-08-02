@@ -154,7 +154,7 @@ class AppManager {
     func measurement(device: NearestDevice, completionHandler: @escaping (AirlyDeviceSensor) -> ()) {
         let provider = MoyaProvider<AirlyService>(plugins: [CompleteUrlLoggerPlugin()])
         
-        provider.request(.measurement(installationId: device.id!)) { result in
+        provider.request(.measurement(installationId: device.id)) { result in
             switch result {
             case let .success(response):
                 guard let data = try? response.map(to: AirlyDeviceSensor.self) else { return }

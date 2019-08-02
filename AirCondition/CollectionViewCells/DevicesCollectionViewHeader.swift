@@ -83,7 +83,17 @@ class DevicesCollectionViewHeader: UICollectionViewCell {
             self.localizationLabel.text = address
         }).disposed(by: disposeBag)
         
-        device.serial.asDriver().drive(self.serialLabel.rx.text).disposed(by: disposeBag)
+//        device.serial.asDriver().map({ (elem) in
+//            return elem!
+//        }).drive(self.serialLabel.rx.text).disposed(by: disposeBag)
+        
+        device.serial.asObservable().subscribe(onNext: { value in
+            if let serial = value {
+                self.serialLabel.text = serial
+            } else {
+                self.serialLabel.text = "Unknown"
+            }
+        }).disposed(by: disposeBag)
     }
     
     override init(frame: CGRect) {

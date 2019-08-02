@@ -17,11 +17,12 @@ class DateAxisValueFormatter : NSObject, IAxisValueFormatter {
     init(dates: [Date]) {
         self.dates = dates
         super.init()
-        dateFormatter.dateFormat = "dd-MM HH:mm"
+        dateFormatter.dateFormat = "dd-MM-YYYY"
     }
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        guard dates.count > 0 else { return " " }
+        guard dates.count > 0 && Int(value) < dates.count else { return " " }
+        
         let date = dates[Int(value)]
         return dateFormatter.string(from: date)
     }
@@ -42,20 +43,36 @@ class ChartView: UIView {
     var chartData = LineChartData()
     let lineChartView = LineChartView()
     var dates = [Date]()
-    var data: [(Date, Double)] = [] {
+    var daysAgo = 7
+    var data: [Date: Double] = [:] {
         didSet {
             lineDataEntry.removeAll()
             dates.removeAll()
-            for (i, (date, snap)) in data.enumerated() {
-                dates.append(date)
-                let dataPoint = ChartDataEntry(x: Double(i), y: snap)
+            
+            for i in 1...daysAgo {
+                let now = Date()
+                let components = Calendar.current.dateComponents([.year, .month, .day], from: now)
+                
+                dates.append(Calendar.current.date(byAdding: .day, value: -1*i, to: Calendar.current.date(from: components)!)!)
+            }
+            
+            //let keys = data.keys
+            let sortedDates = dates.sorted { (el1, el2) -> Bool in
+                el1.compare(el2) == .orderedAscending
+            }
+            
+            for (i, date) in sortedDates.enumerated() {
+                let value = data[date] ?? 0.0
+               // dates.append(date)
+                let dataPoint = ChartDataEntry(x: Double(i), y: value)
                 lineDataEntry.append(dataPoint)
             }
             chartDataSet.values = lineDataEntry
             chartDataSet.notifyDataSetChanged()
             chartData.addDataSet(chartDataSet)
             lineChartView.data = chartData
-            lineChartView.xAxis.valueFormatter = DateAxisValueFormatter(dates: dates)
+            lineChartView.xAxis.valueFormatter = DateAxisValueFormatter(dates: sortedDates)
+            lineChartView.xAxis.granularity = Double(sortedDates.count) / 5.0
         }
     }
     
@@ -103,7 +120,7 @@ class ChartView: UIView {
         lineChartView.rightAxis.drawGridLinesEnabled = false
         lineChartView.isUserInteractionEnabled = false
         lineChartView.xAxis.labelPosition = .bottom
-        lineChartView.xAxis.granularity = 10
+        
         
         self.addSubview(lineChartView)
         lineChartView.anchor(top: titleLabel.bottomAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor)

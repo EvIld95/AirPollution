@@ -16,7 +16,7 @@ final class AirlyNearestDevice : ALSwiftyJSONAble {
     required init?(jsonData:JSON){
         print(jsonData)
         for device in jsonData.array! {
-            let id = device["id"].int
+            let id = device["id"].int!
             let street = device["address"]["street"].string
             let city =  device["address"]["city"].string
             let latitude = device["location"]["latitude"].double
@@ -30,7 +30,7 @@ final class AirlyNearestDevice : ALSwiftyJSONAble {
 struct NearestDevice {
     let city: String?
     let street: String?
-    let id: Int?
+    let id: Int
     let latitude: Double?
     let longitude: Double?
 }

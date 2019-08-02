@@ -70,9 +70,13 @@ class ChartView: UIView {
             chartDataSet.values = lineDataEntry
             chartDataSet.notifyDataSetChanged()
             chartData.addDataSet(chartDataSet)
+            chartData.notifyDataChanged()
             lineChartView.data = chartData
+            lineChartView.notifyDataSetChanged()
+            lineChartView.invalidateIntrinsicContentSize()
             lineChartView.xAxis.valueFormatter = DateAxisValueFormatter(dates: sortedDates)
-            lineChartView.xAxis.granularity = Double(sortedDates.count) / 5.0
+            lineChartView.xAxis.granularity = 0.2//Double(sortedDates.count) / 5.0
+           
         }
     }
     

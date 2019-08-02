@@ -61,9 +61,9 @@ class DeviceHistoryViewController: UIViewController {
         self.timeSegmentedControl.rx.selectedSegmentIndex.skip(1).asObservable().subscribe(onNext: { value in
             var days = 0
             if value == 0 {
-                days = 30
-            } else if value == 1 {
                 days = 7
+            } else if value == 1 {
+                days = 30
             } else if value == 2 {
                 days = 1
             }
@@ -107,9 +107,9 @@ class DeviceHistoryViewController: UIViewController {
         let value = self.timeSegmentedControl.selectedSegmentIndex
         var daysAgo = 30
         if value == 0 {
-            daysAgo = 30
-        } else if value == 1 {
             daysAgo = 7
+        } else if value == 1 {
+            daysAgo = 30
         } else if value == 2 {
             daysAgo = 1
         }

@@ -61,9 +61,9 @@ class DeviceHistoryViewController: UIViewController {
         self.timeSegmentedControl.rx.selectedSegmentIndex.skip(1).asObservable().subscribe(onNext: { value in
             var days = 0
             if value == 0 {
-                days = 7
-            } else if value == 1 {
                 days = 30
+            } else if value == 1 {
+                days = 7
             } else if value == 2 {
                 days = 1
             }
@@ -107,9 +107,9 @@ class DeviceHistoryViewController: UIViewController {
         let value = self.timeSegmentedControl.selectedSegmentIndex
         var daysAgo = 30
         if value == 0 {
-            daysAgo = 7
-        } else if value == 1 {
             daysAgo = 30
+        } else if value == 1 {
+            daysAgo = 7
         } else if value == 2 {
             daysAgo = 1
         }
@@ -180,25 +180,25 @@ class DeviceHistoryViewController: UIViewController {
         chartStackView.anchor(top: self.scrollView.topAnchor, leading: self.scrollView.leadingAnchor, bottom: self.scrollView.bottomAnchor, trailing: scrollView.trailingAnchor)
         self.chartStackView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, multiplier: 1.0).isActive = true
         
-        self.chartView1 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 200), title: "PM 10")
+        self.chartView1 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 300), title: "PM 10")
         chartStackView.addArrangedSubview(chartView1)
         
-        self.chartView2 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 200), title: "PM 2.5")
+        self.chartView2 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 300), title: "PM 2.5")
         chartStackView.addArrangedSubview(chartView2)
         
-        self.chartView3 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 200), title: "PM 1.0")
+        self.chartView3 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 300), title: "PM 1.0")
         chartStackView.addArrangedSubview(chartView3)
         
-        self.chartView4 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 200), title: "Temperature")
+        self.chartView4 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 300), title: "Temperature")
         chartStackView.addArrangedSubview(chartView4)
         
-        self.chartView5 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 200), title: "Pressure")
+        self.chartView5 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 300), title: "Pressure")
         chartStackView.addArrangedSubview(chartView5)
         
-        self.chartView6 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 200), title: "Humidity")
+        self.chartView6 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 300), title: "Humidity")
         chartStackView.addArrangedSubview(chartView6)
         
-        self.chartView7 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 200), title: "CO")
+        self.chartView7 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 300), title: "CO")
         chartStackView.addArrangedSubview(chartView7)
     }
 }

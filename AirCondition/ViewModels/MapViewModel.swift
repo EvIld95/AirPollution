@@ -35,14 +35,17 @@ class MapViewModel: ViewModelType {
         self.output.devices.value.append(dev)
     }
     
-    @objc func addNewDeviceToDatabase(serial:String) {
+    @objc func addNewDeviceToDatabase(serial:String, onError: @escaping () -> ()) {
         self.appManager.checkIfDeviceExists(serial: serial) { (exists) in
-            guard exists == true else { return }
+            guard exists == true else { onError(); return }
             guard let location = self.output.userLocation.value, let email = Auth.auth().currentUser?.email else { return }
             
-            self.appManager.addNewDevice(serial: serial, email: email, longitude: location.coordinate.longitude, latitude: location.coordinate.latitude) { device in
+            self.appManager.addNewDevice(serial: serial, email: email, longitude: location.coordinate.longitude, latitude: location.coordinate.latitude, completion: { device in
                 self.addNewDevice(dev: device)
+            }, onError: {
+                onError()
             }
+            )
         }
     }
     
@@ -63,13 +66,15 @@ class MapViewModel: ViewModelType {
         self.output.currentlyTrackingID = nil
     }
     
-    func getAllDevices() {
-        self.appManager.getAllDevices { devices in
+    func getAllDevices(onError: @escaping () -> ()) {
+        self.appManager.getAllDevices(completion: { devices in
             for dev in devices {
                 guard let deviceModel = DeviceModel(device: dev) else { continue }
                 self.addNewDevice(dev: deviceModel)
             }
-        }
+        }, onError: {
+            onError()
+        } )
     }
     
     init() {

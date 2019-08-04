@@ -14,10 +14,10 @@ import Charts
 class DateAxisValueFormatter : NSObject, IAxisValueFormatter {
     let dateFormatter = DateFormatter()
     let dates: [Date]
-    init(dates: [Date]) {
+    init(dates: [Date], last24h: Bool = false) {
         self.dates = dates
         super.init()
-        dateFormatter.dateFormat = "dd-MM-YYYY"
+        dateFormatter.dateFormat = last24h ? "HH:mm" : "dd-MM-YYYY"
     }
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
@@ -48,12 +48,17 @@ class ChartView: UIView {
         didSet {
             lineDataEntry.removeAll()
             dates.removeAll()
-            
-            for i in 1...daysAgo {
-                let now = Date()
-                let components = Calendar.current.dateComponents([.year, .month, .day], from: now)
-                
-                dates.append(Calendar.current.date(byAdding: .day, value: -1*i, to: Calendar.current.date(from: components)!)!)
+            let now = Date()
+            if daysAgo != 1 {
+                for i in 1...daysAgo {
+                    let components = Calendar.current.dateComponents([.year, .month, .day], from: now)
+                    dates.append(Calendar.current.date(byAdding: .day, value: -1*i, to: Calendar.current.date(from: components)!)!)
+                }
+            } else {
+                for i in 0...24 {
+                    let components = Calendar.current.dateComponents([.year, .month, .day, .hour], from: now)
+                    dates.append(Calendar.current.date(byAdding: .hour, value: -1*i, to: Calendar.current.date(from: components)!)!)
+                }
             }
             
             //let keys = data.keys
@@ -67,6 +72,7 @@ class ChartView: UIView {
                 let dataPoint = ChartDataEntry(x: Double(i), y: value)
                 lineDataEntry.append(dataPoint)
             }
+            
             chartDataSet.values = lineDataEntry
             chartDataSet.notifyDataSetChanged()
             chartData.addDataSet(chartDataSet)
@@ -74,9 +80,9 @@ class ChartView: UIView {
             lineChartView.data = chartData
             lineChartView.notifyDataSetChanged()
             lineChartView.invalidateIntrinsicContentSize()
-            lineChartView.xAxis.valueFormatter = DateAxisValueFormatter(dates: sortedDates)
+            lineChartView.xAxis.valueFormatter = DateAxisValueFormatter(dates: sortedDates, last24h: daysAgo == 1)
             lineChartView.xAxis.granularity = 0.2//Double(sortedDates.count) / 5.0
-           
+            lineChartView.xAxis.labelRotationAngle = -45
         }
     }
     

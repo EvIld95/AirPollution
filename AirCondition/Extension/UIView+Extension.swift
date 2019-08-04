@@ -19,9 +19,7 @@ struct AnchoredConstraints {
     var top, leading, bottom, trailing, width, height: NSLayoutConstraint?
 }
 
-// Reference Video: https://youtu.be/iqpAP7s3b-8
 extension UIView {
-    
     @discardableResult
     func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?, padding: UIEdgeInsets = .zero, size: CGSize = .zero) -> AnchoredConstraints {
         
@@ -95,13 +93,10 @@ extension UIView {
         }
     }
     
-    
-    
     func setupGradientLayer() {
         let gradientLayer = CAGradientLayer()
-        let topColor = UIColor(red: 172.0/255.0, green: 220.0/255.0, blue: 255.0/255.0, alpha: 1.0)//UIColor(red: 76.0/255.0, green: 130.0/255.0, blue: 164.0/255.0, alpha: 1.0)
-        let bottomColor = UIColor(red: 7.0/255.0, green: 152.0/255.0, blue: 255.0/255.0, alpha: 1.0)//UIColor(red: 85.0/255.0, green: 159.0/255.0, blue: 122.0/255.0, alpha: 1.0)
-        // make sure to user cgColor
+        let topColor = UIColor(red: 172.0/255.0, green: 220.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        let bottomColor = UIColor(red: 7.0/255.0, green: 152.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         gradientLayer.colors = [topColor.cgColor, bottomColor.cgColor]
         gradientLayer.locations = [0, 1.5]
         self.layer.insertSublayer(gradientLayer, below: layer)
@@ -111,9 +106,8 @@ extension UIView {
     static func getGradientLayer(view: UIView) -> UIView {
         let viewBG = UIView(frame: CGRect.init(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         let gradientLayer = CAGradientLayer()
-        let topColor = UIColor(red: 172.0/255.0, green: 220.0/255.0, blue: 255.0/255.0, alpha: 1.0)//UIColor(red: 76.0/255.0, green: 130.0/255.0, blue: 164.0/255.0, alpha: 1.0)
-        let bottomColor = UIColor(red: 7.0/255.0, green: 152.0/255.0, blue: 255.0/255.0, alpha: 1.0)//UIColor(red: 85.0/255.0, green: 159.0/255.0, blue: 122.0/255.0, alpha: 1.0)
-        // make sure to user cgColor
+        let topColor = UIColor(red: 172.0/255.0, green: 220.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        let bottomColor = UIColor(red: 7.0/255.0, green: 152.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         gradientLayer.colors = [topColor.cgColor, bottomColor.cgColor]
         gradientLayer.locations = [0, 1.5]
         gradientLayer.frame = viewBG.bounds

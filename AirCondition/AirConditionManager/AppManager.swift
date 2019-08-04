@@ -15,7 +15,7 @@ import FirebaseDatabase
 import CoreLocation
 
 class AppManager {
-    func addNewDevice(serial: String, email: String, longitude: Double, latitude: Double , completion: @escaping (DeviceModel) -> ()) {
+    func addNewDevice(serial: String, email: String, longitude: Double, latitude: Double, completion: @escaping (DeviceModel) -> (), onError: @escaping () -> ()) {
         let provider = MoyaProvider<AppService>()
         let currentUser = Auth.auth().currentUser
         let email = Auth.auth().currentUser!.email
@@ -27,13 +27,13 @@ class AppManager {
                     completion(deviceModel)
                     
                 case .failure:
-                    print("ERROR")
+                    onError()
                 }
             }
         }
     }
     
-    func getAllDevices(completion: @escaping ([Device]) -> ()) {
+    func getAllDevices(completion: @escaping ([Device]) -> (), onError: @escaping () -> ()) {
         let provider = MoyaProvider<AppService>()
         let currentUser = Auth.auth().currentUser
         currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
@@ -45,7 +45,7 @@ class AppManager {
                     guard let data = try? response.map(to: MultipleDevicesModel.self) else { return }
                     completion(data.array)
                 case .failure:
-                    print("ERROR")
+                    onError()
                 }
             })
         }
@@ -83,7 +83,7 @@ class AppManager {
         })
     }
     
-    func getAllTrackingSnapshots(completion: @escaping ([Int: [SensorData]]) -> ()) {
+    func getAllTrackingSnapshots(completion: @escaping ([Int: [SensorData]]) -> (), onError: @escaping () -> ()) {
         let provider = MoyaProvider<AppService>()
         let currentUser = Auth.auth().currentUser
         currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
@@ -95,7 +95,7 @@ class AppManager {
                     guard let data = try? response.map(to: TrackingSnapshotModel.self) else { return }
                     completion(data.dict)
                 case .failure:
-                    print("ERROR")
+                    onError()
                 }
             })
         }

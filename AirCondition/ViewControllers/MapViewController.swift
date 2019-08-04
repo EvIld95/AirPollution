@@ -30,7 +30,11 @@ class MapViewController: UIViewController {
         self.setupLayout()
         self.setupLocationManager()
         self.setupRx()
-        self.viewModel.getAllDevices()
+        self.viewModel.getAllDevices(onError: {
+            let alertController = UIAlertController(title: "Error", message: "Can't load sensors! Check server or internet connection!", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        })
      }
     
     private func setupLayout() {
@@ -49,7 +53,11 @@ class MapViewController: UIViewController {
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alertAction -> Void in
             let textField = alert.textFields![0] as UITextField
             guard let serial = textField.text, textField.text != "" else { return }
-            self.viewModel.addNewDeviceToDatabase(serial: serial)
+            self.viewModel.addNewDeviceToDatabase(serial: serial, onError: {
+                let alertController = UIAlertController(title: "Error", message: "Can't add new device, check if you entered correct serial number", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            })
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)

@@ -19,20 +19,19 @@ class TrackingHistoryViewModel: ViewModelType {
     var appManager: AppManager!
     
     struct Input {
-        
+        var selectedSnapshots = Variable<[SensorData]>([])
     }
     
     struct Output {
         var trackingSnapshots = Variable<[Int: [SensorData]]>([Int: [SensorData]]())
-        var selectedSnapshots = Variable<[SensorData]>([])
     }
     
-    func getAllTrackingSnapshots() {
-        self.appManager.getAllTrackingSnapshots { (snapshotsDict) in
+    func getAllTrackingSnapshots(onError: @escaping () -> ()) {
+        self.appManager.getAllTrackingSnapshots(completion: { (snapshotsDict) in
             for id in snapshotsDict.keys {
                 self.output.trackingSnapshots.value[id] = snapshotsDict[id]
             }
-        }
+        }, onError: { onError() })
     }
     
     

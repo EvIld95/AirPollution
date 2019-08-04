@@ -10,8 +10,10 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import JGProgressHUD
 
 class RegistrationViewController: UIViewController {
+    let disposeBag = DisposeBag()
     var viewModel: RegistrationViewModel!
     var appManager: AppManager!
     
@@ -92,36 +94,7 @@ class RegistrationViewController: UIViewController {
         return button
     }()
     
-    let facebookButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Facebook", for: .normal)
-        button.setTitleColor(.sapiensBorderColor, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Futura", size: 18)
-        button.backgroundColor = .clear
-        button.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        button.layer.cornerRadius = 8
-        button.titleLabel?.textAlignment = .center
-        button.addTarget(self, action: #selector(handleLoginWithFacebook), for: .touchUpInside)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.sapiensBorderColor.cgColor
-        
-        let iv = UIImageView(image: #imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal))
-        iv.clipsToBounds = true
-        iv.contentMode = .scaleAspectFit
-        
-        button.addSubview(iv)
-        iv.anchor(top: nil, leading: button.leadingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0), size: .zero)
-        iv.centerYAnchor.constraint(equalTo: button.centerYAnchor).isActive = true
-        iv.widthAnchor.constraint(equalTo: button.heightAnchor, multiplier: 0.6).isActive = true
-        iv.heightAnchor.constraint(equalTo: button.heightAnchor, multiplier: 0.6).isActive = true
-        return button
-    }()
     
-    @objc fileprivate func handleLoginWithFacebook() {
-        print("Login With Facebook")
-    }
-    
-    let disposeBag = DisposeBag()
     func setupRx() {
         emailTextField.rx.text.orEmpty.throttle(0.5, scheduler: MainScheduler.instance).bind(to: self.viewModel.input.email).disposed(by: disposeBag)
         passwordTextField.rx.text.orEmpty.throttle(0.5, scheduler: MainScheduler.instance).bind(to: self.viewModel.input.password).disposed(by: disposeBag)
@@ -133,8 +106,7 @@ class RegistrationViewController: UIViewController {
         let sv = UIStackView(arrangedSubviews: [
             emailTextField,
             passwordTextField,
-            registerButton,
-            facebookButton
+            registerButton
             ])
         sv.axis = .vertical
         sv.spacing = 8
@@ -157,14 +129,29 @@ class RegistrationViewController: UIViewController {
         return sv
     }()
     
-    
     @objc func handleRegister() {
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Loading"
+        hud.show(in: self.view)
         if self.registerButton.currentTitle == "Login" {
-            viewModel.actionLogin.execute(Void())
+            viewModel.actionLogin.execute(Void()).subscribe(onError: { error in
+                hud.dismiss()
+                let alertController = UIAlertController(title: "Can not login", message: error.localizedDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }, onCompleted: {
+                hud.dismiss()
+            }).disposed(by: disposeBag)
         } else {
-            viewModel.actionRegister.execute(Void())
+            viewModel.actionRegister.execute(Void()).subscribe(onError: { error in
+                hud.dismiss()
+                let alertController = UIAlertController(title: "Can not register", message: error.localizedDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }, onCompleted: {
+                hud.dismiss()
+            }).disposed(by: disposeBag)
         }
-        
     }
     
     func setupLayout() {

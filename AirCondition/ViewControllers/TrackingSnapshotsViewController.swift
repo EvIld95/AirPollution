@@ -17,7 +17,11 @@ class TrackingSnapshotsTableViewController: UITableViewController {
     let cellId = "cellId"
     
     override func viewDidAppear(_ animated: Bool) {
-        self.viewModel.getAllTrackingSnapshots()
+        self.viewModel.getAllTrackingSnapshots(onError: {
+            let alertController = UIAlertController(title: "Error", message: "Can't load tracking history, check internet connection", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        })
     }
     
     override func viewDidLoad() {
@@ -54,11 +58,10 @@ class TrackingSnapshotsTableViewController: UITableViewController {
         return 100
     }
     
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: false)
         let cellAtIndexPath = self.tableView.cellForRow(at: indexPath) as! SnapshotTableViewCell
-        self.viewModel.output.selectedSnapshots.value = self.viewModel.output.trackingSnapshots.value[cellAtIndexPath.tag]!
+        self.viewModel.input.selectedSnapshots.value = self.viewModel.output.trackingSnapshots.value[cellAtIndexPath.tag]!
     }
     
     func setupRx() {

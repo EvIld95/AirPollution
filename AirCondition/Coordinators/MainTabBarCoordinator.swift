@@ -38,14 +38,14 @@ class MainTabBarCoordinator: Coordinator {
     func setupViewControllers() {
         let mapViewController = self.container.resolve(MapViewController.self)
         mapViewController!.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(logout))
-        let mapNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "profile_unselected"), selectedImage: #imageLiteral(resourceName: "profile_unselected"), rootViewController: mapViewController!)
-        
+        let mapNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "map"), selectedImage: #imageLiteral(resourceName: "map"), rootViewController: mapViewController!)
+        mapNavController.title = "Map"
         let deviceCollectionViewController = self.container.resolve(DevicesCollectionViewController.self)
-        let deviceViewController = templateNavController(unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"), rootViewController: deviceCollectionViewController!)
-        
+        let deviceViewController = templateNavController(unselectedImage: #imageLiteral(resourceName: "sensor-44"), selectedImage: #imageLiteral(resourceName: "sensor-44"), rootViewController: deviceCollectionViewController!)
+        deviceViewController.title = "Device"
         let snapshotsTableViewController = self.container.resolve(TrackingSnapshotsTableViewController.self)
-        let snapshotsNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"), rootViewController: snapshotsTableViewController!)
-        
+        let snapshotsNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "history-44"), selectedImage: #imageLiteral(resourceName: "history-44"), rootViewController: snapshotsTableViewController!)
+        snapshotsNavController.title = "Tracking"
         
 
         self.mainTabBarController.tabBar.tintColor = .black
@@ -57,9 +57,9 @@ class MainTabBarCoordinator: Coordinator {
             item.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
         }
         
-        snapshotsTableViewController?.viewModel.output.selectedSnapshots.asObservable().skip(1).subscribe(onNext: { _ in
+        snapshotsTableViewController?.viewModel.input.selectedSnapshots.asObservable().skip(1).subscribe(onNext: { _ in
             let snapshotsDetailViewController = self.container.resolve(DetailSnapshotTrackingViewController.self)
-            snapshotsDetailViewController?.viewModel.output.selectedSnapshots.value = snapshotsTableViewController!.viewModel.output.selectedSnapshots.value
+            snapshotsDetailViewController?.viewModel.output.selectedSnapshots.value = snapshotsTableViewController!.viewModel.input.selectedSnapshots.value
             snapshotsNavController.pushViewController(snapshotsDetailViewController!, animated: true)
         }).disposed(by: disposeBag)
         

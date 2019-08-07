@@ -64,63 +64,63 @@ class DeviceValuesView: UIView {
     private let pressureLabel: UILabel = {
         let label = UILabel()
         label.text = "1012hPa"
-        label.textAlignment = .center
+      //  label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 8)
         return label
     }()
     
     private let humidityLabel: UILabel = {
         let label = UILabel()
         label.text = "88%"
-        label.textAlignment = .center
+       // label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 8)
         return label
     }()
     
     private let temperatureLabel: UILabel = {
         let label = UILabel()
         label.text = "12C"
-        label.textAlignment = .center
+      //  label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 8)
         return label
     }()
     
     private let pm10Label: UILabel = {
         let label = UILabel()
         label.text = "Pm10"
-        label.textAlignment = .center
+      //  label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 8)
         return label
     }()
     
     private let pm25Label: UILabel = {
         let label = UILabel()
         label.text = "Pm25"
-        label.textAlignment = .center
+       // label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 8)
         return label
     }()
     
     private let pm100Label: UILabel = {
         let label = UILabel()
         label.text = "Pm100"
-        label.textAlignment = .center
+        //label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 8)
         return label
     }()
     
     private let COLabel: UILabel = {
         let label = UILabel()
         label.text = "CO: "
-        label.textAlignment = .center
+        //label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 8)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 40).isActive = true
         return label
@@ -130,7 +130,7 @@ class DeviceValuesView: UIView {
         let label = UILabel()
         label.text = "Device"
         label.textAlignment = .center
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         label.font = UIFont.systemFont(ofSize: 10)
         return label
     }()
@@ -141,7 +141,7 @@ class DeviceValuesView: UIView {
         stackViewSensors.distribution = .fillEqually
         stackViewSensors.alignment = .fill
         stackViewSensors.axis = .horizontal
-        stackViewSensors.spacing = 10
+        stackViewSensors.spacing = 3
         
         let stackViewPM = UIStackView(arrangedSubviews: [self.pm10Label, self.pm25Label, self.pm100Label])
         stackViewPM.distribution = .fillEqually
@@ -149,7 +149,7 @@ class DeviceValuesView: UIView {
         stackViewPM.axis = .horizontal
         
         let stackView = UIStackView(arrangedSubviews: [typeOfDeviceLabel, stackViewSensors, stackViewPM])
-        stackView.distribution = UIStackView.Distribution.fillEqually
+        stackView.distribution = UIStackView.Distribution.fill
         stackView.alignment = UIStackView.Alignment.fill
         stackView.axis = .vertical
         
@@ -165,11 +165,14 @@ class DeviceValuesView: UIView {
         device.pm10.asDriver().map({ (value) -> String in "PM1.0: \(value!)" }).drive(self.pm10Label.rx.text).disposed(by: disposeBag)
         device.pm100.asDriver().map({ (value) -> String in "PM10: \(value!)" }).drive(self.pm100Label.rx.text).disposed(by: disposeBag)
         device.pm25.asDriver().map({ (value) -> String in "PM2.5: \(value!)" }).drive(self.pm25Label.rx.text).disposed(by: disposeBag)
+        
+        
       
         if device.CO.value == nil {
             self.typeOfDeviceLabel.text = "Airly"
         } else {
             self.typeOfDeviceLabel.text = "Raspberry"
+            device.CO.asDriver().map({ (value) -> String in "CO: \(value!) ppm" }).drive(self.COLabel.rx.text).disposed(by: disposeBag)
         }
         
         super.init(frame: frame)

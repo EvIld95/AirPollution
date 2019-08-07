@@ -34,12 +34,12 @@ class DeviceHistoryViewModel: ViewModelType {
                 
                 for _ in 0..<100 {
                     let dateRandString = "2019-0\(Int.random(in: 7 ..< 8))-\(Int.random(in: 1 ..< 30)) 22:00:00"
-                    data.append(SensorData(humidity: Double.random(in: 0.0 ..< 100.0), serial: "0000000076e88405", latitude: 27.33, longitude: 0.0, CO: Int.random(in: 0 ..< 1000), pm10: Int.random(in: 0 ..< 1000), pm25: Int.random(in: 0 ..< 1000), pm100: Int.random(in: 0 ..< 1000), temperature: Double.random(in: 0.0 ..< 40.0), pressure: Double.random(in: 950.0 ..< 1050.0), createdOn: dateRandString))
+                    data.append(SensorData(humidity: Double.random(in: 0.0 ..< 100.0), serial: "0000000076e88405", latitude: 27.33, longitude: 0.0, CO: Int.random(in: 0 ..< 10000), pm10: Int.random(in: 0 ..< 1000), pm25: Int.random(in: 0 ..< 1000), pm100: Int.random(in: 0 ..< 1000), temperature: Double.random(in: 0.0 ..< 40.0), pressure: Double.random(in: 950.0 ..< 1050.0), createdOn: dateRandString))
                 }
                 
                 for _ in 0..<30 {
                     let dateRandString = "2019-08-02 \(Int.random(in: 10...17)):00:00"
-                    data.append(SensorData(humidity: Double.random(in: 0.0 ..< 100.0), serial: "0000000076e88405", latitude: 27.33, longitude: 0.0, CO: Int.random(in: 0 ..< 1000), pm10: Int.random(in: 0 ..< 1000), pm25: Int.random(in: 0 ..< 1000), pm100: Int.random(in: 0 ..< 1000), temperature: Double.random(in: 0.0 ..< 40.0), pressure: Double.random(in: 950.0 ..< 1050.0), createdOn: dateRandString))
+                    data.append(SensorData(humidity: Double.random(in: 0 ..< 100.0), serial: "0000000076e88405", latitude: 27.33, longitude: 0.0, CO: Int.random(in: 0 ..< 10000), pm10: Int.random(in: 0 ..< 1000), pm25: Int.random(in: 0 ..< 1000), pm100: Int.random(in: 0 ..< 1000), temperature: Double.random(in: 0.0 ..< 40.0), pressure: Double.random(in: 950.0 ..< 1050.0), createdOn: dateRandString))
                 }
                 obs.onNext(data)
                 obs.onCompleted()

@@ -84,11 +84,11 @@ class DevicesCollectionViewCell: UICollectionViewCell {
     private let COLabel: UILabel = {
         let label = UILabel()
         label.text = "CO: "
-        label.textAlignment = .center
+        //label.textAlignment = .center
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        label.widthAnchor.constraint(equalToConstant: 100).isActive = true
         return label
     }()
     
@@ -189,7 +189,11 @@ class DevicesCollectionViewCell: UICollectionViewCell {
         device.pm10.asDriver().map({ (value) -> String in "PM1.0: \(value!)" }).drive(self.pm10Label.rx.text).disposed(by: disposeBag)
         device.pm100.asDriver().map({ (value) -> String in "PM10: \(value!)" }).drive(self.pm100Label.rx.text).disposed(by: disposeBag)
         device.pm25.asDriver().map({ (value) -> String in "PM2.5: \(value!)" }).drive(self.pm25Label.rx.text).disposed(by: disposeBag)
-        device.CO.asObservable().map({ (value) -> Double in Double(value ?? 0.0) / 1024.0  }).subscribe(onNext: { value in
+        device.CO.asObservable().map({ (value) -> Double in
+            self.COLabel.text = "CO: \(value ?? 0) ppm"
+            let newVal = (Double(value ?? 0.0) / 400.0)
+            return newVal > 1.0 ? 1.0 : newVal
+        }).subscribe(onNext: { value in
             self.progressBorderedCO.setProgress(CGFloat(value), animated: true)
             self.progressBorderedCO.primaryColor = UIColor(hue: CGFloat(0.33 - ((value) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
         }).disposed(by: disposeBag)

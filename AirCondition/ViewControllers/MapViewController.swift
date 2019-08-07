@@ -132,7 +132,7 @@ extension MapViewController: MKMapViewDelegate {
         let id = "id"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: id)
         
-        let deviceView = DeviceValuesView(device: annotation.device, frame: .init(x: 0, y: 0, width: 300, height: 200))
+        let deviceView = DeviceValuesView(device: annotation.device, frame: .init(x: 0, y: 0, width: 400, height: 200))
         deviceView.delegate = self
         if annotationView == nil {
             let indicatorView = AirStatusIndicatorView(device: annotation.device)

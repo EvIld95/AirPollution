@@ -57,6 +57,7 @@
 		F7DEBB7222886FAB0078B4FA /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB6622886FAB0078B4FA /* RegistrationViewController.swift */; };
 		F7DEBB7322886FAB0078B4FA /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEBB6822886FAB0078B4FA /* CustomTextField.swift */; };
 		F7DEBB752288C4560078B4FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7DEBB742288C4560078B4FA /* GoogleService-Info.plist */; };
+		F7E174F022FC3A7500A2907B /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = F7E174EF22FC3A7500A2907B /* Location.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +115,7 @@
 		F7DEBB6622886FAB0078B4FA /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		F7DEBB6822886FAB0078B4FA /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		F7DEBB742288C4560078B4FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F7E174EF22FC3A7500A2907B /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				F77521C322CB7310008140BC /* MulticolorPolylineSegment.swift */,
+				F7E174EF22FC3A7500A2907B /* Location.gpx */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -374,6 +377,9 @@
 					F7DEBB3D22886CBF0078B4FA = {
 						CreatedOnToolsVersion = 10.1;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
@@ -406,6 +412,7 @@
 			files = (
 				F7DEBB4C22886CC30078B4FA /* LaunchScreen.storyboard in Resources */,
 				F7DEBB4922886CC30078B4FA /* Assets.xcassets in Resources */,
+				F7E174F022FC3A7500A2907B /* Location.gpx in Resources */,
 				F7DEBB752288C4560078B4FA /* GoogleService-Info.plist in Resources */,
 				F7DEBB4722886CBF0078B4FA /* Main.storyboard in Resources */,
 			);

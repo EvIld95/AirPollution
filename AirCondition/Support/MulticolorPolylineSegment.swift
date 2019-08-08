@@ -32,11 +32,16 @@ class MulticolorPolylineSegment: MKPolyline {
             return sensor.pm25 ?? 0
         }
         
+        let COs = data.map { (sensor) -> Int in
+            return sensor.CO ?? 0
+        }
+        
         let locations = data.map { (sensor) -> CLLocation in
             return CLLocation(latitude: sensor.latitude!, longitude: sensor.longitude!)
         }
         
         let (minPM, maxPM) = minMax(forData: pm100s)
+        let (minCO, maxCO) = minMax(forData: COs)
         
         for i in 1..<locations.count {
             let l1 = locations[i-1]
@@ -49,13 +54,16 @@ class MulticolorPolylineSegment: MKPolyline {
             
             let pm100 = pm100s[i-1]
             let pm25 = pm25s[i-1]
-            
+            let CO = COs[i-1]
             
             var color: UIColor!
             if mode == .normalized {
-                let ratio = Double(pm100 - minPM) / Double(maxPM - minPM)
+                var ratio = 0.0
+                if Double(maxPM - minPM) != 0 {
+                    ratio = Double(pm100 - minPM) / Double(maxPM - minPM)
+                }
                 color = UIColor(hue: CGFloat(0.33 - ((ratio) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
-            } else {
+            } else if mode == .standard {
                 if pm25 < 25 && pm100 < 50 {
                     color = UIColor.green
                 } else if pm100 < 200 {
@@ -63,6 +71,12 @@ class MulticolorPolylineSegment: MKPolyline {
                 } else {
                     color = UIColor.red
                 }
+            } else if mode == .CO {
+                var ratio = 0.0
+                if Double(maxPM - minPM) != 0 {
+                    ratio = Double(CO - minCO) / Double(maxCO - minCO)
+                }
+                color = UIColor(hue: CGFloat(0.33 - ((ratio) * 0.33)), saturation: 1, brightness: 1, alpha: 1)
             }
             
             let segment = MulticolorPolylineSegment(coordinates: &coords, count: coords.count)

@@ -18,7 +18,7 @@ class DetailSnapshotViewModel: ViewModelType {
     var appManager: AppManager!
     
     struct Input {
-        
+        var isHidden = false
     }
     
     struct Output {

@@ -12,13 +12,15 @@ import RxSwift
 import RxCocoa
 import MapKit
 
-enum PolylineDisplayMode {
-    case normalized
+enum PolylineDisplayMode: Int {
+    case normalized = 0
     case standard
+    case CO
 }
 
 class DetailSnapshotTrackingViewController: UIViewController {
     var viewModel: DetailSnapshotViewModel!
+    let disposeBag = DisposeBag()
     lazy var mapView: MKMapView! = {
         let mv = MKMapView()
         mv.showsUserLocation = false
@@ -27,7 +29,7 @@ class DetailSnapshotTrackingViewController: UIViewController {
     }()
     
     let displayModeSegmentedControl: UISegmentedControl = {
-        let sc = UISegmentedControl(items: ["Normalized", "3 colors"])
+        let sc = UISegmentedControl(items: ["Normalized", "3 colors", "CO"])
         sc.selectedSegmentIndex = 0
         return sc
     }()
@@ -35,16 +37,24 @@ class DetailSnapshotTrackingViewController: UIViewController {
     override func viewDidLoad() {
         setupLayout()
         setupRx()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(switchShowingAnnotations))
         for data in self.viewModel.output.selectedSnapshots.value {
             let annotation = AnnotationPointSnapshot(data: data)
             self.mapView.addAnnotation(annotation)
         }
     }
     
+    @objc func switchShowingAnnotations() {
+        self.viewModel.input.isHidden = !self.viewModel.input.isHidden
+        for annot in self.mapView.annotations {
+            mapView.view(for: annot)?.isHidden = self.viewModel.input.isHidden
+        }
+    }
+    
     func setupRx() {
         displayModeSegmentedControl.rx.selectedSegmentIndex.distinctUntilChanged().asObservable().subscribe(onNext: { value in
-            self.loadMap(mode: value == 0 ? .normalized : .standard)
-        })
+            self.loadMap(mode: PolylineDisplayMode.init(rawValue: value)!)
+        }).disposed(by: disposeBag)
     }
     
     private func setupLayout() {
@@ -68,11 +78,11 @@ extension DetailSnapshotTrackingViewController: MKMapViewDelegate {
         let id = "id"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: id)
         
-        let deviceView = DeviceValuesView(frame: .init(x: 0, y: 0, width: 300, height: 200))
+        let deviceView = DeviceValuesView(frame: .init(x: 0, y: 0, width: 200, height: 200))
         
         deviceView.temperature = annotation.data.temperature!
-        deviceView.pressure = annotation.data.pressure!
-        deviceView.humidity = annotation.data.humidity!
+        deviceView.pressure = annotation.data.pressure!.roundTo(places: 2)
+        deviceView.humidity = annotation.data.humidity!.roundTo(places: 2)
         deviceView.pm10 = annotation.data.pm10!
         deviceView.pm25 = annotation.data.pm25!
         deviceView.pm100 = annotation.data.pm100!
@@ -82,7 +92,7 @@ extension DetailSnapshotTrackingViewController: MKMapViewDelegate {
             guard let annotationView = annotationView else { return nil }
             annotationView.canShowCallout = true
             annotationView.isEnabled = true
-            annotationView.image = #imageLiteral(resourceName: "home_selected")
+            annotationView.image = #imageLiteral(resourceName: "pointer-14")
             annotationView.detailCalloutAccessoryView = deviceView
             
         } else {

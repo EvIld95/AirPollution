@@ -80,11 +80,11 @@ extension AppService: TargetType {
         case .addSnapshot:
             return "ASD".utf8Encoded
         case .getAllDevices:
-            return "GETDEVICES".utf8Encoded
+            return "[{\"serial\": \"00001234\", \"email\": \"pablo.szudrowicz@gmail.com\", \"latitude\": 50.5, \"longitude\": 16.6}]".utf8Encoded
         case .getAllTrackingSnapshots:
-            return "Snaps".utf8Encoded
+            return "[{\"id\": 1, \"createdOn\": \"2019-09-01\", \"array\": [{\"serial\": \"0000000076e88405\", \"temperature\": 30, \"pressure\": 1007.1, \"pm25\": 7, \"longitude\": 52.8, \"latitude\": 16.8, \"pm100\": 50, \"humidity\": 45.9, \"CO\": 500, \"pm10\": 8}]}]".utf8Encoded
         case .getHistorySnapshots:
-            return "History".utf8Encoded
+            return "[{\"createdOn\": \"2019-09-01\", \"serial\": \"0000000076e88405\", \"temperature\": 30, \"pressure\": 1007.1, \"pm25\": 7, \"longitude\": 52.8, \"latitude\": 16.8, \"pm100\": 50, \"humidity\": 45.9, \"CO\": 500, \"pm10\": 8}]".utf8Encoded
         }
     }
     

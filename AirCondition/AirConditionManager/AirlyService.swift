@@ -59,11 +59,11 @@ extension AirlyService: TargetType {
     var sampleData: Data {
         switch self {
         case .basic:
-            return "{\"id\": \"http://52.236.165.15/hls/test.m3u8\"}".utf8Encoded
+            return "ooo".utf8Encoded
         case .nearestInstallations:
-            return "Test".utf8Encoded
+            return "[{\"id\": 1, \"address\": {\"street\": \"Dominikanska\", \"city\": \"Poznan\"}, \"location\": { \"latitude\": 50.5, \"longitude\": 16.6}}]".utf8Encoded
         case .measurement:
-            return "Test".utf8Encoded
+            return "{\"current\": {\"values\": [{}]}".utf8Encoded
         }
     }
     

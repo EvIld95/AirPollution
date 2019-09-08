@@ -24,4 +24,8 @@ target 'AirCondition' do
   pod 'M13ProgressSuite'
   pod 'Charts'
 
+  target 'AirTests' do
+     inherit! :complete
+  end
+
 end

@@ -26,6 +26,7 @@ target 'AirCondition' do
 
   target 'AirTests' do
      inherit! :complete
+     pod 'RxTest', '~> 4.0'
   end
 
 end

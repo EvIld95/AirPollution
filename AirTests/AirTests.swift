@@ -9,14 +9,22 @@
 import XCTest
 import Moya
 import Moya_SwiftyJSONMapper
+import RxTest
+import RxSwift
 @testable import AirCondition
 
 class AirTests: XCTestCase {
 
     var provider: MoyaProvider<AppService>!
     var providerAirly: MoyaProvider<AirlyService>!
+    var scheduler: TestScheduler!
+    var disposeBag: DisposeBag!
+    var viewModel: RegistrationViewModel!
     override func setUp() {
         super.setUp()
+        scheduler = TestScheduler(initialClock: 0)
+        disposeBag = DisposeBag()
+        viewModel = RegistrationViewModel()
         provider = MoyaProvider<AppService>(stubClosure: MoyaProvider.immediatelyStub)
         providerAirly = MoyaProvider<AirlyService>(stubClosure: MoyaProvider.immediatelyStub)
     }
@@ -111,4 +119,15 @@ class AirTests: XCTestCase {
         }
     }
     
+    func testRegistrationIsValid() {
+        let valid = scheduler.createObserver(Bool.self)
+        viewModel.output.valid.bind(to: valid).disposed(by: disposeBag)
+        
+        scheduler.createColdObservable([.next(10, "pablo.szudrowicz@gmail.com"), .next(20, "pablo.szudrowiczgmail.com")]).bind(to: viewModel.input.email).disposed(by: disposeBag)
+        scheduler.createColdObservable([.next(10, "pasdfasdf"), .next(20, "pasdfasdf")]).bind(to: viewModel.input.password).disposed(by: disposeBag)
+        
+        scheduler.start()
+        
+        XCTAssertEqual(valid.events, [.next(0, false), .next(10, true), .next(20, false)])
+    }
 }

@@ -211,7 +211,11 @@ extension Date {
         dateFormatter.dateFormat = formatString // This formate is input formated .
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-        let formateDate = dateFormatter.date(from: string)!
+        var formateDate = dateFormatter.date(from: string)!
+        if withTime == true { //because different timezone in server and application
+            guard let correctTime = Calendar.current.date(byAdding: Calendar.Component.hour, value: 2, to: formateDate) else { return formateDate }
+            formateDate = correctTime
+        }
         return formateDate
     }
 }

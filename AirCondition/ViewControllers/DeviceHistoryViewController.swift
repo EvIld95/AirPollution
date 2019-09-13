@@ -69,21 +69,37 @@ class DeviceHistoryViewController: UIViewController {
             }
             let filtered = self.viewModel.output.historySnapshots.value.filter { snap in
                 let correctFormat = snap.createdOn!.split(separator: ".")[0]
-                let snapCreatedOn = Date.getFormattedDate(string: String(correctFormat), withTime: true)
-                return Date.daysBetween(start: snapCreatedOn, end: Date()) <= days
+                var snapCreatedOn: Date!
+                snapCreatedOn = Date.getFormattedDate(string: String(correctFormat), withTime: true)
+               
+                let timeIntervalBetweenDates = Date().timeIntervalSince(snapCreatedOn) / 3600
+                
+                //return Date.daysBetween(start: snapCreatedOn, end: Date()) <= days
+                return Int(timeIntervalBetweenDates) <= days * 24
             }
             self.viewModel.output.filteredSnapshots.value = filtered
         }).disposed(by: disposeBag)
     }
     
     func drawCharts(data: [SensorData]) {
+        func fullHourDate(date: Date) -> Date? {
+            let calendar = NSCalendar.current
+            
+            var minuteComponent = calendar.dateComponents([.minute, .second], from: date)
+            var components = DateComponents()
+            components.minute = -minuteComponent.minute!
+            components.second = -minuteComponent.second!
+            return calendar.date(byAdding: components, to: date)
+        }
+        
         func convertStringToProperDate(snap: SensorData) -> Date {
             if self.timeSegmentedControl.selectedSegmentIndex != 2 {
                 let correctFormat = snap.createdOn!.split(separator: " ")[0]
                 return Date.getFormattedDate(string: String(correctFormat), withTime: false)
             } else {
                 let correctFormat = snap.createdOn!.split(separator: ".")[0]
-                return Date.getFormattedDate(string: String(correctFormat), withTime: true)
+                let date = Date.getFormattedDate(string: String(correctFormat), withTime: true)
+                return fullHourDate(date: date)!
             }
         }
         
@@ -104,6 +120,9 @@ class DeviceHistoryViewController: UIViewController {
             }
             return averageDataDictionary
         }
+        
+       
+        
         let value = self.timeSegmentedControl.selectedSegmentIndex
         var daysAgo = 30
         if value == 0 {

@@ -212,6 +212,8 @@ class DeviceHistoryViewController: UIViewController {
         chartStackView.addArrangedSubview(chartView4)
         
         self.chartView5 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 300), title: "Pressure")
+        self.chartView5.lineChartView.rightAxis.axisMinimum = 950
+        self.chartView5.lineChartView.rightAxis.granularity = 10
         chartStackView.addArrangedSubview(chartView5)
         
         self.chartView6 = ChartView(frame: .init(x: 0, y: 0, width: self.view.frame.width, height: 300), title: "Humidity")

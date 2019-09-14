@@ -50,7 +50,7 @@ class ChartView: UIView {
             dates.removeAll()
             let now = Date()
             if daysAgo != 1 {
-                for i in 1...daysAgo {
+                for i in 0...daysAgo {
                     let components = Calendar.current.dateComponents([.year, .month, .day], from: now)
                     dates.append(Calendar.current.date(byAdding: .day, value: -1*i, to: Calendar.current.date(from: components)!)!)
                 }

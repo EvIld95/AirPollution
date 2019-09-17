@@ -64,7 +64,7 @@ class AirStatusIndicatorView: UIView {
         
         if pm25 < 25 && pm100 < 50 {
             return .normal
-        } else if pm100 < 200 {
+        } else if pm100 < 300 {
             return .bad
         } else {
             return .alarm

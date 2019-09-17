@@ -50,7 +50,7 @@ extension AirlyService: TargetType {
         case .basic:
             return .requestPlain
         case .nearestInstallations(let lat, let lon, let distance):
-            return .requestParameters(parameters: ["lat": lat, "lng": lon, "maxDistanceKM": distance, "maxResults" : 3], encoding: URLEncoding.default)
+            return .requestParameters(parameters: ["lat": lat, "lng": lon, "maxDistanceKM": distance, "maxResults" : 5], encoding: URLEncoding.default)
         case .measurement(let installationId):
             return .requestParameters(parameters: ["installationId": installationId], encoding: URLEncoding.default)
         }

@@ -66,7 +66,7 @@ class MulticolorPolylineSegment: MKPolyline {
             } else if mode == .standard {
                 if pm25 < 25 && pm100 < 50 {
                     color = UIColor.green
-                } else if pm100 < 200 {
+                } else if pm100 < 300 {
                     color = UIColor.orange
                 } else {
                     color = UIColor.red

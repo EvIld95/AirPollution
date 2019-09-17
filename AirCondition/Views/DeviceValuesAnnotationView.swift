@@ -61,6 +61,11 @@ class DeviceValuesView: UIView {
         }
     }
     
+    var CO: Int = 0 {
+        didSet {
+            self.COLabel.text = "CO: \(CO) ppm"
+        }
+    }
     private let pressureLabel: UILabel = {
         let label = UILabel()
         label.text = "1012hPa"
@@ -121,8 +126,6 @@ class DeviceValuesView: UIView {
         //label.textAlignment = .center
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 8)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.widthAnchor.constraint(equalToConstant: 40).isActive = true
         return label
     }()
     
@@ -148,8 +151,8 @@ class DeviceValuesView: UIView {
         stackViewPM.alignment = .fill
         stackViewPM.axis = .horizontal
         
-        let stackView = UIStackView(arrangedSubviews: [typeOfDeviceLabel, stackViewSensors, stackViewPM])
-        stackView.distribution = UIStackView.Distribution.fill
+        let stackView = UIStackView(arrangedSubviews: [typeOfDeviceLabel, stackViewSensors, stackViewPM, self.COLabel])
+        stackView.distribution = UIStackView.Distribution.fillEqually
         stackView.alignment = UIStackView.Alignment.fill
         stackView.axis = .vertical
         
@@ -170,7 +173,9 @@ class DeviceValuesView: UIView {
       
         if device.CO.value == nil {
             self.typeOfDeviceLabel.text = "Airly"
+            self.COLabel.isHidden = true
         } else {
+            self.COLabel.isHidden = false
             self.typeOfDeviceLabel.text = "Raspberry"
             device.CO.asDriver().map({ (value) -> String in "CO: \(value!) ppm" }).drive(self.COLabel.rx.text).disposed(by: disposeBag)
         }

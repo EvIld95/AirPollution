@@ -86,6 +86,7 @@ extension DetailSnapshotTrackingViewController: MKMapViewDelegate {
         deviceView.pm10 = annotation.data.pm10!
         deviceView.pm25 = annotation.data.pm25!
         deviceView.pm100 = annotation.data.pm100!
+        deviceView.CO = annotation.data.CO!
         
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: id)

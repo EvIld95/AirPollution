@@ -73,7 +73,7 @@ class MulticolorPolylineSegment: MKPolyline {
                 }
             } else if mode == .CO {
                 var ratio = 0.0
-                if Double(maxPM - minPM) != 0 {
+                if Double(maxCO - minCO) != 0 {
                     ratio = Double(CO - minCO) / Double(maxCO - minCO)
                 }
                 color = UIColor(hue: CGFloat(0.33 - ((ratio) * 0.33)), saturation: 1, brightness: 1, alpha: 1)

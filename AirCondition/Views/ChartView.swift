@@ -88,24 +88,15 @@ class ChartView: UIView {
     
     init(frame: CGRect, title: String) {
         super.init(frame: frame)
-        
-        
+
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 50))
         titleLabel.text = title
         
-  
-        //var lineDataEntry = [ChartDataEntry]()
         
         lineChartView.translatesAutoresizingMaskIntoConstraints = false
         lineChartView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-//        for (i, snap) in data.enumerated() {
-//            let dataPoint = ChartDataEntry(x: Double(i), y: snap)
-//            lineDataEntry.append(dataPoint)
-//        }
-    
-        
-        
+
         chartDataSet.colors = [UIColor.red]
         chartDataSet.circleColors = [UIColor.gray]
         chartDataSet.circleRadius = 4.0
@@ -120,7 +111,6 @@ class ChartView: UIView {
         chartDataSet.drawCirclesEnabled = false
         chartDataSet.drawValuesEnabled = false
         
-//        lineChartView.data = chartData
         lineChartView.drawBordersEnabled = false
         //lineChartView.xAxis.drawLabelsEnabled = false
         lineChartView.xAxis.drawGridLinesEnabled = false

@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:AirCondition/Support/Location.gpx">
-   </FileRef>
-   <FileRef
       location = "group:AirCondition.xcodeproj">
    </FileRef>
    <FileRef
